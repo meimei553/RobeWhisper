@@ -1,4 +1,28 @@
-# RobeWhisper · 机器人自然语言编程平台
+<div align="center">
+
+# 🤖 RobeWhisper · 机器人自然语言编程平台
+
+**用说话的方式，编程控制机械臂**
+
+[![版本](https://img.shields.io/github/v/release/meimei553/RobeWhisper)](https://github.com/meimei553/RobeWhisper/releases)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-网页界面-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![MuJoCo](https://img.shields.io/badge/MuJoCo-物理仿真-orange)](https://mujoco.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+
+</div>
+
+---
+
+## 📖 项目简介
+
+RobeWhisper 是一个**零门槛的机器人编程演示平台**：你用中文描述任务（例如"把红色方块移到左边"），平台自动编排动作，并在浏览器里驱动虚拟机械臂完成。
+
+- 🗣️ **自然语言编程**：不用写代码，说话就能控制机械臂
+- 🦾 **MuJoCo 虚拟仿真**：无需购买真机，浏览器实时观看运动
+- 🤖 **LLM 可插拔**：默认 Mock 离线可跑；配置 `.env` 即接真实大模型
+- 🔌 **插件化架构**：engines / llm / vlm / robot 四层适配器，预留真机接口
+- 🐳 **云端部署**：支持 Streamlit Cloud（免费）与 Docker
 
 零基础可先在本机调试；**长期公网访问请用方案 D（云端）**。  
 默认不连真机、不调用大模型 API，用 Mock 也能完整演示。
