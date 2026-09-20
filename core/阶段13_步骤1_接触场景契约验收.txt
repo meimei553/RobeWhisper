@@ -1,0 +1,19 @@
+RobeWhisper · 第 13 期 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE13_STEP1_OK）
+
+交付：
+- models/builtin_arm2_contact/model.xml（臂+自由方块 object_block）
+- core/contact_scene_contract.py（场景识别 + metrics 旁路键名）
+- 模型下拉：接触场景有人话标签；DEFAULT_MODEL_REL 仍为 builtin_arm2
+- MujocoEngine 支持 ref=builtin_arm2_contact / contact
+
+验证点：
+[x] 默认模型仍是无物体臂；接触场景需显式选择
+[x] 两套模型均可 load
+[x] 未改 TaskSpec 主字段名
+[x] 无场景占位 grasp_proxy=no_scene（不报假成功）
+
+复验：python -m core.smoke_phase13_step1
+未做（步骤2+）：引擎真实接触度量、诊断文案、网站样例、总验

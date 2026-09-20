@@ -1,0 +1,24 @@
+RobeWhisper · 场景位姿与代理摘要契约（补强包一 · 步骤 1）
+========================================
+代码：core/pose_grounding_contract.py
+不改 TaskSpec 主字段名。
+
+一、pose_source
+--------------------------------
+scene_model  坐标来自仿真场景（MJCF / 运行时 xpos），不是相机
+none         无试机物体，禁止填 object_xpos / ee_goal_xy
+uncertain    有场景但尚未按物体坐标生成目标（或回退旧示意）
+
+二、metrics 旁路键
+--------------------------------
+pose_source
+object_xpos     有场景才可有；无场景必须为 null
+ee_goal_xy      本步示意平面目标；无场景必须为 null
+
+三、代理摘要 PROXY_SUMMARY_KEYS（A6，步骤3落盘）
+--------------------------------
+pose_source / grasp_proxy / contact_scene / multi_step / step_count / rsr_reference_source
+
+四、步骤1范围
+--------------------------------
+契约与禁止假坐标已钉死；引擎按 xpos 伸臂见步骤2。

@@ -1,0 +1,17 @@
+RobeWhisper · 能力可见 · 步骤3 验收
+========================================
+
+结论：通过（SMOKE_FEATURE_VISIBLE_STEP3_OK）
+
+交付：
+- core/llm_api_probe.py：缺项人话 / 只读 Chat Completions 探测；密钥不回显
+- 网站能力区按钮「自检云端 API 是否通」（未配齐也可点，直接说缺什么）
+- 401→密钥无效；429→额度不足友好失败
+
+验证点：
+[x] 缺配置 → NOT_CONFIGURED + 缺项列表，不发网
+[x] 假服务 200 → OK；401/429 人话失败
+[x] 返回 JSON 不含 sk- 原文
+[x] mock 演示路径未改；默认仍可不配 API
+
+复验：python -m core.smoke_feature_visible_step3

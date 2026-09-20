@@ -1,0 +1,99 @@
+{
+  "experiment_id": "af32197187984b7b",
+  "created_at": "2026-09-11T14:21:00.841747+00:00",
+  "raw_text": "回零",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "62deee94fa56",
+    "action": "home",
+    "target": "",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        2.5642740009114238e-05,
+        -1.705079741039413e-05
+      ]
+    },
+    "source": "mock",
+    "raw_text": "回零"
+  },
+  "sim_result": {
+    "task_id": "62deee94fa56",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          3.18921939214246e-05,
+          7.182704893140189e-06
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          2.272264919911241e-05,
+          2.4442804965538888e-05
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          2.5642740009114238e-05,
+          -1.705079741039413e-05
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 0.5,
+      "moved": false
+    },
+    "message": "MuJoCo 已执行 action=home target=",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 0.5,
+    "moved": false,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true
+}

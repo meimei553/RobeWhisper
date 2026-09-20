@@ -1,0 +1,95 @@
+{
+  "experiment_id": "9d82090e73834396",
+  "created_at": "2026-09-12T04:40:32.731845+00:00",
+  "raw_text": "抓红色积木",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "70bea0bc4dcd",
+    "action": "grab",
+    "target": "red_block",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1
+    },
+    "source": "mock",
+    "raw_text": "抓红色积木"
+  },
+  "sim_result": {
+    "task_id": "70bea0bc4dcd",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.029523225942846197,
+          -0.6381388232302074
+        ],
+        "ctrl": [
+          0.8,
+          -0.6
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.051655400113937544,
+          -0.7260766764001629
+        ],
+        "ctrl": [
+          0.8,
+          -0.6
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.07495228909818392,
+          -0.5470566896531199
+        ],
+        "ctrl": [
+          0.8,
+          -0.6
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_block",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": false
+}

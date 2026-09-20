@@ -1,0 +1,15 @@
+RobeWhisper · 阶段 6 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_PHASE6_STEP3_OK）
+
+交付：
+- core/rsr_loop.py
+- Pipeline.run_instruction(..., real_sim_real=None|True|False)
+- 配置 USE_REAL_SIM_REAL（默认 false）/ RSR_CALIB_GAIN
+
+行为：
+- 默认关：与阶段3–5一致，返回不含 rsr
+- 开启：仿真成功后偏差度量 + 参数写回；无真机轨迹时用伪对照
+
+复验：python -m core.smoke_phase6_step3

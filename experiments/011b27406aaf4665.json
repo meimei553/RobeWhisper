@@ -1,0 +1,216 @@
+{
+  "experiment_id": "011b27406aaf4665",
+  "created_at": "2026-09-12T07:02:59.943707+00:00",
+  "raw_text": "把红色杯子拿起来",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "d6bb0b50d8c0",
+    "action": "grab",
+    "target": "red_cup",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        0.0053844849013393835,
+        -0.2511320113004444
+      ],
+      "joint_targets_original": [
+        0.0053844849013393835,
+        -0.2511320113004444
+      ],
+      "safety_audit": {
+        "clipped": false,
+        "rejected": false,
+        "skipped": false
+      },
+      "safety_message": "关节目标在限位内，安全闸放行"
+    },
+    "source": "mock",
+    "raw_text": "把红色杯子拿起来"
+  },
+  "sim_result": {
+    "task_id": "d6bb0b50d8c0",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.002834118119521369,
+          -0.25975423668126346
+        ],
+        "ctrl": [
+          0.0053844849013393835,
+          -0.2511320113004444
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.0004425670732183933,
+          -0.30445673945411245
+        ],
+        "ctrl": [
+          0.0053844849013393835,
+          -0.2511320113004444
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.0005953071696829659,
+          -0.23315968788036986
+        ],
+        "ctrl": [
+          0.0053844849013393835,
+          -0.2511320113004444
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true,
+      "elapsed_sec": 0.0,
+      "timeout_sec": 30.0
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_cup",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "elapsed_sec": 0.0,
+    "timeout_sec": 30.0,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true,
+  "run_snapshot": {
+    "schema_version": 1,
+    "collected_at": "2026-09-12T07:02:59.943707+00:00",
+    "model_ref": "default",
+    "backends": {
+      "ENGINE_BACKEND": "mujoco",
+      "LLM_BACKEND": "mock",
+      "ROBOT_BACKEND": "mock"
+    },
+    "adapters": {
+      "llm": {
+        "name": "mock_llm",
+        "version": "unknown"
+      },
+      "engine": {
+        "name": "mujoco_engine",
+        "version": "3.13.0"
+      },
+      "robot": {
+        "name": "mock_robot",
+        "version": "unknown"
+      }
+    },
+    "flags": {
+      "USE_REAL_ROBOT": false,
+      "USE_REAL_SIM_REAL": false,
+      "SAFETY_MODE": "clip"
+    },
+    "timeouts": {
+      "ENGINE_TIMEOUT_SEC": 30.0,
+      "LLM_TIMEOUT_SEC": 60.0,
+      "ROBOT_TIMEOUT_SEC": 30.0
+    },
+    "paths": {
+      "DEFAULT_MODEL_REL": "builtin_arm2/model.xml",
+      "MODELS_DIR_NAME": "models"
+    },
+    "extra": {
+      "rsr_enabled": true,
+      "rsr_reference_source": "pseudo_real"
+    }
+  },
+  "rsr": {
+    "ok": true,
+    "skipped": false,
+    "reference_source": "pseudo_real",
+    "deviation": {
+      "ok": true,
+      "mae": 0.035082979622391396,
+      "rmse": 0.04014581706506509,
+      "final_mae": 0.03246837537124604,
+      "max_mae": 0.05,
+      "aligned_frames": 4,
+      "sim_frames": 4,
+      "real_frames": 4,
+      "message": "偏差计算完成"
+    },
+    "calibration": {
+      "ok": true,
+      "updated": true,
+      "before": {
+        "friction": 1.0,
+        "joint_damping": 0.45
+      },
+      "after": {
+        "friction": 1.0087707449055978,
+        "joint_damping": 0.45789367041503803
+      },
+      "written": {
+        "friction": 1.0087707449055978,
+        "joint_damping": 0.45789367041503803,
+        "joint_range_min": -2.8,
+        "joint_range_max": 2.8,
+        "ngeom": 5,
+        "nv": 2,
+        "njnt": 2,
+        "skipped": []
+      },
+      "mae": 0.035082979622391396,
+      "message": "物理参数已写回引擎"
+    },
+    "message": "物理参数已写回引擎"
+  },
+  "safety_gate": {
+    "ok": true,
+    "mode": "clip",
+    "skipped": false,
+    "original_targets": [
+      0.0053844849013393835,
+      -0.2511320113004444
+    ],
+    "applied_targets": [
+      0.0053844849013393835,
+      -0.2511320113004444
+    ],
+    "violations": [],
+    "message": "关节目标在限位内，安全闸放行",
+    "safety_audit": {
+      "clipped": false,
+      "rejected": false,
+      "skipped": false
+    }
+  }
+}

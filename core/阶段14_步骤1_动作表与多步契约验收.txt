@@ -1,0 +1,21 @@
+RobeWhisper · 第 14 期 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE14_STEP1_OK）
+
+交付：
+- core/action_catalog.py（动作表白名单；含 wait）
+- core/multi_step_contract.py（TaskSpec.steps 规范化/上限/与 params.steps 区分）
+- TaskSpec 新增可选字段 steps（缺省 [] = 旧单步兼容）
+- 书面：core/动作表_第14期.txt
+- Prompt / json_extract 白名单与目录对齐
+
+验证点：
+[x] 旧四动作 + wait 在白名单
+[x] 无 steps 的旧 JSON 可 from_dict
+[x] 多步规范化跳过非法项；上限 5 截断
+[x] 未改已有主字段名（只增 steps）
+[x] 相关烟雾字段集合已同步
+
+复验：python -m core.smoke_phase14_step1
+未做（步骤2+）：「先…再…」解析落地、按序执行、网站样例、总验

@@ -1,0 +1,337 @@
+{
+  "experiment_id": "c29ad60292ac4931",
+  "created_at": "2026-09-14T05:05:51.608166+00:00",
+  "raw_text": "抓起红色积木",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "7626365682bf",
+    "action": "grab",
+    "target": "red_block",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        -0.024925160400299795,
+        -1.4379610001458225
+      ],
+      "joint_targets_original": [
+        -0.024925160400299795,
+        -1.4379610001458225
+      ],
+      "safety_audit": {
+        "clipped": false,
+        "rejected": false,
+        "skipped": false
+      },
+      "safety_message": "关节目标在限位内，安全闸放行"
+    },
+    "source": "mock",
+    "raw_text": "抓起红色积木",
+    "steps": []
+  },
+  "sim_result": {
+    "task_id": "7626365682bf",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0010631581633607863,
+          -1.4751585798512918
+        ],
+        "ctrl": [
+          -0.024925160400299795,
+          -1.4379610001458225
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.019824736554424398,
+          -1.7573630757242773
+        ],
+        "ctrl": [
+          -0.024925160400299795,
+          -1.4379610001458225
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.021778360151810176,
+          -1.3197272367761266
+        ],
+        "ctrl": [
+          -0.024925160400299795,
+          -1.4379610001458225
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true,
+      "elapsed_sec": 0.0,
+      "timeout_sec": 30.0,
+      "contact_scene": false,
+      "contact_detected": false,
+      "grasp_proxy": "no_scene",
+      "object_moved": false,
+      "ee_object_distance": null
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_block",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "elapsed_sec": 0.0,
+    "timeout_sec": 30.0,
+    "contact_scene": false,
+    "contact_detected": false,
+    "grasp_proxy": "no_scene",
+    "object_moved": false,
+    "ee_object_distance": null,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "http_robot"
+  },
+  "experience_hit": true,
+  "run_snapshot": {
+    "schema_version": 1,
+    "collected_at": "2026-09-14T05:05:51.608166+00:00",
+    "model_ref": "default",
+    "backends": {
+      "ENGINE_BACKEND": "mujoco",
+      "LLM_BACKEND": "mock",
+      "ROBOT_BACKEND": "http"
+    },
+    "adapters": {
+      "llm": {
+        "name": "mock_llm",
+        "version": "unknown"
+      },
+      "engine": {
+        "name": "mujoco_engine",
+        "version": "3.13.0"
+      },
+      "robot": {
+        "name": "http_robot",
+        "version": "unknown"
+      }
+    },
+    "flags": {
+      "USE_REAL_ROBOT": true,
+      "USE_REAL_SIM_REAL": false,
+      "SAFETY_MODE": "clip"
+    },
+    "timeouts": {
+      "ENGINE_TIMEOUT_SEC": 30.0,
+      "LLM_TIMEOUT_SEC": 60.0,
+      "ROBOT_TIMEOUT_SEC": 30.0
+    },
+    "paths": {
+      "DEFAULT_MODEL_REL": "builtin_arm2/model.xml",
+      "MODELS_DIR_NAME": "models"
+    },
+    "robot_bridge": {
+      "backend": "http",
+      "use_real_robot": true,
+      "endpoint": {
+        "configured": true,
+        "scheme": "http",
+        "host": "127.0.0.1",
+        "port": 59687,
+        "path": "/execute_task",
+        "display": "http://127.0.0.1:59687/execute_task"
+      }
+    },
+    "extra": {
+      "rsr_enabled": true,
+      "rsr_reference_source": "robot",
+      "rsr_policy": "prefer_real",
+      "rsr_reference_frame_count": 4,
+      "grasp_proxy": "no_scene",
+      "contact_scene": false,
+      "contact_detected": false
+    }
+  },
+  "robot_result": {
+    "ok": true,
+    "code": "OK",
+    "message": "HTTP 真机桥已投递 action=grab",
+    "data": {
+      "accepted": true,
+      "task_id": "7626365682bf",
+      "robot": "http_robot",
+      "http_status": 200,
+      "ack": {
+        "ok": true,
+        "message": "假接收端已确认 action=grab（含演示轨迹，非真臂采样）",
+        "schema": "robewhisper_robot_ack_v1",
+        "trajectory": [
+          {
+            "t": 0.0,
+            "joint_positions": [
+              0.1,
+              0.15000000000000002
+            ]
+          },
+          {
+            "t": 1.0,
+            "joint_positions": [
+              0.112,
+              0.16300000000000003
+            ]
+          },
+          {
+            "t": 2.0,
+            "joint_positions": [
+              0.12400000000000001,
+              0.17600000000000002
+            ]
+          },
+          {
+            "t": 3.0,
+            "joint_positions": [
+              0.136,
+              0.18900000000000003
+            ]
+          }
+        ]
+      },
+      "response": {
+        "ok": true,
+        "message": "假接收端已确认 action=grab（含演示轨迹，非真臂采样）",
+        "schema": "robewhisper_robot_ack_v1",
+        "trajectory": [
+          {
+            "t": 0.0,
+            "joint_positions": [
+              0.1,
+              0.15000000000000002
+            ]
+          },
+          {
+            "t": 1.0,
+            "joint_positions": [
+              0.112,
+              0.16300000000000003
+            ]
+          },
+          {
+            "t": 2.0,
+            "joint_positions": [
+              0.12400000000000001,
+              0.17600000000000002
+            ]
+          },
+          {
+            "t": 3.0,
+            "joint_positions": [
+              0.136,
+              0.18900000000000003
+            ]
+          }
+        ]
+      },
+      "endpoint_redacted": {
+        "configured": true,
+        "scheme": "http",
+        "host": "127.0.0.1",
+        "port": 59687,
+        "path": "/execute_task",
+        "display": "http://127.0.0.1:59687/execute_task"
+      }
+    }
+  },
+  "rsr": {
+    "ok": true,
+    "skipped": false,
+    "reference_source": "robot",
+    "deviation": {
+      "ok": true,
+      "mae": 0.7178486038618211,
+      "rmse": 1.0480995145356187,
+      "final_mae": 0.8332527984639684,
+      "max_mae": 1.0385939061393508,
+      "aligned_frames": 4,
+      "sim_frames": 4,
+      "real_frames": 4,
+      "message": "偏差计算完成"
+    },
+    "calibration": {
+      "ok": true,
+      "updated": true,
+      "before": {
+        "friction": 1.0,
+        "joint_damping": 0.45
+      },
+      "after": {
+        "friction": 1.1794621509654553,
+        "joint_damping": 0.5625
+      },
+      "written": {
+        "friction": 1.1794621509654553,
+        "joint_damping": 0.5625,
+        "joint_range_min": -2.8,
+        "joint_range_max": 2.8,
+        "ngeom": 5,
+        "nv": 2,
+        "njnt": 2,
+        "skipped": []
+      },
+      "mae": 0.7178486038618211,
+      "message": "物理参数已写回引擎"
+    },
+    "message": "物理参数已写回引擎",
+    "policy": "prefer_real",
+    "require_real_trajectory": false,
+    "reference_frame_count": 4,
+    "extract_reason": "合格"
+  },
+  "safety_gate": {
+    "ok": true,
+    "mode": "clip",
+    "skipped": false,
+    "original_targets": [
+      -0.024925160400299795,
+      -1.4379610001458225
+    ],
+    "applied_targets": [
+      -0.024925160400299795,
+      -1.4379610001458225
+    ],
+    "violations": [],
+    "message": "关节目标在限位内，安全闸放行",
+    "safety_audit": {
+      "clipped": false,
+      "rejected": false,
+      "skipped": false
+    }
+  }
+}

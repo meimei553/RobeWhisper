@@ -1,0 +1,133 @@
+{
+  "experiment_id": "34e400ecaaa24439",
+  "created_at": "2026-09-12T06:49:27.572341+00:00",
+  "raw_text": "把桌上的红色杯子拿起来",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "5a586f3e8283",
+    "action": "grab",
+    "target": "red_cup",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        -0.0003680528938847628,
+        -0.04919057674124406
+      ],
+      "joint_targets_original": [
+        -0.0003680528938847628,
+        -0.04919057674124406
+      ],
+      "safety_audit": {
+        "clipped": false,
+        "rejected": false,
+        "skipped": false
+      },
+      "safety_message": "关节目标在限位内，安全闸放行"
+    },
+    "source": "mock",
+    "raw_text": "把桌上的红色杯子拿起来"
+  },
+  "sim_result": {
+    "task_id": "5a586f3e8283",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0005194164772014106,
+          -0.05082401547739247
+        ],
+        "ctrl": [
+          -0.0003680528938847628,
+          -0.04919057674124406
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.0002273736133403239,
+          -0.05959859223982646
+        ],
+        "ctrl": [
+          -0.0003680528938847628,
+          -0.04919057674124406
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.00038304602961008923,
+          -0.04568901415763347
+        ],
+        "ctrl": [
+          -0.0003680528938847628,
+          -0.04919057674124406
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true,
+      "elapsed_sec": 0.0,
+      "timeout_sec": 30.0
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_cup",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "elapsed_sec": 0.0,
+    "timeout_sec": 30.0,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true,
+  "safety_gate": {
+    "ok": true,
+    "mode": "clip",
+    "skipped": false,
+    "original_targets": [
+      -0.0003680528938847628,
+      -0.04919057674124406
+    ],
+    "applied_targets": [
+      -0.0003680528938847628,
+      -0.04919057674124406
+    ],
+    "violations": [],
+    "message": "关节目标在限位内，安全闸放行",
+    "safety_audit": {
+      "clipped": false,
+      "rejected": false,
+      "skipped": false
+    }
+  }
+}

@@ -1,0 +1,20 @@
+RobeWhisper · 第 14 期 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE14_STEP2_OK）
+
+交付：
+- core/multi_step_parse.py（「先…再…/然后/接着」拆句）
+- MockLLM：多步 → TaskSpec.steps；单步 wait；旧单句不变
+- task_spec_from_model_dict：接收 steps；>5 拒绝；非法动作拒识
+- 自然语言能力说明补多步/等待例句
+
+验证点：
+[x] 「把红色杯子拿起来」仍单步 grab、steps=[]
+[x] 「先回零再抓红色杯子」→ 2 步 home+grab
+[x] 「等待一下」→ wait
+[x] steps 过长拒绝；非法 action 拒识
+[x] phase3 / step3 回归通过
+
+复验：python -m core.smoke_phase14_step2
+未做（步骤3+）：按序执行、网站样例、总验

@@ -1,0 +1,13 @@
+RobeWhisper · 阶段 6 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE6_STEP1_OK）
+
+交付：
+- core/trajectory_metrics.py
+  normalize_trajectory / compute_trajectory_deviation
+- 指标：mae / rmse / final_mae / max_mae / aligned_frames
+
+本步不做：参数校准、Pipeline 接入、网站展示
+
+复验：python -m core.smoke_phase6_step1

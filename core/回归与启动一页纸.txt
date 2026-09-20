@@ -1,0 +1,57 @@
+RobeWhisper · 回归与启动一页纸
+========================================
+
+一、本机临时调试
+--------------------------------
+项目目录：
+  C:\Users\34287\Desktop\RobeWhisper
+
+双击：安装依赖.bat → 一键启动网站.bat
+地址：http://127.0.0.1:8501
+（关掉黑窗口即停；不是公网长期站）
+说明文件：下次打开网站.txt
+整包备份：桌面 RobeWhisper_backup_*（不含 .env）
+进度：第 1–14 期已完成；15 后置（可视化+部署+Kimi）
+
+二、方案 D · 云端长期
+--------------------------------
+说明：core/云端部署_方案D.txt
+- Streamlit Cloud → https://xxxx.streamlit.app
+- 或 Docker：docker compose up -d --build
+后期一并提醒：Kimi/Moonshot 充值激活 API（core/后期完善提醒_11到15.txt）
+
+三、常用烟雾（由浅到深）
+--------------------------------
+python -m core.smoke_step3
+python -m core.smoke_phase0
+python -m core.smoke_phase1
+python -m core.smoke_phase2
+python -m core.smoke_phase3
+python -m core.smoke_phase4
+python -m core.smoke_phase5
+python -m core.smoke_phase6
+python -m core.smoke_phase7
+python -m core.smoke_phase9
+python -m core.smoke_phase10
+python -m core.smoke_phase11
+python -m core.smoke_phase12
+python -m core.smoke_phase13
+python -m core.smoke_phase14
+python -m core.smoke_feature_visible
+
+说明：全量复验记录见 core/全产品复验_2026-09-13.txt（最近一次：1–13 全绿）
+
+四、配置安全默认
+--------------------------------
+USE_REAL_ROBOT=false
+USE_REAL_SIM_REAL=false
+RSR_REQUIRE_REAL_TRAJECTORY=false
+LLM_BACKEND=mock
+ROBOT_BACKEND=mock
+
+五、RSR 两条演示路径（第12期）
+--------------------------------
+路径 P（无真机）：勾选 RSR → 摘要显示「伪对照」
+路径 R（本机验真优先）：
+  python -m plugins.robot.local_fake_receiver --with-trajectory
+  再开 http 真发指向该地址 → 摘要显示「真轨迹」

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RobeWhisper机器人自然语言编程平台</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1 id="title">RobeWhisper机器人自然语言编程平台</h1>
+    <p class="caption" id="caption"></p>
+    <p class="hint" id="hint"></p>
+  </header>
+  <div id="banner" class="banner"></div>
+  <nav>
+    <button type="button" data-tab="chat" class="active">自然语言</button>
+    <button type="button" data-tab="world">模型与物理</button>
+    <button type="button" data-tab="data">实验与经验</button>
+    <button type="button" data-tab="diag">能力与诊断</button>
+  </nav>
+  <main>
+    <section id="chat" class="panel active">
+      <div class="card">
+        <h2>自然语言编程</h2>
+        <p class="meta" id="chat-meta"></p>
+        <p class="hint">样例：胡说会被拒，危险指令会被拒，正常指令会在虚拟臂上执行。输入框示例：抓起红色积木 / 先回零再抓红色杯子 / 回零</p>
+        <div id="samples" class="row"></div>
+        <label><input id="rsr" type="checkbox"> 执行成功后做一次 Real-Sim-Real 校准（默认关；无真机时是伪对照，会标明）</label>
+        <p id="rsr-line" class="meta"></p>
+        <div id="chat-box" class="chat"></div>
+        <label for="prompt">指令</label>
+        <textarea id="prompt" placeholder="例如：抓起红色积木 / 先回零再抓红色杯子 / 回零"></textarea>
+        <div class="row">
+          <button type="button" class="primary" id="send">发送并执行</button>
+          <button type="button" id="clear-chat">清空聊天记录</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>最近一次执行诊断</h3>
+        <div id="diagnosis">还没有执行过指令。发送一句后，这里会告诉你成功或失败原因。</div>
+        <h3>本次试机代理摘要</h3>
+        <p class="hint">位姿不是相机；接触不是抓住；伪对照不是真回流。</p>
+        <div id="proxy">还没跑过指令。</div>
+        <h3>校准摘要</h3>
+        <div id="rsr-box">当前关着：不会做校准。</div>
+      </div>
+    </section>
+    <section id="world" class="panel">
+      <div class="card">
+        <h2>① 模型选择与导入</h2>
+        <p class="hint">请选现成模型，或上传 .xml / .mjcf。加载失败会尽量回退默认臂。</p>
+        <label for="model-select">可用模型</label>
+        <select id="model-select"></select>
+        <div class="row">
+          <button type="button" class="primary" id="load-model">加载所选模型</button>
+          <button type="button" id="load-default">恢复默认内置臂</button>
+        </div>
+        <label for="model-file">上传 MJCF</label>
+        <input id="model-file" type="file" accept=".xml,.mjcf">
+        <button type="button" id="upload-model">保存并加载上传文件</button>
+      </div>
+      <div class="card">
+        <h2>② 物理参数（白名单）</h2>
+        <p class="hint">只改引擎已有的摩擦、阻尼和关节限位，不自研物理。</p>
+        <div class="row">
+          <div>
+            <label>摩擦系数 <span id="v-friction"></span></label>
+            <input id="friction" type="range" min="0" max="2" step="0.05">
+            <label>关节阻尼 <span id="v-damping"></span></label>
+            <input id="damping" type="range" min="0" max="5" step="0.05">
+          </div>
+          <div>
+            <label>关节下限 <span id="v-rmin"></span></label>
+            <input id="rmin" type="range" min="-3.14" max="3.14" step="0.05">
+            <label>关节上限 <span id="v-rmax"></span></label>
+            <input id="rmax" type="range" min="-3.14" max="3.14" step="0.05">
+          </div>
+        </div>
+        <button type="button" class="primary" id="apply-physics">应用物理参数</button>
+      </div>
+      <div class="card">
+        <h2>③ 关节目标与步进</h2>
+        <div id="joints"></div>
+        <div class="row">
+          <button type="button" class="primary" id="do-step">应用并步进</button>
+          <button type="button" id="do-reset">重置仿真</button>
+          <button type="button" id="do-reload">重新加载当前模型</button>
+        </div>
+        <h3>当前仿真状态</h3>
+        <p>仿真步序号 t：<strong id="step-t">0</strong></p>
+        <pre id="state-box"></pre>
+      </div>
+    </section>
+    <section id="data" class="panel">
+      <div class="row">
+        <div class="card">
+          <h2>最近实验</h2>
+          <p class="hint">发送一条自然语言指令后会出现在这里。</p>
+          <div id="exp-table"></div>
+        </div>
+        <div class="card">
+          <h2>经验条目</h2>
+          <p class="hint">成功执行后会写入可复用条目。</p>
+          <div id="mem-table"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>导出一次演示包</h2>
+        <p class="hint">打包任务单、轨迹摘要和说明，不含密钥。</p>
+        <label for="pack-id">实验编号（可空 = 最近一条）</label>
+        <input id="pack-id" type="text" placeholder="留空则导出最近一次">
+        <div class="row">
+          <button type="button" class="primary" id="pack-latest">导出最近一次</button>
+          <button type="button" id="pack-id-btn">按编号导出</button>
+        </div>
+        <p id="pack-msg" class="meta"></p>
+      </div>
+    </section>
+    <section id="diag" class="panel">
+      <div class="card">
+        <h2>能力边界与运行诊断</h2>
+        <p id="ready-line"></p>
+        <div id="catalog"></div>
+        <h3>开闭状态</h3>
+        <div id="switches"></div>
+        <h3>当前状态</h3>
+        <div id="ok-items"></div>
+        <h3>需注意</h3>
+        <div id="issues"></div>
+        <pre id="cap-md"></pre>
+      </div>
+      <div class="card">
+        <h3>自检（只读，不会发抓取）</h3>
+        <p class="hint">HTTP 桥只检查网址能不能连上。云端 API 不展示密钥原文。演示默认用 mock。</p>
+        <button type="button" id="probe-http">自检 HTTP 桥是否通</button>
+        <button type="button" id="probe-llm">自检云端 API 是否通</button>
+        <pre id="probe-box">还没有自检。</pre>
+        <h3>接触试机（教学级，不是工业抓取）</h3>
+        <p class="hint">臂朝仿真方块坐标伸过去，坐标来自模型，不是相机。碰到不等于抓住。</p>
+        <p id="contact-line"></p>
+        <button type="button" class="primary" id="contact-on">切换到接触试机场景并抓一次</button>
+        <button type="button" id="contact-off">恢复默认臂（无物体）</button>
+        <h3>安全样例</h3>
+        <button type="button" id="overlimit">超限闸演示</button>
+      </div>
+    </section>
+  </main>
+  <div id="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

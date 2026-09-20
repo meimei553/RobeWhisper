@@ -1,0 +1,20 @@
+RobeWhisper · 第 12 期 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE12_STEP2_OK）
+
+交付：
+- local_fake_receiver：`--with-trajectory` / start_server(with_trajectory=True)
+- build_demo_robot_trajectory：形状合格演示轨迹（标明非真臂）
+- 默认不加开关：仍只回 ok/message（第11期兼容，伪对照保底）
+
+验证点：
+[x] 默认无 trajectory → 提取为空
+[x] 带轨迹 + HttpRobot + run_rsr / Pipeline → reference_source=robot
+[x] 复跑 smoke_phase11_step2、smoke_phase12_step1
+
+本机手测口令：
+  python -m plugins.robot.local_fake_receiver --with-trajectory
+
+复验：python -m core.smoke_phase12_step2
+未做（步骤3+）：RSR 策略开关、清单总更新、总验

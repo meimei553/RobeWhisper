@@ -1,0 +1,21 @@
+RobeWhisper · 第 11 期 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE11_STEP4_OK）
+
+交付：
+- real_robot_safety_banner：真发关=安全说明；开=醒目警示（白话）
+- 网站顶栏按 level 显示 info/warning/error
+- core/robot_bridge_probe.py：GET 只读自检（不发任务单）
+- 能力区按钮「自检 HTTP 桥是否通」
+- 清单 E 节补充开/关文案与自检勾选
+
+验证点：
+[x] 关真发文案含「不会动」
+[x] 开真发文案含危险提示
+[x] 假接收端 GET 自检成功；错地址友好失败
+[x] mock 演示路径未改默认
+
+未做（步骤5）：第11期总验 + 红线检查表
+
+复验：python -m core.smoke_phase11_step4

@@ -1,0 +1,25 @@
+{
+  "key": "home__none",
+  "action": "home",
+  "target": "",
+  "ok": true,
+  "reason": "",
+  "raw_text": "回零",
+  "params": {
+    "steps": 3,
+    "joint_delta": 0.1,
+    "safety_audit": {
+      "clipped": false,
+      "rejected": false,
+      "skipped": true
+    },
+    "safety_message": "无 joint_targets，跳过关节限位闸（示意动作路径仍可用）"
+  },
+  "suggested_joint_targets": [
+    2.5642740009114238e-05,
+    -1.705079741039413e-05
+  ],
+  "trajectory_frames": 4,
+  "updated_at": "2026-09-12T06:56:45.386521+00:00",
+  "use_count": 47
+}

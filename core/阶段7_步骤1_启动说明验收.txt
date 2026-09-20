@@ -1,0 +1,16 @@
+RobeWhisper · 阶段 7 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE7_STEP1_OK）
+
+交付：
+- README.md（零基础安装/启动/默认配置/常见问题）
+- 安装依赖.bat
+- 一键启动网站.bat（127.0.0.1:8501）
+
+验证：
+- 文档含 pip / streamlit / mock 默认
+- 无密钥时可 Pipeline mock 跑通
+
+复验：python -m core.smoke_phase7_step1
+手动：双击「安装依赖.bat」→「一键启动网站.bat」→ 打开 http://127.0.0.1:8501

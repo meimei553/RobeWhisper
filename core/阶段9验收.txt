@@ -1,0 +1,39 @@
+RobeWhisper · 第 9 期验收（步骤 5）
+========================================
+
+结论：通过（PHASE9_ACCEPTANCE_PASS）
+
+一、本期交付摘要
+--------------------------------
+1. 安全闸纯函数（clip / reject / skip）+ Pipeline 执行前接入
+2. 仿真墙钟超时 → ENGINE_TIMEOUT
+3. 危险词 / 胡说拒识 → REJECTED；网站样例与超限闸演示
+4. 诊断写清拦截/裁剪原因；保留 joint_targets_original
+
+二、「未堵死 11–15」红线复查（对照正式流程第二节）
+--------------------------------
+[x] 不改 TaskSpec / SimResult / ApiResult 主字段名
+[x] 不删除、不改语义破坏 BaseRobot.execute_task / HTTP / ROS 发送 TaskSpec
+[x] 裁剪结果旁路保留 original_targets / joint_targets_original（便于第 11 期对照）
+[x] 未把「无真机轨迹」写成永久唯一 RSR 路径；allow_pseudo_real 仍可关
+[x] 未写死「场景无物体」；builtin_arm2 仍在，可加 MJCF（第 13 期）
+[x] 经验键仍为 action__target；可增字段兼容（第 10 期标签预留）
+[x] 未做 3D 主视口 / 视觉 / 机械狗
+[x] Pipeline 仍：NL → LLM → TaskSpec →（闸）→ engine.run_task → 可选 robot
+
+三、复验命令
+--------------------------------
+python -m core.smoke_phase9
+
+含：步骤1–4 子进程；红线检查；smoke_step3 / phase4_step3 / phase5_step1 /
+phase6_step4 / phase7_step2；端到端回零/危险/胡说。
+
+四、故意不做（留给 10–15）
+--------------------------------
+- 第 10 期：实验版本快照、经验 model 标签、演示包导出
+- 第 11–15：真机联调、真轨迹 RSR、接触抓取、多步、3D/部署
+
+五、网站
+--------------------------------
+刷新 http://127.0.0.1:8501 后，能力区可点胡说/危险/正常/超限闸演示。
+（总验时若网站未启动，烟雾会打印 site DOWN，不判失败。）

@@ -1,0 +1,37 @@
+RobeWhisper · 开 API 安全步骤（保证网站不崩）
+========================================
+
+设计保证（已写进代码）
+--------------------------------
+1. .env 会被自动加载（以前只复制文件、程序可能读不到——已修复）
+2. LLM_BACKEND=api 但地址/密钥/模型缺任一 → 自动用 mock，不崩站
+3. 已开 api 但网络失败 → 单次指令友好失败，不抛堆栈打崩页面
+4. 危险词拒识、安全闸、超时仍生效
+
+推荐开法（零基础）
+--------------------------------
+1. 确认项目根目录有 .env（没有就复制 .env.example）
+2. 用记事本打开 .env，先填这三项（先不要改 backend）：
+     LLM_API_BASE=https://api.openai.com/v1
+     LLM_API_KEY=你的真实密钥
+     LLM_MODEL_NAME=gpt-4o-mini
+   （若用国内兼容接口，改 BASE 与 MODEL 名即可）
+3. 确认三项都非空后，再改：
+     LLM_BACKEND=api
+4. 保存 .env，重启网站（关黑窗口再开，或让协助者重启）
+5. 打开能力区，应看到：
+     语言解析：api
+     实际解析=api
+   若仍是 mock，说明密钥/地址未配齐，系统在保护你（回退），按提示补全即可
+
+自检口令（可选）
+--------------------------------
+python -c "from config.safe import fresh_settings; s=fresh_settings(); print(s.LLM_BACKEND, s.effective_llm_backend(), s.llm_api_configured())"
+
+期望开成功时打印类似：api api True
+
+不要做的事
+--------------------------------
+- 不要把 .env 提交到 GitHub
+- 不要只改 LLM_BACKEND=api 却留空 KEY（会回退 mock，看起来像「没开」）
+- 真机 USE_REAL_ROBOT 请继续保持 false，与开 API 无关

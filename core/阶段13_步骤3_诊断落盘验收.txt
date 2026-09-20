@@ -1,0 +1,19 @@
+RobeWhisper · 第 13 期 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_PHASE13_STEP3_OK）
+
+交付：
+- grasp_proxy 人话 + format_contact_trial_message / contact_trial_diagnosis_lines
+- 诊断区增加「接触试机」行；无物体明确写「只是关节示意」
+- 聊天成功回复增加「接触试机：…」
+- 实验 metrics / 列表「接触代理」列 / run_snapshot 旁路含 grasp_proxy
+
+验证点：
+[x] 默认臂诊断含无试机物体提示
+[x] 接触场景诊断能看出代理结果且不含「无试机物体」
+[x] Pipeline 落盘 JSON 含 grasp_proxy
+[x] 文案强调 ok≠工业夹稳 / ≠现实抓住
+
+复验：python -m core.smoke_phase13_step3
+未做（步骤4+）：能力区入口与演示样例、总验

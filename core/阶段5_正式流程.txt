@@ -1,0 +1,60 @@
+RobeWhisper · 阶段 5 可行性与小步骤（先方案，后逐个击破）
+========================================
+
+前置核验（本回合已跑）：ALL_PREV_PHASES_PASS / PRE_PHASE5_REQUIREMENTS_OK / SITE 200
+
+一、阶段目标
+--------------------------------
+把「同一套 TaskSpec」从虚拟执行打通到真机执行口：
+BaseRobot.execute_task → 可配置通讯地址（预留 ROS2 / HTTP 桥）
+无真机时用增强 Mock + 配置探测，不阻塞开发。
+
+二、可行性
+--------------------------------
+| 项 | 评级 | 说明 |
+|---|---|---|
+| 接口层 execute_task | 高 | 阶段0已有 BaseRobot/MockRobot |
+| 配置化通讯地址 | 高 | settings 已有 ROBOT_EXECUTE_ENDPOINT 占位 |
+| 真 ROS2 实机 | 中 | 依赖导师环境；本阶段先桥接骨架与异常捕获 |
+| 与经验库/Pipeline 衔接 | 高 | 已有 execute_robot 开关，扩展即可 |
+
+自主定案：
+- 不自造总线协议；优先 ROS2 topic/action 风格桥，同时提供通用 HTTP POST 占位（便于无 ROS 时联调）
+- 默认 ROBOT_BACKEND=mock；显式 ros/http 才走真桥
+- 全程 try/except，失败友好文案，后端不崩
+- 不改 TaskSpec 主字段
+
+三、不超过 5 个小步骤（先不写业务代码）
+--------------------------------
+步骤1：真机配置契约加固
+  - 明确 ROBOT_BACKEND=mock|http|ros
+  - 通讯地址、超时、是否启用真机执行 写入 settings/.env.example
+  - 验证：缺配置时 create_robot 仍回退 mock，不崩
+
+步骤2：HttpRobot 适配器（无 ROS 时的联调桥）
+  - 实现 BaseRobot.execute_task：把 TaskSpec JSON POST 到 ROBOT_EXECUTE_ENDPOINT
+  - 超时/断网 → ApiResult 友好失败
+  - 验证：对本地假接收端或故意错误地址不抛栈
+
+步骤3：RosRobot 骨架（预留）
+  - 插件文件 + 接口实现骨架；无 rclpy/环境时自动降级提示并回退 mock
+  - 验证：未装 ROS 时导入/创建不崩；文档写清日后接入点
+
+步骤4：Pipeline/网站接通开关
+  - 配置 USE_REAL_ROBOT 或 ROBOT_BACKEND 控制是否真发
+  - 网站显示当前 robot 后端与最近 execute 结果摘要
+  - 验证：mock 路径与阶段3/4 行为一致；切换 http 时结果进聊天 meta
+
+步骤5：阶段5总验收 + 全量回归 + 勘误
+  - 复跑阶段0–4；新真机口烟雾；写阶段5验收.txt
+  - 划清阶段6（Real-Sim-Real 回流）边界
+
+四、步骤顺序
+--------------------------------
+1 配置契约 → 2 HttpRobot → 3 RosRobot骨架 → 4 网站/Pipeline开关 → 5 总验
+
+五、本阶段故意不做
+--------------------------------
+- 依赖真实机械臂才继续（无设备用 mock/http 假端）
+- Real-Sim-Real 参数自校准（阶段6）
+- 视觉 VLM（二期）

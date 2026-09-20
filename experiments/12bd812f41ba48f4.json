@@ -1,0 +1,99 @@
+{
+  "experiment_id": "12bd812f41ba48f4",
+  "created_at": "2026-09-11T11:46:20.951247+00:00",
+  "raw_text": "把桌上的红色杯子拿起来",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "fb8e129c54fe",
+    "action": "grab",
+    "target": "red_cup",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        0.0013905058441824895,
+        0.20768709314474218
+      ]
+    },
+    "source": "mock",
+    "raw_text": "把桌上的红色杯子拿起来"
+  },
+  "sim_result": {
+    "task_id": "fb8e129c54fe",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.002284806074070047,
+          0.21467121141320558
+        ],
+        "ctrl": [
+          0.0013905058441824895,
+          0.20768709314474218
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0008862809298998489,
+          0.25170979464153087
+        ],
+        "ctrl": [
+          0.0013905058441824895,
+          0.20768709314474218
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0012199855098965042,
+          0.19304260141598906
+        ],
+        "ctrl": [
+          0.0013905058441824895,
+          0.20768709314474218
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_cup",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true
+}

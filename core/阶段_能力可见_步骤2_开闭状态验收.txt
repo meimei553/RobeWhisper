@@ -1,0 +1,18 @@
+RobeWhisper · 能力可见 · 步骤2 验收
+========================================
+
+结论：通过（SMOKE_FEATURE_VISIBLE_STEP2_OK）
+
+交付：
+- build_feature_switch_states：真机 / RSR / API 三态
+  off=关（安全）/ ready=已开且就绪 / failed=想开但未成功（含原因）
+- 网站能力区「开闭状态」用 info/success/warning 展示
+- 步骤1 清单脚注改为指向开闭状态（自行勘误过时文案）
+
+验证点：
+[x] 默认全关 → 三项 off
+[x] 真机开 http 无网址 → failed + 原因
+[x] API 想开未配齐 → failed + 回退说明
+[x] 不崩站；未做步骤3 API 网络自检按钮
+
+复验：python -m core.smoke_feature_visible_step2

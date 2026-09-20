@@ -1,0 +1,82 @@
+# RobeWhisper · 对话与需求交接备份（2026-09-13 · 第12–13期收口）
+
+## 给下一次对话 / 下次打开网站用
+
+### 怎么打开最新网站
+1. 工作目录始终是：`C:\Users\34287\Desktop\RobeWhisper`
+2. 双击 `一键启动网站.bat`，或对 AI 说「打开网站」
+3. 地址：http://127.0.0.1:8501
+4. 若打不开：先双击 `安装依赖.bat`；关掉旧黑窗口后再启动
+5. 根目录必读：`下次打开网站.txt`
+
+### 桌面整包备份（本次已做）
+- 文件夹：`Desktop\RobeWhisper_backup_2026-09-13_*`（见 `core/最新备份说明_2026-09-13.md`）
+- **不含** `.env`（密钥不进备份）与 `.venv`
+- 日常请继续改工作区 `RobeWhisper`；备份是保险副本
+
+### 用户约束（必须遵守）
+- 零基础；优先 Python / Streamlit；简体中文；代码注释中文
+- 每期：先方案≤5步 → 一步一验 → 自行勘误 → 再下一步
+- 不自研引擎、不训大模型；成熟体系优先
+- 口径：机械臂自然语言试机；不上岗话术
+- 接触试机 = 教学级 grasp proxy ≠ 工业夹稳 ≠ 现实抓住
+
+### 产品进度（截至本备份）
+| 期 | 状态 |
+|---|---|
+| 1–10 | 成熟产品面 · 已收口 |
+| 11 | 真机最小联调 · `PHASE11_ACCEPTANCE_PASS` |
+| 能力可见 | `SMOKE_FEATURE_VISIBLE_OK` |
+| **12** | **真轨迹 RSR · `PHASE12_ACCEPTANCE_PASS`** |
+| **13** | **接触抓取试机档 A · `PHASE13_ACCEPTANCE_PASS`** |
+| 14–15 | 后置（多步 / 可视化+部署+Kimi充值） |
+
+### 本轮对话要点（摘要）
+1. **第12期**：真轨迹优先；无轨迹伪对照保底；严模式可 skip；假接收端 `--with-trajectory`
+2. **第13期档 A**：`builtin_arm2_contact` + `grasp_proxy` 旁路 + 诊断/落盘 + 能力区一键「切换并抓一次」
+3. **物理接入意义**：试机前暴露够不着/没接触；答辩可演示「碰没碰到」；不为工业抓取
+4. **全量复验**：step3 + phase0–7 + phase9–13 + feature_visible → 全部 PASS
+5. **下一步建议**：第14期多步/扩动作（先出方案再动手）
+
+### 第12期交付要点
+- 策略 prefer_real / require_real；默认伪保底
+- 假端：`python -m plugins.robot.local_fake_receiver --with-trajectory`
+- 总验：`python -m core.smoke_phase12`
+
+### 第13期交付要点（档 A）
+- 场景：`models/builtin_arm2_contact/model.xml`（默认仍 `builtin_arm2`）
+- 契约：`core/contact_scene_contract.py`；度量：`core/contact_probe.py`
+- 网站：能力清单「接触试机」+ 切换/恢复按钮
+- 总验：`python -m core.smoke_phase13`
+- 档 B 不做：力控夹爪、视觉找物、真机夹爪闭环
+
+### 当前安全默认（.env）
+```
+LLM_BACKEND=mock
+USE_REAL_ROBOT=false
+USE_REAL_SIM_REAL=false
+RSR_REQUIRE_REAL_TRAJECTORY=false
+ENGINE_BACKEND=mujoco
+```
+- Kimi 密钥可留本机 `.env`（不进备份）；演示保持 mock
+- 后期：`core/后期完善提醒_11到15.txt`
+
+### 关键文件
+- `core/总规划_不超过15期.md`
+- `core/阶段12验收.txt` / `core/阶段13验收.txt`
+- `core/全产品复验_2026-09-13.txt`
+- `core/回归与启动一页纸.txt`
+- `core/最新备份说明_2026-09-13.md`
+- 更早交接：`core/聊天记录备份_2026-09-12_第11期收口与保存.txt`
+
+### Cursor 原对话（本机）
+- 会话名：Robot virtual simulation project
+- 转录：`agent-transcripts/2b85a475-d95a-4e17-b87e-d9e3d900b929/...jsonl`
+- 引用可用：[`第12–13期收口`](2b85a475-d95a-4e17-b87e-d9e3d900b929)
+
+### 验收命令
+```
+python -m core.smoke_phase12
+python -m core.smoke_phase13
+python -m core.smoke_feature_visible
+```

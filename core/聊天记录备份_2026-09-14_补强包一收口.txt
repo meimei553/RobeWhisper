@@ -1,0 +1,143 @@
+# RobeWhisper · 对话与需求交接备份（2026-09-14 · 补强包一收口）
+
+## 给下一次对话 / 下次打开网站用（先读这个）
+
+### 怎么打开最新网站
+1. 工作目录始终是：`C:\Users\34287\Desktop\RobeWhisper`（在这里改，不要改备份文件夹）
+2. 双击 `一键启动网站.bat`，或对新对话的 AI 说「打开网站」
+3. **最新网址：http://127.0.0.1:8501**（本机 Streamlit，不是公网）
+4. 若打不开：先双击 `安装依赖.bat`；关掉旧黑色启动窗口后再开
+5. 根目录必读：`下次打开网站.txt`
+
+### 下次对 AI 说什么
+- 先说：请读 `core/聊天记录备份_2026-09-14_补强包一收口.txt` 和 `下次打开网站.txt`
+- 下一包动手：`开始补强包二`
+- 不要说「开始第15期」（两包补强做完再开）
+- 口令「开始步骤1」在包二开工后才表示包二步骤1
+
+### 用户约束（必须遵守，防稀释）
+- 零基础；优先 Python / Streamlit；简体中文；代码注释中文
+- 每期/每包：先方案≤5步 → 一步一验 → 自行勘误 → 再下一步
+- 不自研引擎、不训大模型；成熟体系优先
+- 口径：机械臂自然语言试机；不上岗；仿真≠现实
+- 接触试机 = 教学级代理 ≠ 工业夹稳 ≠ 现实抓住
+- 伪对照 ≠ 真回流；场景坐标 ≠ 相机看见
+- 不改 TaskSpec / SimResult / ApiResult **主字段名**（只增旁路）
+- 不拆 `execute_task`；默认 `LLM_BACKEND=mock`，`USE_REAL_ROBOT=false`，`USE_REAL_SIM_REAL=false`
+- 默认模型仍 `builtin_arm2`（无物体）
+
+### 产品进度（截至本备份 2026-09-14）
+| 块 | 状态 |
+|---|---|
+| 1–10 | 成熟产品面 · 已收口 |
+| 11 | `PHASE11_ACCEPTANCE_PASS` |
+| 能力可见 | `SMOKE_FEATURE_VISIBLE_OK` |
+| 12 | `PHASE12_ACCEPTANCE_PASS` |
+| 13 | `PHASE13_ACCEPTANCE_PASS`（接触试机档 A） |
+| 14 | `PHASE14_ACCEPTANCE_PASS`（多步 + wait） |
+| **14后补强包一** | **`SMOKE_BOOST1_ACCEPTANCE_PASS`（本轮刚收口）** |
+| 补强包二 | 未做（A3 多步失败人话 + A5 假端真轨迹一页纸） |
+| 15 | 最后做（可视化预留 + Cloud/Docker + Kimi 充值）；**未开工** |
+
+顺序不变：11→12→13→14 → **两包补强** → **15 最后**。不新开第16期。
+
+---
+
+## 本轮对话要点（2026-09-14 · 补强包一）
+
+1. **总规划**：第15期放最后；14与15之间做「试机补强两包」，不另开第16期。
+2. **总体方案**：`core/第15期之前_功能实现总体方案.txt`
+   - 包一 = A1 场景位姿 + A4 二连杆几何 + A2 接触三种人话 + A6 代理摘要
+   - 包二 = A3 多步失败句式 + A5 假端真轨迹一页纸
+3. **博导视角差距（已对齐）**：核心是语言—感知—规划—接触—真机证据。软件可补的第一刀是**标签接地**（仿真物体坐标），不是公网部署。
+4. **包一正式流程**：`core/阶段_场景位姿示意_正式流程.txt`（5 步全勾）
+5. **步骤 1**：位姿契约 `pose_source` ∈ {scene_model, none, uncertain}；无场景禁止假坐标。
+6. **步骤 2**：接触场景 grab/place 按物体 xpos 二连杆示意；已有 `joint_targets`/经验轨迹不覆盖。
+7. **步骤 3**：诊断/聊天「场景位姿示意」；接触原因：场景没开 / 够不着 / 碰到；落盘 `proxy_summary`。
+8. **步骤 4**：网站能力区「不是相机」+「本次试机代理摘要」；演示剧本 3.7；无新抓取大按钮。
+9. **步骤 5 总验 + 再评合理性**：通过。包一对准标签接地，合理；下一步是包二，不是第15期。
+10. **用户要最新网页**：已重启本机站，地址仍是 http://127.0.0.1:8501
+
+### 合理性（总验再评，下次勿推翻）
+- 合理：指令物体名应对上仿真坐标；无实验室也能验。
+- 公网/Kimi 补不了虚实鸿沟，第15期最后仍正确。
+- 诚实边界：示意 ≠ 工业到达精度；碰到 ≠ 抓住；没有相机。
+- 一键演示若「经验复用：是」，位姿可能是 `uncertain`（沿用旧轨迹，不重算瞄准）——要标明，不要假装看见杯子。
+
+---
+
+## 补强包一交付（方便改代码时定位）
+
+| 项 | 位置 |
+|---|---|
+| 位姿契约 | `core/pose_grounding_contract.py` |
+| 书面契约 | `core/场景位姿契约_补强包一.txt` |
+| 二连杆示意 | `core/planar_aim.py` |
+| 接触三种原因 | `core/contact_scene_contract.py` → `contact_reason_zh` |
+| Pipeline 落盘 | `core/pipeline.py`（`extra.pose_source` / `proxy_summary`） |
+| 网站文案/摘要 | `frontend/capability_panel.py`、`frontend/app.py` |
+| 聊天回复 | `frontend/reply_text.py`（`pose_msg`） |
+| 实验列表列 | `core/browse_tables.py`「位姿来源」 |
+| 演示剧本 | `core/演示剧本.txt` 第 3.7 节 |
+| 总验 | `python -m core.smoke_boost1` |
+
+接触场景仍是：`models/builtin_arm2_contact/model.xml`  
+一键入口仍是：能力区「切换到接触试机场景并抓一次」（教学代理，不是工业抓取）
+
+档 B 仍不做：相机、工业 IK、力控夹爪、真机外测位姿闭环。
+
+---
+
+## 补强包二（下次才做，此处只记口径）
+
+详案尚未另开正式流程文件；总观已写在 `core/第15期之前_功能实现总体方案.txt` 第四节。
+- A3：失败停在「第 i/n 步（动作=…）」
+- A5：假接收端 `--with-trajectory` → .env → 勾选 RSR → 摘要显示真轨迹（一页纸，不改第12期策略）
+- 仍≤5 步；先方案再动手
+
+第15期仍是加分：可视化预留、公网、Kimi 充值。**两包完成后再说「开始第15期」。**
+
+---
+
+## 当前安全默认（.env）
+```
+LLM_BACKEND=mock
+USE_REAL_ROBOT=false
+USE_REAL_SIM_REAL=false
+RSR_REQUIRE_REAL_TRAJECTORY=false
+ENGINE_BACKEND=mujoco
+```
+- Kimi 密钥可留本机 `.env`（不要写进交接/备份）；演示保持 mock
+
+---
+
+## 验收命令
+```
+python -m core.smoke_boost1
+python -m core.smoke_phase14
+python -m core.smoke_phase13
+python -m core.smoke_feature_visible
+```
+
+---
+
+## 关键文件
+- `下次打开网站.txt`（根目录，下次先打开）
+- `core/总规划_不超过15期.md`
+- `core/第15期之前_功能实现总体方案.txt`
+- `core/后续可改动与总观方案.txt`
+- `core/阶段_场景位姿示意_正式流程.txt`
+- `core/补强包一验收.txt` / `core/补强包一_步骤5_总验收.txt`
+- `core/演示剧本.txt`
+- `core/回归与启动一页纸.txt`
+- 更早交接：`core/聊天记录备份_2026-09-13_第12到13期收口.txt`（第12–13期；第14期见正式流程）
+
+## 桌面整包备份（上一份，未在本轮重做）
+- `Desktop\RobeWhisper_backup_2026-09-13_1210`（不含 `.env` / `.venv`）
+- 说明：`core/最新备份说明_2026-09-13.md`
+- 日常请继续改工作区 `RobeWhisper`。若要再拷一份整包，对新对话说「再备份一份到桌面」。
+
+## Cursor 原对话（本机）
+- 转录：`agent-transcripts/2b85a475-d95a-4e17-b87e-d9e3d900b929`
+- 引用：[`补强包一收口`](2b85a475-d95a-4e17-b87e-d9e3d900b929)
+- 本文件是给人/下一次 AI 读的摘要；完整逐句在上述转录里。

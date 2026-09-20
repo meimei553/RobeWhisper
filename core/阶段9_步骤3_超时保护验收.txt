@@ -1,0 +1,16 @@
+RobeWhisper · 第 9 期 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_PHASE9_STEP3_OK）
+
+交付：
+- core/engine_timeout.py：墙钟解析、截止时刻、超时 SimResult
+- MuJoCo / MockEngine 在 run_task（及 MuJoCo step 子循环）协作检查
+- Pipeline：超时 → ApiResult code=ENGINE_TIMEOUT，友好文案
+- ENGINE_TIMEOUT_SEC≤0 回退 30；params.timeout_sec 只允许更严
+
+未堵死 11–15：
+- TaskSpec 主字段未改；超时信息进 SimResult.metrics
+- 未用 signal/强杀线程；真机 HTTP/ROS 超时仍用原 ROBOT_TIMEOUT_SEC
+
+复验：python -m core.smoke_phase9_step3

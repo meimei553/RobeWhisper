@@ -1,0 +1,4 @@
+﻿RobeWhisper · 阶段4 · 步骤3 验收（重走）
+结论：SMOKE_PHASE4_STEP3_OK
+交付：Pipeline 自动落盘实验 + 第二次 experience_hit
+勘误：[x] pipeline 不写死 MujocoEngine [x] 契约未改

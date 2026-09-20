@@ -1,0 +1,19 @@
+RobeWhisper · 第 9 期 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE9_STEP1_OK）
+
+交付：
+- core/safety_gate.py
+  apply_safety_gate / merge_gate_into_params
+  mode: clip | reject
+  保留 original_targets（不堵死第11期对照）
+
+行为：
+- 合法目标放行
+- 超限 clip 裁剪；reject 拒绝
+- 无 joint_targets 跳过（不堵示意动作/后续接触场景）
+
+未做（留给步骤2+）：Pipeline/引擎接入、超时、网站样例
+
+复验：python -m core.smoke_phase9_step1

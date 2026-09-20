@@ -1,0 +1,14 @@
+RobeWhisper · 第 10 期 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE10_STEP1_OK）
+
+交付：
+- core/run_snapshot.py：collect_run_snapshot / snapshot_contains_secrets
+- 稳定字段：schema_version, collected_at, model_ref, backends, adapters, flags, timeouts, paths
+- 不收录 API Key；extra 中密钥键与 sk- 值被丢弃
+- 缺适配器时仍有占位；不改 TaskSpec 主字段
+
+未做（步骤2+）：实验落盘接入、经验分区、演示包
+
+复验：python -m core.smoke_phase10_step1

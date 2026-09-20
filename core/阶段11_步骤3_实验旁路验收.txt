@@ -1,0 +1,21 @@
+RobeWhisper · 第 11 期 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_PHASE11_STEP3_OK）
+
+交付：
+- Pipeline：成功/失败的 robot_result 均写入实验 JSON 旁路
+- sanitize_robot_result_for_store：落盘去掉完整 endpoint / 疑似密钥
+- run_snapshot.robot_bridge：backend、use_real_robot、脱敏主机名
+- 清单新增「怎么接入真机？」说明（给人看的操作步骤，非自动发现）
+- 浏览表增加「含真机结果」列
+
+验证点：
+[x] mock / HTTP 假端成功落盘含 robot_result
+[x] 错地址失败也落盘
+[x] TaskSpec 主字段未改
+[x] 落盘无明文账号密码
+
+未做（步骤4+）：网站真发强提示与自检、第11期总验
+
+复验：python -m core.smoke_phase11_step3

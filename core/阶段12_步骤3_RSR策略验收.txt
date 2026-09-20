@@ -1,0 +1,20 @@
+RobeWhisper · 第 12 期 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_PHASE12_STEP3_OK）
+
+交付：
+- 策略 prefer_real（默认）/ require_real（严模式）
+- 配置项 RSR_REQUIRE_REAL_TRAJECTORY（默认 false）写入 settings + .env.example
+- run_rsr 返回只增字段：policy、reference_frame_count、require_real_trajectory、extract_reason
+- Pipeline 按配置传入；实验快照旁路含 rsr_policy / rsr_reference_frame_count
+- 硬门槛：有合格真轨迹 → 必须 reference_source=robot
+
+验证点：
+[x] 无轨迹 + 默认 → pseudo_real + prefer_real
+[x] 无轨迹 + 严模式 → skipped
+[x] 有轨迹 + 严模式 → robot（不跳过）
+[x] 阶段6伪对照回归通过
+
+复验：python -m core.smoke_phase12_step3
+未做（步骤4+）：网站文案/清单对齐、总验

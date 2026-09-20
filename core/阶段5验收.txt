@@ -1,0 +1,23 @@
+RobeWhisper · 阶段 5 总验收（步骤 5）
+========================================
+
+结论：以 smoke_phase5 + 全量回归为准
+
+一、本阶段交付
+--------------------------------
+[x] 真机配置契约 mock|http|ros + USE_REAL_ROBOT
+[x] HttpRobot（TaskSpec JSON POST）
+[x] RosRobot 骨架（无 rclpy 降级）
+[x] 网站展示后端/开关/robot_result
+[x] 未改 TaskSpec 主字段
+
+二、阶段 6 边界（下一步）
+--------------------------------
+允许：Real-Sim-Real 虚实轨迹偏差 → 微调物理参数写回
+禁止：重写引擎；自训大模型；推翻 TaskSpec
+
+三、复验
+--------------------------------
+python -m core.smoke_phase5
+入口：http://127.0.0.1:8501
+真机联调：USE_REAL_ROBOT=true 且配置 HTTP/ROS

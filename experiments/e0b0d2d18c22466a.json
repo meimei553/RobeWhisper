@@ -1,0 +1,140 @@
+{
+  "experiment_id": "e0b0d2d18c22466a",
+  "created_at": "2026-09-11T11:58:58.696208+00:00",
+  "raw_text": "把红色杯子拿起来",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "5d678f3bbe4d",
+    "action": "grab",
+    "target": "red_cup",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        -0.0012317320375621328,
+        -0.1868591951851243
+      ]
+    },
+    "source": "mock",
+    "raw_text": "把红色杯子拿起来"
+  },
+  "sim_result": {
+    "task_id": "5d678f3bbe4d",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0019467390572489164,
+          -0.19314058437393533
+        ],
+        "ctrl": [
+          -0.0012317320375621328,
+          -0.1868591951851243
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.0006809790825504304,
+          -0.2264960611588537
+        ],
+        "ctrl": [
+          -0.0012317320375621328,
+          -0.1868591951851243
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.0010527682326959891,
+          -0.1735159676324274
+        ],
+        "ctrl": [
+          -0.0012317320375621328,
+          -0.1868591951851243
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_cup",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true,
+  "rsr": {
+    "ok": true,
+    "skipped": false,
+    "reference_source": "pseudo_real",
+    "deviation": {
+      "ok": true,
+      "mae": 0.03888238209831475,
+      "rmse": 0.04149854819284449,
+      "final_mae": 0.03690734481011575,
+      "max_mae": 0.05,
+      "aligned_frames": 4,
+      "sim_frames": 4,
+      "real_frames": 4,
+      "message": "偏差计算完成"
+    },
+    "calibration": {
+      "ok": true,
+      "updated": true,
+      "before": {
+        "friction": 1.0,
+        "joint_damping": 0.45
+      },
+      "after": {
+        "friction": 1.0097205955245787,
+        "joint_damping": 0.45874853597212084
+      },
+      "written": {
+        "friction": 1.0097205955245787,
+        "joint_damping": 0.45874853597212084,
+        "joint_range_min": -2.8,
+        "joint_range_max": 2.8,
+        "ngeom": 5,
+        "nv": 2,
+        "njnt": 2,
+        "skipped": []
+      },
+      "mae": 0.03888238209831475,
+      "message": "物理参数已写回引擎"
+    },
+    "message": "物理参数已写回引擎"
+  }
+}

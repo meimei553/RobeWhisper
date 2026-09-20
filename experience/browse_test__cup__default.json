@@ -1,0 +1,16 @@
+{
+  "key": "browse_test__cup__default",
+  "action": "browse_test",
+  "target": "cup",
+  "model_ref": "default",
+  "ok": true,
+  "reason": "",
+  "raw_text": "经验浏览测试",
+  "params": {},
+  "suggested_joint_targets": [
+    0.0
+  ],
+  "trajectory_frames": 1,
+  "updated_at": "2026-09-14T05:57:25.199767+00:00",
+  "use_count": 0
+}

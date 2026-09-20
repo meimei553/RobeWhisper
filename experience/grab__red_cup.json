@@ -1,0 +1,33 @@
+{
+  "key": "grab__red_cup",
+  "action": "grab",
+  "target": "red_cup",
+  "ok": true,
+  "reason": "",
+  "raw_text": "把红色杯子拿起来",
+  "params": {
+    "steps": 3,
+    "joint_delta": 0.1,
+    "joint_targets": [
+      -0.0003279840293146459,
+      -0.03398670262409796
+    ],
+    "joint_targets_original": [
+      -0.0003279840293146459,
+      -0.03398670262409796
+    ],
+    "safety_audit": {
+      "clipped": false,
+      "rejected": false,
+      "skipped": false
+    },
+    "safety_message": "关节目标在限位内，安全闸放行"
+  },
+  "suggested_joint_targets": [
+    -0.00028786139193927985,
+    -0.03153361013846448
+  ],
+  "trajectory_frames": 4,
+  "updated_at": "2026-09-12T06:56:45.070798+00:00",
+  "use_count": 96
+}

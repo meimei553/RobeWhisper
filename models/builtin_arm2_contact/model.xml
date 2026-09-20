@@ -1,0 +1,45 @@
+<!--
+  RobeWhisper 接触试机场景（第 13 期 · 步骤 1）
+  在 builtin_arm2 平面臂基础上增加自由方块，供接触/接近度量。
+  默认演示仍用 builtin_arm2；本文件需在网站模型下拉中显式选择。
+  约定体名：object_block=试机物体；ee=末端探头几何（非工业夹爪）。
+-->
+<mujoco model="builtin_arm2_contact">
+  <compiler angle="radian" coordinate="local"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+
+  <worldbody>
+    <light pos="0 0 2" dir="0 0 -1"/>
+    <geom name="floor" type="plane" size="1 1 0.05" rgba="0.85 0.85 0.85 1" friction="1 0.5 0.1"/>
+
+    <!-- 基座 + 二自由度臂（与 builtin_arm2 同构，便于对照） -->
+    <body name="base" pos="0 0 0.05">
+      <geom name="base_geom" type="cylinder" size="0.06 0.05" rgba="0.3 0.3 0.35 1"/>
+
+      <body name="link1" pos="0 0 0.05">
+        <joint name="joint1" type="hinge" axis="0 0 1" range="-2.8 2.8" damping="0.5"/>
+        <geom name="link1_geom" type="capsule" fromto="0 0 0 0.25 0 0" size="0.03" rgba="0.2 0.5 0.9 1" mass="1.0"/>
+
+        <body name="link2" pos="0.25 0 0">
+          <joint name="joint2" type="hinge" axis="0 0 1" range="-2.5 2.5" damping="0.4"/>
+          <geom name="link2_geom" type="capsule" fromto="0 0 0 0.2 0 0" size="0.025" rgba="0.9 0.4 0.2 1" mass="0.6"/>
+          <!-- 末端探头：教学用接触代理，不是真夹爪 -->
+          <geom name="ee" type="sphere" pos="0.2 0 0" size="0.03" rgba="0.1 0.8 0.3 1" mass="0.05"
+                friction="1.2 0.5 0.1"/>
+        </body>
+      </body>
+    </body>
+
+    <!-- 自由方块：放在默认 grab 示意姿态可达区（约 joint≈0.8/-0.6） -->
+    <body name="object_block" pos="0.36 0.18 0.04">
+      <freejoint name="object_free"/>
+      <geom name="object_geom" type="box" size="0.03 0.03 0.03" rgba="0.85 0.15 0.15 1"
+            mass="0.04" friction="1.5 0.5 0.1"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="act_joint1" joint="joint1" kp="40" ctrlrange="-2.8 2.8"/>
+    <position name="act_joint2" joint="joint2" kp="30" ctrlrange="-2.5 2.5"/>
+  </actuator>
+</mujoco>

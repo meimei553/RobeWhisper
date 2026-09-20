@@ -1,0 +1,89 @@
+:root {
+  --bg: #12161c;
+  --panel: #1b222c;
+  --line: #2c3644;
+  --text: #e7edf4;
+  --muted: #9aa8b8;
+  --accent: #e2a15a;
+  --ok: #3d9a6a;
+  --warn: #c9842a;
+  --bad: #c45c5c;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+header { padding: 20px 28px 8px; }
+h1 { margin: 0 0 6px; font-size: 26px; }
+.caption, .hint, .meta { color: var(--muted); font-size: 14px; }
+.banner {
+  margin: 12px 28px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #243044;
+  border: 1px solid var(--line);
+  white-space: pre-wrap;
+}
+.banner.warn { border-color: var(--warn); }
+.banner.danger { border-color: var(--bad); background: #3a2424; }
+nav { display: flex; gap: 8px; padding: 8px 28px 16px; flex-wrap: wrap; }
+nav button, button {
+  background: #243044;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+nav button.active, button.primary {
+  background: var(--accent);
+  color: #1a1208;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+main { padding: 0 28px 40px; }
+.panel { display: none; }
+.panel.active { display: block; }
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.row { display: flex; gap: 12px; flex-wrap: wrap; }
+.row > * { flex: 1; min-width: 220px; }
+label { display: block; font-size: 13px; color: var(--muted); margin: 8px 0 4px; }
+input[type="text"], select, textarea {
+  width: 100%;
+  background: #10151b;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px;
+}
+.chat {
+  min-height: 180px;
+  max-height: 360px;
+  overflow: auto;
+  background: #10151b;
+  border-radius: 8px;
+  padding: 10px;
+}
+.msg { margin: 8px 0; white-space: pre-wrap; }
+.msg.user { color: #f0d2a8; }
+.msg.assistant { color: #d5e4f2; }
+.ok { color: #8fd0aa; }
+.warn { color: #f0c27a; }
+.bad { color: #f0a0a0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { border-bottom: 1px solid var(--line); padding: 6px 4px; text-align: left; vertical-align: top; }
+pre { white-space: pre-wrap; background: #10151b; padding: 10px; border-radius: 8px; font-size: 12px; }
+#toast {
+  position: fixed; right: 16px; bottom: 16px;
+  background: #243044; border: 1px solid var(--accent);
+  padding: 10px 14px; border-radius: 8px; display: none;
+}

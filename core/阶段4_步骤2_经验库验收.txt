@@ -1,0 +1,4 @@
+﻿RobeWhisper · 阶段4 · 步骤2 验收（重走）
+结论：SMOKE_PHASE4_STEP2_OK
+交付：experience_store 成功入库/检索；失败不覆盖成功
+勘误：[x] 契约未改 [x] 与步骤1目录分离

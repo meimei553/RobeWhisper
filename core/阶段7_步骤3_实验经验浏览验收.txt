@@ -1,0 +1,13 @@
+RobeWhisper · 阶段 7 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_PHASE7_STEP3_OK）
+
+交付：
+- list_recent_experiments 增补 frames / has_rsr / rsr_mae / raw_text（旧记录兼容）
+- list_experiences 增补 trajectory_frames / raw_text
+- experiments_table_rows / experiences_table_rows 中文表
+- 网站用表格展示；原始摘要收入折叠区
+- 存储主路径 experiments/、experience/ 未改
+
+复验：python -m core.smoke_phase7_step3

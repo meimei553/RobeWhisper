@@ -1,0 +1,11 @@
+RobeWhisper · 阶段 6 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE6_STEP2_OK）
+
+交付：
+- core/param_calibrator.py
+  propose_param_updates / apply_calibration_to_engine
+- 白名单：friction、joint_damping（有界 + 相对步长限制）
+
+复验：python -m core.smoke_phase6_step2

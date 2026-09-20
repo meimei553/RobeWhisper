@@ -1,0 +1,13 @@
+RobeWhisper · 阶段 1 · 步骤 2 验收
+========================================
+
+结论：通过（PROBE_STEP2_OK / KANYU_PHASE1_STEP2_OK）
+
+交付：
+- models/builtin_arm2/model.xml     默认二自由度臂（自包含）
+- models/mujoco_testdata/model.xml  自 pip mujoco 包拷贝的现成样例
+- models/来源说明.txt               来源与许可
+- config.settings.DEFAULT_MODEL_REL / default_model_path()
+
+复验：
+  python core/probe_models_step2.py

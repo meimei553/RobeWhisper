@@ -1,0 +1,19 @@
+RobeWhisper · 补强包一 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_BOOST1_STEP2_OK）
+
+交付：
+- core/planar_aim.py（二连杆朝 xy，非工业 IK）
+- MujocoEngine：接触场景 grab/place 按物体 xpos 写入 joint_targets
+- MockEngine：mock_object_xpos 注入；无场景清坐标
+
+验证点：
+[x] 默认臂 grab → pose_source=none，无 object_xpos
+[x] 接触场景 grab → pose_source=scene_model，有 xpos / ee_goal_xy
+[x] home 不瞄准 → pose_source=none
+[x] 无场景即使传入坐标也被清空
+[x] phase13 步骤2 回归通过
+
+复验：python -m core.smoke_boost1_step2
+未做（步骤3+）：诊断人话/落盘、网站、总验

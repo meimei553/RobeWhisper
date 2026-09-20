@@ -1,0 +1,256 @@
+{
+  "experiment_id": "0316153cc7b2470a",
+  "created_at": "2026-09-13T04:04:36.555640+00:00",
+  "raw_text": "抓起红色积木",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "3e746e1a81c0",
+    "action": "grab",
+    "target": "red_block",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        -0.03122596697282085,
+        -1.7111394155237514
+      ],
+      "joint_targets_original": [
+        -0.03122596697282085,
+        -1.7111394155237514
+      ],
+      "safety_audit": {
+        "clipped": false,
+        "rejected": false,
+        "skipped": false
+      },
+      "safety_message": "关节目标在限位内，安全闸放行"
+    },
+    "source": "mock",
+    "raw_text": "抓起红色积木"
+  },
+  "sim_result": {
+    "task_id": "3e746e1a81c0",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.0035214899199773808,
+          -1.752360524455669
+        ],
+        "ctrl": [
+          -0.03122596697282085,
+          -1.7111394155237514
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.025361587475614664,
+          -2.0891228306392353
+        ],
+        "ctrl": [
+          -0.03122596697282085,
+          -1.7111394155237514
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          -0.027657125322873975,
+          -1.568156672217709
+        ],
+        "ctrl": [
+          -0.03122596697282085,
+          -1.7111394155237514
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true,
+      "elapsed_sec": 0.0,
+      "timeout_sec": 30.0,
+      "contact_scene": false,
+      "contact_detected": false,
+      "grasp_proxy": "no_scene",
+      "object_moved": false,
+      "ee_object_distance": null
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_block",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "elapsed_sec": 0.0,
+    "timeout_sec": 30.0,
+    "contact_scene": false,
+    "contact_detected": false,
+    "grasp_proxy": "no_scene",
+    "object_moved": false,
+    "ee_object_distance": null,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true,
+  "run_snapshot": {
+    "schema_version": 1,
+    "collected_at": "2026-09-13T04:04:36.555640+00:00",
+    "model_ref": "default",
+    "backends": {
+      "ENGINE_BACKEND": "mujoco",
+      "LLM_BACKEND": "mock",
+      "ROBOT_BACKEND": "mock"
+    },
+    "adapters": {
+      "llm": {
+        "name": "mock_llm",
+        "version": "unknown"
+      },
+      "engine": {
+        "name": "mujoco_engine",
+        "version": "3.13.0"
+      },
+      "robot": {
+        "name": "mock_robot",
+        "version": "unknown"
+      }
+    },
+    "flags": {
+      "USE_REAL_ROBOT": false,
+      "USE_REAL_SIM_REAL": false,
+      "SAFETY_MODE": "clip"
+    },
+    "timeouts": {
+      "ENGINE_TIMEOUT_SEC": 30.0,
+      "LLM_TIMEOUT_SEC": 60.0,
+      "ROBOT_TIMEOUT_SEC": 30.0
+    },
+    "paths": {
+      "DEFAULT_MODEL_REL": "builtin_arm2/model.xml",
+      "MODELS_DIR_NAME": "models"
+    },
+    "robot_bridge": {
+      "backend": "mock",
+      "use_real_robot": false,
+      "endpoint": {
+        "configured": false,
+        "host": "",
+        "port": null,
+        "path": "",
+        "scheme": ""
+      }
+    },
+    "extra": {
+      "rsr_enabled": true,
+      "rsr_reference_source": "pseudo_real",
+      "rsr_policy": "prefer_real",
+      "rsr_reference_frame_count": 4,
+      "grasp_proxy": "no_scene",
+      "contact_scene": false,
+      "contact_detected": false
+    }
+  },
+  "robot_result": {
+    "ok": true,
+    "code": "OK",
+    "message": "Mock 真机已接收任务 action=grab",
+    "data": {
+      "accepted": true,
+      "task_id": "3e746e1a81c0",
+      "robot": "mock_robot"
+    }
+  },
+  "rsr": {
+    "ok": true,
+    "skipped": false,
+    "reference_source": "pseudo_real",
+    "deviation": {
+      "ok": true,
+      "mae": 0.1128706217111402,
+      "rmse": 0.14171335062839488,
+      "final_mae": 0.11553746601711254,
+      "max_mae": 0.1547820932372716,
+      "aligned_frames": 4,
+      "sim_frames": 4,
+      "real_frames": 4,
+      "message": "偏差计算完成"
+    },
+    "calibration": {
+      "ok": true,
+      "updated": true,
+      "before": {
+        "friction": 1.0,
+        "joint_damping": 0.45
+      },
+      "after": {
+        "friction": 1.028217655427785,
+        "joint_damping": 0.4753958898850066
+      },
+      "written": {
+        "friction": 1.028217655427785,
+        "joint_damping": 0.4753958898850066,
+        "joint_range_min": -2.8,
+        "joint_range_max": 2.8,
+        "ngeom": 5,
+        "nv": 2,
+        "njnt": 2,
+        "skipped": []
+      },
+      "mae": 0.1128706217111402,
+      "message": "物理参数已写回引擎"
+    },
+    "message": "物理参数已写回引擎",
+    "policy": "prefer_real",
+    "require_real_trajectory": false,
+    "reference_frame_count": 4,
+    "extract_reason": "未找到轨迹字段"
+  },
+  "safety_gate": {
+    "ok": true,
+    "mode": "clip",
+    "skipped": false,
+    "original_targets": [
+      -0.03122596697282085,
+      -1.7111394155237514
+    ],
+    "applied_targets": [
+      -0.03122596697282085,
+      -1.7111394155237514
+    ],
+    "violations": [],
+    "message": "关节目标在限位内，安全闸放行",
+    "safety_audit": {
+      "clipped": false,
+      "rejected": false,
+      "skipped": false
+    }
+  }
+}

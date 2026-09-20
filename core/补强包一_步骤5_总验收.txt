@@ -1,0 +1,50 @@
+RobeWhisper · 补强包一 · 步骤 5 总验收
+========================================
+日期：2026-09-14
+结论：SMOKE_BOOST1_ACCEPTANCE_PASS
+
+一、步骤 1–4 烟雾
+--------------------------------
+[x] SMOKE_BOOST1_STEP1_OK（位姿契约）
+[x] SMOKE_BOOST1_STEP2_OK（引擎按物体示意）
+[x] SMOKE_BOOST1_STEP3_OK（诊断/落盘/代理摘要）
+[x] SMOKE_BOOST1_STEP4_OK（网站与剧本）
+
+二、档 A 功能核验
+--------------------------------
+[x] 默认臂 grab → pose_source=none，无伪造 object_xpos
+[x] 接触场景 grab → pose_source=scene_model 或 uncertain（经验复用/够不着会 uncertain）
+[x] 接触三种原因：场景没开 / 够不着 / 碰到（碰到≠抓住）
+[x] 诊断/聊天：场景位姿示意；非相机
+[x] 实验旁路 extra.pose_source + proxy_summary
+[x] 能力区「本次试机代理摘要」+ 接触说明含非相机
+[x] 沿用一键切换场景，无新抓取大按钮
+
+三、档 B（明确不做）
+--------------------------------
+[x] 未交付：相机/视觉伺服、完整工业 IK、力控夹爪、真机外测位姿闭环
+[x] 未宣称：看见杯子、已经抓住、标定完成
+
+四、硬约束
+--------------------------------
+[x] 未改 TaskSpec / SimResult / ApiResult 主字段名
+[x] 未拆 BaseRobot.execute_task
+[x] 默认真发 / RSR / API 仍关；默认模型仍 builtin_arm2
+[x] 未做第15期（无公网主路径、无 3D 主视口）
+
+五、回归
+--------------------------------
+[x] PHASE14_ACCEPTANCE_PASS
+[x] PHASE13_ACCEPTANCE_PASS
+[x] SMOKE_FEATURE_VISIBLE_OK
+
+六、合理性（总验再评一次）
+--------------------------------
+合理，且建议到此收口包一、不要继续加视觉/夹爪。
+- 对准的缺口是「指令标签 vs 场景坐标」，软件可做、无实验室也能验。
+- 公网部署、Kimi 充值仍不能缩小虚实鸿沟，放第15期最后仍正确。
+- 诚实边界仍在：示意≠到达精度；碰到≠抓住；经验复用时可能不重算瞄准（会标明 uncertain）。
+- 下一步更合理的是补强包二（多步失败人话 + 假端真轨迹一页纸），不是第15期。
+
+复验口令：python -m core.smoke_boost1
+下一步口令：开始补强包二

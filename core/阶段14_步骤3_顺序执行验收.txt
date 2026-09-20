@@ -1,0 +1,20 @@
+RobeWhisper · 第 14 期 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_PHASE14_STEP3_OK）
+
+交付：
+- core/multi_step_exec.py（展开子任务 / 合并轨迹）
+- Pipeline：有 steps 时按序安全闸 + run_task；失败标明第几步
+- 真机默认逐步 execute_task
+- Mock/MuJoCo 支持 wait；多步暂不复用经验
+- metrics：multi_step / step_count / step_actions
+
+验证点：
+[x] 「先回零再抓红色杯子」→ step_count=2，actions home→grab
+[x] 第 2 步失败可定位 failed_at=2
+[x] 单步旧路径仍通；wait 可跑
+[x] MuJoCo 多步 OK；step3 / phase9 回归 OK
+
+复验：python -m core.smoke_phase14_step3
+未做（步骤4+）：网站样例与诊断、总验

@@ -1,0 +1,226 @@
+RobeWhisper · 真机联调检查清单（第 11 期 · 白话版）
+========================================
+这份清单是给你「以后接真机械臂」用的操作说明书。
+平时开发请保持：真机发送关闭、只用虚拟臂（假机械臂动画）。
+
+小词典（先扫一眼）：
+- 真发 / 真机发送 = 网站真的把指令发到外面（可能动真臂）
+- 虚拟臂 / mock / MockRobot = 只在电脑里假装执行，真臂不会动（默认、最安全）
+- 接收端 = 实验室电脑上那个「等着收指令」的小程序
+- 假接收端 = 本机假装的接收端，用来先验软件通不通，不会动真臂
+- .env = 项目根目录里的配置文件（开关、地址写在这里）
+- TaskSpec = 网站发给机械臂的「任务单」（统一格式的一张指令表）
+- HTTP = 用网址发消息的一种常用方式（像填一个网址然后邮寄包裹）
+- ROS2 = 机器人常用的另一种通信方式（需要额外装软件）
+- 烟雾测试 = 自动小检查脚本，跑通就打印 OK
+
+
+--------------------------------
+怎么接入真机？（给你的操作步骤）
+--------------------------------
+重要：网站不会自动找到真臂。要你（或实验室）按下面改配置。
+
+【平时（默认，安全）】
+  USE_REAL_ROBOT=false     ← 真发关闭
+  ROBOT_BACKEND=mock       ← 只用虚拟臂
+
+【有实验室接收端、准备真连时】按顺序做：
+
+第1步：让实验室准备「接收端」
+  - 优先 HTTP：能接收我们发过去的任务单（JSON 文字），并回复成功/失败
+  - 或 ROS2：能订阅约定频道（topic，像对讲机频道名）
+  - 对方要认的格式：看下面「〇、任务单长什么样」
+
+第2步：改本机 `.env`（用记事本打开项目根目录的 .env）
+  USE_REAL_ROBOT=true
+  ROBOT_BACKEND=http
+  ROBOT_EXECUTE_ENDPOINT=http://实验室电脑的IP:端口/execute_task
+  说明：把「实验室电脑的IP」和「端口」换成实验室告诉你的数字。
+  例：http://192.168.1.20:9000/execute_task
+
+第3步：保存后，关掉再打开网站（重启 Streamlit 网页程序）
+
+第4步：看网站上是否写着「真机发送：已开」——开着时要当心，真臂可能动
+
+第5步：演示/联调结束后，务必改回安全默认：
+  USE_REAL_ROBOT=false
+  ROBOT_BACKEND=mock
+  再重启网站
+
+【还没有真臂时，怎么先验软件？】
+另开一个黑色命令窗口，运行：
+  python -m plugins.robot.local_fake_receiver
+它会在本机假装成接收端（默认地址 http://127.0.0.1:9000/execute_task）。
+然后把 .env 里的 ROBOT_EXECUTE_ENDPOINT 写成这个地址，并按上面打开真发。
+这只证明「软件能发出去」，不会动真实机械臂。
+
+【文档与网站会给你什么】
+- 本检查清单（一步步勾选）
+- 假接收端启动命令（上面那行）
+- 任务单格式示例（下面〇节）
+- 网站顶栏：真发关=「不会动真臂」；真发开=醒目警示
+- 网站按钮：「自检 HTTP 桥是否通」（只读探测，不发抓/放）
+
+
+--------------------------------
+〇、任务单长什么样（实验室要对齐的格式）
+--------------------------------
+网站发给接收端的内容，外层固定是两层包装，不要只认「最里面那几项」。
+
+【我们发出去的（请求）】
+
+{
+  "source": "robewhisper",
+  "task_spec": {
+    "task_id": "……",
+    "action": "grab|place|move|home|wait",
+    "target": "red_block",
+    "constraints": {},
+    "params": {},
+    "source": "mock|llm|……",
+    "raw_text": "用户原话"
+  }
+}
+
+白话说明：
+- source = 来源标记（写死是 robewhisper）
+- task_spec = 真正的任务单（动作、目标物体等）
+- 任务单里的字段名不要改：task_id / action / target / constraints / params / source / raw_text / steps（steps 可选，多步编排；空=单步）
+- 错例：只认 action、target，却忽略外层的 task_spec 包装 → 会对接失败
+
+【对方应回复的（最少两句）】
+
+{
+  "ok": true,
+  "message": "已接收并开始执行"
+}
+
+白话：ok=成功还是失败；message=给人看的一句话。
+可选以后再加：
+- code = 状态码文字
+- trajectory = 真机走过的关节轨迹（第 12 期重点用；形状见下方 F 节）
+
+程序里的格式检查文件：core/robot_bridge_contract.py
+（给开发看的；你平时不用打开）
+
+
+--------------------------------
+A. 联调前先确认（开发机也可勾）
+--------------------------------
+[ ] 虚拟臂能跑：python -m core.smoke_step3
+[ ] 网站能开：http://127.0.0.1:8501
+[ ] 已看过上面「〇、任务单长什么样」
+[ ] USE_REAL_ROBOT=false（确认现在不会误发真机）
+[ ] ROBOT_BACKEND=mock
+[ ] 格式小检查：python -m core.smoke_phase11_step1
+
+
+--------------------------------
+B. 开关怎么开（改 .env）
+--------------------------------
+[ ] 若还没有 .env：把 .env.example 复制一份改名为 .env
+[ ] 选一种通信方式（二选一）：
+      · HTTP（推荐先做）：ROBOT_BACKEND=http
+      · ROS2：ROBOT_BACKEND=ros
+[ ] 打开真发：USE_REAL_ROBOT=true
+      （注意：只改 ROBOT_BACKEND 不够；不打开 USE_REAL_ROBOT 时
+       仍然只用虚拟臂，这是故意的安全设计）
+[ ] 改完后重启网站
+
+
+--------------------------------
+C. 用 HTTP 联调（推荐先做）
+--------------------------------
+[ ] 填写 ROBOT_EXECUTE_ENDPOINT=完整网址
+      例：http://127.0.0.1:9000/execute_task
+[ ] 对方能接收 POST（一种「提交数据」的请求），类型为 JSON 文字
+[ ] 对方能读到 task_spec，并至少回复 {ok, message}
+[ ] 等待时间 ROBOT_TIMEOUT_SEC 够用（默认 30 秒）
+[ ] 故意填错地址时：网站提示失败即可，整页不要崩
+[ ] 无真臂：先开假接收端（另开命令窗口，不会随网站自动开）
+      python -m plugins.robot.local_fake_receiver
+      再设 ROBOT_EXECUTE_ENDPOINT=http://127.0.0.1:9000/execute_task
+[ ] 软件小检查：python -m core.smoke_phase11_step2
+[ ] 旧检查仍可用：python -m core.smoke_phase5_step2
+
+
+--------------------------------
+D. 用 ROS2 联调（有环境再做）
+--------------------------------
+[ ] 本机已安装可用的 rclpy（ROS2 的 Python 接口库）
+[ ] 设置 ROS_DOMAIN_ID（必填；像「局域网分区号」，两边要一致）
+[ ] ROS_EXECUTE_TOPIC（可选，默认 /robewhisper/execute_task；像频道名）
+[ ] ROBOT_BACKEND=ros 且 USE_REAL_ROBOT=true
+[ ] 机器人侧订阅同一频道，解析 JSON 里的 task_spec（和 HTTP 同一张任务单）
+[ ] 没装 rclpy：自动退回虚拟臂；或提示失败，不崩站
+[ ] 自检：python -m core.smoke_phase5_step3
+[ ] 更多说明：同文件夹 ROS接入说明.txt
+
+
+--------------------------------
+E. 在网站上确认
+--------------------------------
+[ ] 能看出「真机发送」开还是关，以及通道是 mock / http / ros
+[ ] 真发关闭时：页面明确写「真实机械臂不会动」
+[ ] 真发打开时：页面有醒目警示（可能动真臂 / 周围安全）
+[ ] 可用「自检 HTTP 桥是否通」按钮（只读探测，不发抓/放）
+[ ] 发一条指令后，「详细数据」里能看到 robot_result（真机侧回执摘要）
+[ ] experiments 文件夹里的实验记录含 robot_result；
+      网址里的账号密码不会原样写入（已做脱敏=去掉敏感部分）
+[ ] 运行快照里能看到 robot_bridge（后端名、是否真发、主机名摘要）
+[ ] 演示完改回 USE_REAL_ROBOT=false，ROBOT_BACKEND=mock
+[ ] 旁路小检查：python -m core.smoke_phase11_step3
+[ ] 网站提示小检查：python -m core.smoke_phase11_step4
+
+
+--------------------------------
+F. 第 12 期：真轨迹 RSR（可与真臂或假接收端验收）
+--------------------------------
+约定：有合格真轨迹 → 必须用真轨迹；没有 → 默认仍可用伪对照（会标明）。
+
+对方若回传轨迹，请用这种形状（列表；每帧含关节角）：
+{
+  "ok": true,
+  "message": "已执行",
+  "trajectory": [
+    {"t": 0.0, "joint_positions": [0.1, 0.2]},
+    {"t": 0.1, "joint_positions": [0.12, 0.21]}
+  ]
+}
+白话：t=时间；joint_positions=各关节角度数字。空列表或维数乱跳会当成「不合格」，不走真轨迹。
+
+本机没有真臂时怎么验「真优先」：
+[ ] 另开窗口：python -m plugins.robot.local_fake_receiver --with-trajectory
+[ ] .env：USE_REAL_ROBOT=true，ROBOT_BACKEND=http，ROBOT_EXECUTE_ENDPOINT=假接收端网址
+[ ] 网站勾选 RSR，发一句指令 → 校准摘要应显示「真轨迹」
+[ ] 演示完改回 USE_REAL_ROBOT=false、ROBOT_BACKEND=mock
+
+实验室严模式（可选，默认不要开）：
+[ ] .env 设 RSR_REQUIRE_REAL_TRAJECTORY=true → 没有合格真轨迹就跳过校准（不用伪对照）
+
+检查命令：
+  python -m core.smoke_phase12_step1
+  python -m core.smoke_phase12_step2
+  python -m core.smoke_phase12_step3
+  python -m core.smoke_phase12_step4
+
+
+--------------------------------
+G. 失败时怎么查
+--------------------------------
+1. USE_REAL_ROBOT 是不是 true（真发开了吗）
+2. ROBOT_BACKEND 和地址 / Domain 填齐了吗
+3. HTTP：用浏览器或 curl（命令行测网址的小工具）测 endpoint；
+   核对发出去的内容是否带有 task_spec
+4. ROS：分区号、频道名、rclpy 版本是否匹配
+5. 仍不行：先关真发改回 mock，确认虚拟臂正常，再重新开真发
+6. RSR 一直伪对照：对方是否回了 trajectory？形状是否合格？假接收端是否加了 --with-trajectory？
+
+
+复验命令（给开发/验收用）：
+  python -m core.smoke_phase11_step1
+  python -m core.smoke_phase11_step2
+  python -m core.smoke_phase11_step3
+  python -m core.smoke_phase11_step4
+  python -m core.smoke_phase7_step4
+  python -m core.smoke_phase12_step4

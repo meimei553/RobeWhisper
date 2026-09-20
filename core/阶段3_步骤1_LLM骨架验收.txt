@@ -1,0 +1,19 @@
+RobeWhisper · 阶段 3 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE3_STEP1_OK）
+
+交付：
+- plugins/llm/base.py     成功/失败错误码契约
+- plugins/llm/api_llm.py  OpenAI 兼容云端骨架（标准库 HTTP）
+- plugins/llm/prompt.py   System Prompt 占位
+- plugins/llm/json_extract.py  JSON→TaskSpec 轻量提取
+- bootstrap.create_llm    mock|api；api 缺配置自动回退 mock
+
+配置（.env）：
+  LLM_BACKEND=api
+  LLM_API_BASE=...
+  LLM_API_KEY=...
+  LLM_MODEL_NAME=...
+
+复验：python -m core.smoke_phase3_step1

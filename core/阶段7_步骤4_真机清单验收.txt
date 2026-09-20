@@ -1,0 +1,15 @@
+RobeWhisper · 阶段 7 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE7_STEP4_OK）
+
+交付：
+- plugins/robot/真机联调检查清单.txt
+- README 已指向该清单
+- 覆盖：USE_REAL_ROBOT、HTTP endpoint、ROS_DOMAIN_ID、无 rclpy 降级
+
+验证：
+- 仅文档/指引；TaskSpec 主字段未改
+- USE_REAL_ROBOT=false 时 http 仍回退 MockRobot
+
+复验：python -m core.smoke_phase7_step4

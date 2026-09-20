@@ -1,0 +1,32 @@
+RobeWhisper · 能力可见与开闭提示 · 步骤5 总验
+========================================
+
+结论：通过（SMOKE_FEATURE_VISIBLE_OK）
+日期：2026-09-13
+
+一、本期目标对照
+--------------------------------
+[x] 具有的功能要被看到：能力区「可选能力一览」三块（真机 / RSR / 云端 API）
+[x] 是否开启成功要有提示：开闭状态三态 + 失败人话原因
+[x] API / 真机只读自检按钮齐；RSR 标明未执行 / 伪对照 / 真轨迹
+
+二、硬约束书面确认
+--------------------------------
+[x] 未改 TaskSpec / SimResult / ApiResult 主字段名
+[x] 未拆 BaseRobot.execute_task
+[x] 示例默认仍安全：USE_REAL_ROBOT=false、USE_REAL_SIM_REAL=false、LLM_BACKEND=mock
+[x] 未堵死第12期：rsr_loop 仍优先真机轨迹，伪对照可关/可演示且文案标明非终局
+[x] 未做网页一键写 .env；未做真机无确认一键开
+
+三、回归
+--------------------------------
+[x] smoke_feature_visible_step1–4
+[x] smoke_phase11_step4
+[x] smoke_phase6_step3
+[x] 总口令：python -m core.smoke_feature_visible → SMOKE_FEATURE_VISIBLE_OK
+
+四、你怎么在网站上看
+--------------------------------
+1. 打开能力区：先看「可选能力一览」，再看「开闭状态」
+2. 有「自检 HTTP 桥是否通」「自检云端 API 是否通」
+3. 自然语言区勾选旁看 RSR 状态；默认应写「不会做校准」

@@ -1,0 +1,11 @@
+RobeWhisper · 阶段 3 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE3_STEP2_OK）
+
+交付：
+- plugins/llm/prompt.py 强化 System Prompt（只输出 JSON）
+- plugins/llm/json_extract.py 白名单动作、别名归一、params 过滤
+- MockLLM 与云端共用同一校验出口
+
+复验：python -m core.smoke_phase3_step2

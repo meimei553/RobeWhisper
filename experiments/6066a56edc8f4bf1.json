@@ -1,0 +1,42 @@
+{
+  "experiment_id": "6066a56edc8f4bf1",
+  "created_at": "2026-09-11T12:01:01.020813+00:00",
+  "raw_text": "步骤3浏览测试把红色杯子拿起来",
+  "ok": true,
+  "code": "OK",
+  "message": "step3_browse",
+  "task_spec": {
+    "action": "grab",
+    "target": "red_cup"
+  },
+  "sim_result": {
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "joint_positions": [
+          0.1,
+          0.2
+        ]
+      }
+    ],
+    "metrics": {}
+  },
+  "metrics": {
+    "frames": 1,
+    "success": 1.0
+  },
+  "adapters": {},
+  "experience_hit": false,
+  "rsr": {
+    "ok": true,
+    "skipped": false,
+    "reference_source": "pseudo_real",
+    "deviation": {
+      "mae": 0.12
+    },
+    "calibration": {
+      "updated": true
+    }
+  }
+}

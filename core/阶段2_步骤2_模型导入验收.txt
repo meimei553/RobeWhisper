@@ -1,0 +1,16 @@
+RobeWhisper · 阶段 2 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE2_STEP2_OK）
+
+交付：
+- core/model_catalog.py：扫描 / 上传 / 相对路径 ref
+- models/uploads/：上传目录
+- frontend/app.py：模型下拉选择、上传、加载、恢复默认
+
+操作（http://127.0.0.1:8501）：
+1. 选择模型 →「加载所选模型」
+2. 或上传 .xml →「保存上传文件」→ 自动加载
+3. 「恢复默认内置臂」可回退
+
+复验：python -m core.smoke_phase2_step2

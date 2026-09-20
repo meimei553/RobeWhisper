@@ -1,0 +1,11 @@
+RobeWhisper · 阶段 5 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE5_STEP4_OK）
+
+交付：
+- USE_REAL_ROBOT 开关：http/ros 未开启真发时强制 MockRobot
+- 网站显示 robot_backend / use_real_robot / last_robot_result
+- 聊天 meta 含 robot_result
+
+复验：python -m core.smoke_phase5_step4

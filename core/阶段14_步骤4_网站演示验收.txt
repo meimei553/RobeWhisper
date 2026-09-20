@@ -1,0 +1,19 @@
+RobeWhisper · 第 14 期 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE14_STEP4_OK）
+
+交付：
+- 能力清单「多步试机」；能力说明含多步/wait
+- 样例按钮「多步样例」→ 先回零再抓红色杯子
+- 诊断/聊天：多步试机一行 + 与 params.steps 区分说明
+- 演示剧本 3.6 节
+
+验证点：
+[x] 清单可见多步试机
+[x] 网站含多步样例与 format_multi_step_message
+[x] 诊断含多步文案；非工业连续作业
+[x] feature_visible step1 兼容第五项
+
+复验：python -m core.smoke_phase14_step4
+未做（步骤5）：总验

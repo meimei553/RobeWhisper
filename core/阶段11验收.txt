@@ -1,0 +1,41 @@
+RobeWhisper · 第 11 期验收
+========================================
+
+结论：通过（PHASE11_ACCEPTANCE_PASS）
+日期：2026-09-12
+
+一、本期交付
+--------------------------------
+[x] 联调契约 + 白话检查清单（怎么接入真机）
+[x] 本地假接收端 local_fake_receiver（不随站启动）
+[x] HttpRobot 对齐契约；ok=false → REJECTED
+[x] 实验 JSON 旁路 robot_result（成功/失败都落盘；endpoint 脱敏）
+[x] run_snapshot.robot_bridge
+[x] 网站真发开/关强提示 +「自检 HTTP 桥是否通」（只读 GET）
+
+二、红线（未堵死 12–15）
+--------------------------------
+[x] 不改 TaskSpec / SimResult / ApiResult 主字段名
+[x] 不拆 BaseRobot.execute_task；HTTP/ROS 仍发同一 TaskSpec
+[x] 默认 USE_REAL_ROBOT=false；缺配置回退 Mock
+[x] robot_result 旁路不吞 TaskSpec
+[x] trajectory 仍为可选扩展点（第 12 期）
+[x] 未做 grasp_success / steps[] / 3D / 公网 / 强制 Kimi
+[x] Pipeline：NL → LLM → TaskSpec → 闸 → engine →（可选）robot
+
+三、网站功能面核验（浏览器 + 烟雾）
+--------------------------------
+[x] 自然语言对话 + 诊断
+[x] 胡说/危险/正常样例 + 超限闸演示
+[x] 安全闸 / 经验复用 / 实验表 / 演示包导出
+[x] 模型切换 / 物理参数 / 关节步进
+[x] 真发关：明确「真实机械臂不会动」
+[x] HTTP 自检按钮可见
+[x] 点「正常样例」→ 诊断成功（grab/red_block，真机通道关闭）
+[x] 本机 http://127.0.0.1:8501 可打开（曾因旧进程缓存 ImportError，已重启修复）
+
+四、故意不做（留给 12–15 / 后期提醒）
+--------------------------------
+- 真轨迹 RSR、接触抓取、多步、3D、公网部署、Kimi 充值激活
+
+复验：python -m core.smoke_phase11

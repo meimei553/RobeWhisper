@@ -1,0 +1,16 @@
+RobeWhisper · 阶段 7 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE7_STEP2_OK）
+
+交付：
+- 首页「0–6 能力一览」与推荐用法
+- frontend/reply_text.py：成功/失败中文摘要
+- 聊天详细 JSON 收入折叠区；真机/RSR 默认关闭提示
+
+验证：
+- 未强制开真机/RSR；Pipeline 默认仍无 rsr
+- 回复不再堆 action= 字段串
+
+复验：python -m core.smoke_phase7_step2
+手动：刷新 http://127.0.0.1:8501 发一句指令查看可读回复

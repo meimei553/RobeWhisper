@@ -1,0 +1,33 @@
+{
+  "key": "home__none__default",
+  "action": "home",
+  "target": "",
+  "model_ref": "default",
+  "ok": true,
+  "reason": "",
+  "raw_text": "回零",
+  "params": {
+    "steps": 3,
+    "joint_targets": [
+      2.5642740009114238e-05,
+      -1.705079741039413e-05
+    ],
+    "joint_targets_original": [
+      2.5642740009114238e-05,
+      -1.705079741039413e-05
+    ],
+    "safety_audit": {
+      "clipped": false,
+      "rejected": false,
+      "skipped": false
+    },
+    "safety_message": "关节目标在限位内，安全闸放行"
+  },
+  "suggested_joint_targets": [
+    2.5642740009114238e-05,
+    -1.705079741039413e-05
+  ],
+  "trajectory_frames": 4,
+  "updated_at": "2026-09-14T06:09:31.917255+00:00",
+  "use_count": 182
+}

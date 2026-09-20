@@ -1,0 +1,19 @@
+RobeWhisper · 补强包一 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_BOOST1_STEP1_OK）
+
+交付：
+- core/pose_grounding_contract.py
+- core/场景位姿契约_补强包一.txt
+
+验证点：
+[x] pose_source ∈ {scene_model, none, uncertain}；拒绝 camera/vision
+[x] 无场景 empty 坐标为 None；伪造 xpos 可检出并被 sanitize 清掉
+[x] 有场景步骤1不填假成功坐标（uncertain + xpos=None）
+[x] 人话含「非相机」；代理摘要键齐全
+[x] TaskSpec 主字段未改名
+[x] phase13/14 步骤1 回归通过
+
+复验：python -m core.smoke_boost1_step1
+未做（步骤2+）：引擎按物体位置伸臂、诊断落盘、网站、总验

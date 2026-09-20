@@ -1,0 +1,60 @@
+RobeWhisper · 全产品复验（1–13 + 勘误）
+========================================
+日期：2026-09-13（二次全量 · 第13期收口后）
+
+一、目的是否按要求完成
+--------------------------------
+产品定位：机械臂自然语言试机平台（非上岗抓取成品）
+
+[x] 1–10 成熟交付面：人话→TaskSpec→仿真→实验/经验→安全闸→可复现包
+[x] 11 真机最小联调：契约 + 假接收端 + 旁路 + 警示/自检（默认关真发）
+[x] 能力可见打磨：清单可见 + 开闭三态 + API/HTTP 自检 + RSR 状态
+[x] 12 真轨迹 RSR：有轨迹真优先；无轨迹伪保底；可选严模式
+[x] 13 接触试机档 A：接触场景 + grasp_proxy + 诊断/落盘 + 一键演示
+[x] 口径：不上岗话术；伪对照≠真回流；接触代理≠工业夹稳≠现实抓住
+
+二、可行性结论（复验时点）
+--------------------------------
+| 块 | 结论 |
+|---|---|
+| 1–10 本机演示 | 可行；对应 PHASE*_ACCEPTANCE 全过 |
+| 11 软件侧联调 | 可行（假接收端）；真臂仍依赖实验室 |
+| 12 真优先/伪保底 | 可行（--with-trajectory） |
+| 13 接触试机档 A | 可行且已验收；档 B（夹爪/视觉）不做 |
+| 14–15 | 未做；不阻塞当前交付 |
+
+三、本回合烟雾实跑（全部 PASS）
+--------------------------------
+[x] SMOKE_STEP3_OK
+[x] PHASE0_ACCEPTANCE_PASS
+[x] PHASE1_ACCEPTANCE_PASS
+[x] PHASE2_ACCEPTANCE_PASS
+[x] PHASE3_ACCEPTANCE_PASS
+[x] PHASE4_ACCEPTANCE_PASS（site UP）
+[x] PHASE5_ACCEPTANCE_PASS（site UP）
+[x] PHASE6_ACCEPTANCE_PASS（site UP）
+[x] PHASE7_ACCEPTANCE_PASS（site UP）
+[x] PHASE9_ACCEPTANCE_PASS
+[x] PHASE10_ACCEPTANCE_PASS
+[x] PHASE11_ACCEPTANCE_PASS
+[x] PHASE12_ACCEPTANCE_PASS
+[x] PHASE13_ACCEPTANCE_PASS
+[x] SMOKE_FEATURE_VISIBLE_OK
+
+四、自行勘误
+--------------------------------
+[x] 代码烟雾：无失败，无需改业务代码
+[x] 文档：本文件从「1–12 + 13后置」更新为「1–13 完成、14–15 后置」
+[x] 回归一页纸 / 下次打开网站 / README / 总规划：此前步骤5已对齐，本回合复核无回退
+
+五、复验口令（一键串跑可参考）
+--------------------------------
+python -m core.smoke_step3
+python -m core.smoke_phase0
+…（至 phase7）…
+python -m core.smoke_phase9
+python -m core.smoke_phase10
+python -m core.smoke_phase11
+python -m core.smoke_phase12
+python -m core.smoke_phase13
+python -m core.smoke_feature_visible

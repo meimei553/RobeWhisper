@@ -1,0 +1,14 @@
+RobeWhisper · 第 10 期 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE10_STEP2_OK）
+
+交付：
+- build_experiment_record 自动/显式写入 run_snapshot
+- Pipeline._build_record 全路径落盘带快照
+- list_recent_experiments / 浏览表增加引擎、模型列
+- summary.csv 表头不改（避免旧文件错列）
+
+未做（步骤3+）：经验 model 分区、演示包
+
+复验：python -m core.smoke_phase10_step2

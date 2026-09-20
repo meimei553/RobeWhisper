@@ -1,0 +1,97 @@
+{
+  "experiment_id": "743050415a834398",
+  "created_at": "2026-09-11T11:29:09.955405+00:00",
+  "raw_text": "把桌上的红色杯子拿起来",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "2c17070ce66e",
+    "action": "grab",
+    "target": "red_cup",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        0.0058191897288837925,
+        0.25851592906017334
+      ]
+    },
+    "source": "mock",
+    "raw_text": "把桌上的红色杯子拿起来"
+  },
+  "sim_result": {
+    "task_id": "2c17070ce66e",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "default",
+        "joint_positions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "default",
+        "joint_positions": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "default",
+        "joint_positions": [
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2,
+          0.2
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "default",
+        "joint_positions": [
+          0.30000000000000004,
+          0.30000000000000004,
+          0.30000000000000004,
+          0.30000000000000004,
+          0.30000000000000004,
+          0.30000000000000004
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0
+    },
+    "message": "Mock 引擎已执行 action=grab target=red_cup",
+    "engine_name": "mock_engine",
+    "engine_version": "0.1.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mock_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true
+}

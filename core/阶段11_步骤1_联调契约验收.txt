@@ -1,0 +1,13 @@
+RobeWhisper · 第 11 期 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE11_STEP1_OK）
+
+交付：
+- core/robot_bridge_contract.py：请求/响应最小契约纯函数
+- plugins/robot/真机联调检查清单.txt：刷新「〇、最小 JSON 契约」
+  （ack=ok+message；trajectory 可选留给第12期）
+
+未做（步骤2+）：假接收端、Pipeline 旁路、网站强提示
+
+复验：python -m core.smoke_phase11_step1

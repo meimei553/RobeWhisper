@@ -1,0 +1,55 @@
+RobeWhisper 数据契约说明（阶段 0 · 步骤 2）
+========================================
+
+一、角色对照（谁产出 / 谁消费）
+--------------------------------
+| 结构        | 谁产出              | 谁消费                    | 一句话           |
+|-------------|---------------------|---------------------------|------------------|
+| TaskSpec    | LLM 插件 / UI / 经验库 | Engine、Robot、日志、回流 | 意图（唯一货币） |
+| SimResult   | Engine 适配器       | 前端展示、实验导出、经验库 | 仿真跑完的结果   |
+| ApiResult   | 任意业务编排层      | 前端网站                  | 统一成败包装     |
+
+二、字段冻结（主字段，后续步骤不得随意改名）
+--------------------------------
+TaskSpec:
+  task_id, action, target, constraints, params, source, raw_text
+
+SimResult:
+  task_id, ok, trajectory, metrics, message, engine_name, engine_version
+
+ApiResult:
+  ok, code, message, data
+
+三、仿真会话生命周期（有状态，不是一次无状态函数）
+--------------------------------
+load(model_ref) → reset() → step(TaskSpec 或控制增量)* → get_state()
+说明：
+- 引擎内部可以有句柄/物理世界，但不得泄漏到 TaskSpec / SimResult 字段里。
+- trajectory 里每帧只用通用键（如 t、joint_positions），不写引擎私有对象。
+
+四、失败形态（前端永不抛栈）
+--------------------------------
+ApiResult.ok = false
+ApiResult.code = 稳定错误码（如 PARSE_FAILED / ENGINE_TIMEOUT / REJECTED / INTERNAL）
+ApiResult.message = 用户可读中文（如「思考遇到一些阻碍，请稍后再试。」）
+禁止把 Python traceback 直接送给前端。
+
+五、明确禁止（防与具体系统绑死）
+--------------------------------
+契约字段中不得出现例如：mujoco_*, pybullet_*, ros_*, openai_* 等专用名。
+换 MuJoCo / 远程大物理模型 / ROS，只换插件实现，不改本契约主字段。
+
+六、与配置的关系
+--------------------------------
+路径、超时、backend 名仍在 config/settings.py 与 .env；
+契约只管「数据长什么样」，不管「文件在哪、Key 是什么」。
+
+七、步骤 2 勘误清单（自检）
+--------------------------------
+[x] 聊天/LLM 输出落点 = TaskSpec，不是自由文本当最终指令
+[x] 引擎输入吃 TaskSpec（或会话 step），输出 SimResult
+[x] 失败统一 ApiResult，字段与 TaskSpec/SimResult 不冲突
+[x] 无 MuJoCo/ROS/厂商专用字段名
+[x] 未破坏步骤 1 目录与 config 职责分离
+[x] 未引入第三方重依赖（仅用 Python 标准库 dataclasses）
+[x] 阶段 1 只需往 trajectory 填关节状态，不必改主字段名

@@ -1,0 +1,19 @@
+RobeWhisper · 第 13 期 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE13_STEP2_OK）
+
+交付：
+- core/contact_probe.py：decide/build + MuJoCo 接触/距离/位移度量
+- MujocoEngine.run_task：metrics 写入 contact_scene / grasp_proxy 等
+- MockEngine：可按 model_ref / mock_grasp_proxy 注入可预测结果
+- 接触场景方块位置微调，便于默认 grab 接近
+
+验证点：
+[x] 默认臂 → grasp_proxy=no_scene（不报假成功）
+[x] Mock 可复现 ok / no_contact / no_scene
+[x] 接触场景 home/远离 → 非 ok；grab → ok 或 uncertain（代理）
+[x] 未改 TaskSpec 主字段；步骤1回归通过
+
+复验：python -m core.smoke_phase13_step2
+未做（步骤3+）：诊断文案/落盘、网站样例、总验

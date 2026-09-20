@@ -1,0 +1,16 @@
+{
+  "experiment_id": "31acb17850a84754",
+  "created_at": "2026-09-11T11:44:27.681184+00:00",
+  "raw_text": "   ",
+  "ok": false,
+  "code": "PARSE_FAILED",
+  "message": "思考遇到一些阻碍，请稍后再试。",
+  "task_spec": {},
+  "sim_result": {},
+  "metrics": {
+    "frames": 0,
+    "success": 0.0
+  },
+  "adapters": {},
+  "experience_hit": false
+}

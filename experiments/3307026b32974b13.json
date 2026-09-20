@@ -1,0 +1,99 @@
+{
+  "experiment_id": "3307026b32974b13",
+  "created_at": "2026-09-12T04:41:02.274917+00:00",
+  "raw_text": "抓红色积木",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "58810e2a925f",
+    "action": "grab",
+    "target": "red_block",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        0.07495228909818392,
+        -0.5470566896531199
+      ]
+    },
+    "source": "mock",
+    "raw_text": "抓红色积木"
+  },
+  "sim_result": {
+    "task_id": "58810e2a925f",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.007199696185062645,
+          -0.5669331747818527
+        ],
+        "ctrl": [
+          0.07495228909818392,
+          -0.5470566896531199
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.0041300572165890535,
+          -0.6653833411780075
+        ],
+        "ctrl": [
+          0.07495228909818392,
+          -0.5470566896531199
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2\\model.xml",
+        "joint_positions": [
+          0.006452241845873232,
+          -0.5048800086449747
+        ],
+        "ctrl": [
+          0.07495228909818392,
+          -0.5470566896531199
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_block",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true
+}

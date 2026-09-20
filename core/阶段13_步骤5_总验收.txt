@@ -1,0 +1,42 @@
+RobeWhisper · 第 13 期 · 步骤 5 总验收
+========================================
+日期：2026-09-13
+结论：PHASE13_ACCEPTANCE_PASS
+
+一、步骤 1–4 烟雾
+--------------------------------
+[x] SMOKE_PHASE13_STEP1_OK（场景契约）
+[x] SMOKE_PHASE13_STEP2_OK（接触度量）
+[x] SMOKE_PHASE13_STEP3_OK（诊断/落盘）
+[x] SMOKE_PHASE13_STEP4_OK（网站演示）
+
+二、档 A 功能核验（相对正式方案）
+--------------------------------
+[x] 接触场景 MJCF：models/builtin_arm2_contact/model.xml
+[x] 默认仍 builtin_arm2（无物体），旧演示不破
+[x] metrics 旁路：contact_scene / contact_detected / grasp_proxy / object_moved
+[x] grasp_proxy ∈ {ok, no_contact, no_scene, uncertain}
+[x] 无场景 → no_scene（不报假成功）
+[x] 诊断/聊天人话；强调非工业夹稳、≠现实抓住
+[x] 实验落盘 + 列表「接触代理」列
+[x] 能力清单「接触试机」+ 一键切换/恢复按钮
+
+三、档 B（本期明确不做）
+--------------------------------
+[x] 未交付：力控夹爪开合、视觉找物、真机夹爪闭环成功判定
+[x] 文案未写成「已抓住可上岗」
+
+四、硬约束
+--------------------------------
+[x] 未改 TaskSpec / SimResult / ApiResult 主字段名
+[x] 未拆 BaseRobot.execute_task
+[x] 默认真发 / 严模式 RSR / API 仍关（.env.example）
+[x] 未堵死第14期多步、第15期部署
+
+五、回归
+--------------------------------
+[x] PHASE12_ACCEPTANCE_PASS
+[x] SMOKE_FEATURE_VISIBLE_OK
+[x] SMOKE_PHASE9_STEP1_OK
+
+复验口令：python -m core.smoke_phase13

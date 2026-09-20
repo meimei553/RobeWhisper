@@ -1,0 +1,9 @@
+﻿RobeWhisper 目录分区（阶段 0）
+
+core/          核心契约与业务编排
+  schemas.py / pipeline.py / bootstrap.py / smoke_step3.py
+  契约说明.txt / 勘误记录.txt
+plugins/       engines / llm / vlm / robot 适配器
+frontend/      app.py  ← 临时网站入口（步骤 4）
+models/ experiments/ experience/ config/
+requirements.txt  当前含 streamlit

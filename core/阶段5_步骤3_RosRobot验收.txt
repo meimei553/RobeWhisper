@@ -1,0 +1,11 @@
+RobeWhisper · 阶段 5 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_PHASE5_STEP3_OK）
+
+交付：
+- plugins/robot/ros_robot.py（骨架 + 无 rclpy 友好失败）
+- plugins/robot/ROS接入说明.txt
+- bootstrap：ros 且无 rclpy / 缺 DOMAIN_ID → MockRobot
+
+复验：python -m core.smoke_phase5_step3

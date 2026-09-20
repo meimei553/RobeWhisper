@@ -1,0 +1,20 @@
+RobeWhisper · 第 9 期 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE9_STEP2_OK）
+
+交付：
+- Pipeline 在 engine.run_task 前调用安全闸
+- SAFETY_MODE=clip|reject（settings / .env.example）
+- MuJoCo/MockEngine.get_joint_limits()
+- 成功/拒绝结果含 safety_gate；clip 保留 joint_targets_original
+
+未堵死 11–15：
+- TaskSpec 主字段未改
+- 真机仍接收同一 TaskSpec（裁剪后目标 + 原始旁路）
+- 无 joint_targets 的示意路径仍 skip 放行
+- 有经验注入时闸仍工作（clip/reject），不吞 original
+
+勘误：本地「回零」常命中 home 经验 → 非 skip，见勘误记录四十三。
+
+复验：python -m core.smoke_phase9_step2

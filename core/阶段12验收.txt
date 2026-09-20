@@ -1,0 +1,13 @@
+RobeWhisper · 第 12 期验收总表
+========================================
+结论：PHASE12_ACCEPTANCE_PASS（2026-09-13）
+
+交付摘要：
+- 真轨迹提取加固（ack/response/data）+ 合格性校验
+- 假接收端可选 --with-trajectory
+- 策略 prefer_real / require_real；默认伪保底
+- 网站与真机清单对齐
+
+复验：python -m core.smoke_phase12
+详单：core/阶段12_步骤5_总验收.txt
+正式流程：core/阶段12_正式流程_真轨迹RSR.txt

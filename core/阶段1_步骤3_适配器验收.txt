@@ -1,0 +1,18 @@
+RobeWhisper · 阶段 1 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_MUJOCO_STEP3_OK / KANYU_PHASE1_STEP3_OK）
+
+交付：
+- plugins/engines/mujoco_engine.py  实现 BaseEngine
+- core/bootstrap.create_engine()    支持 mujoco|local|mock
+- core/smoke_mujoco_step3.py        命令行验收（关节角变化）
+
+验证要点：
+- load(default) → reset → step(joint_targets) 后 joint_positions 明显变化
+- run_task 返回 SimResult，主字段未改名
+- pipeline / frontend 不直接 import mujoco
+- ENGINE_BACKEND=mock 时仍可回退 MockEngine
+
+复验：
+  python -m core.smoke_mujoco_step3

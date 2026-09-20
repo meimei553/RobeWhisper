@@ -1,0 +1,13 @@
+RobeWhisper · 第 10 期 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE10_STEP4_OK）
+
+交付：
+- core/demo_pack.py：按 id / 最近一条导出 zip
+- 包内：experiment.json、trajectory_summary.json、run_snapshot.json、README_演示说明.txt
+- 脱敏：密钥键与 sk- 不得出现；全量轨迹改为摘要
+- 网站「实验数据」区可导出并下载
+- 能力说明补充「演示包」一行
+
+复验：python -m core.smoke_phase10_step4

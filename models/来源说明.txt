@@ -1,0 +1,36 @@
+RobeWhisper models/ 来源说明（阶段 1 · 步骤 2）
+========================================
+
+一、默认模型（推荐阶段 1 使用）
+--------------------------------
+路径：models/builtin_arm2/model.xml
+相对配置键：通过 config.settings.MODELS_DIR / DEFAULT_MODEL_REL 访问
+内容：自包含二自由度平面臂 MJCF（无外部 mesh）
+许可：项目内置教学资产，可自由用于本产品开发与比赛展示
+用途：步骤 3/4 真引擎适配器与网页操控的默认加载对象
+
+一·附 接触试机场景（第 13 期，非默认）
+--------------------------------
+路径：models/builtin_arm2_contact/model.xml
+相对引用：builtin_arm2_contact/model.xml
+内容：与 builtin_arm2 同构平面臂 + 自由方块 object_block
+约定：见 core/contact_scene_contract.py（旁路 metrics，不改主契约）
+用途：接触/接近试机；默认演示仍用 builtin_arm2，需在网站下拉显式选择
+
+二、附带模型（来自本机已安装的 MuJoCo 包）
+--------------------------------
+路径：models/mujoco_testdata/model.xml
+来源：pip 包 mujoco 内 testdata/model.xml 拷贝
+上游许可：遵循 MuJoCo 开源许可（Apache-2.0）
+说明：官方测试场景，自由度较多，适合验证「能加载」；日常演示优先 builtin_arm2
+
+三、未放入本仓库的原因说明
+--------------------------------
+原计划可再引入 google-deepmind/mujoco 仓库 arm26 等官方样例；
+因当前环境外网拉取不稳定，步骤 2 改以「包内现成拷贝 + 自包含内置臂」完成验收，
+不阻塞后续适配器开发。阶段 2 再支持用户导入更多 URDF/MJCF。
+
+四、路径约定（勘误要点）
+--------------------------------
+- 业务代码应使用 config.settings.MODELS_DIR，禁止写死 C:\Users\... 绝对路径
+- 默认相对路径常量：config.settings.DEFAULT_MODEL_REL = "builtin_arm2/model.xml"

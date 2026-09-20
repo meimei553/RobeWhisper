@@ -1,0 +1,33 @@
+RobeWhisper · 第 12 期 · 步骤 5 总验收
+========================================
+
+结论：通过（PHASE12_ACCEPTANCE_PASS）
+日期：2026-09-13
+
+一、本期目标对照
+--------------------------------
+[x] 有合格真轨迹 → 必须优先用真轨迹（禁止静默伪对照）
+[x] 无真轨迹 → 默认仍可伪对照（未接真机可演示）
+[x] 可选严模式 RSR_REQUIRE_REAL_TRAJECTORY（默认关）
+[x] 假接收端 --with-trajectory 可在本机验收真优先
+[x] 网站/清单标明伪对照≠真回流；策略与帧数可见
+
+二、硬约束书面确认
+--------------------------------
+[x] 未改 TaskSpec / SimResult / ApiResult 主字段名
+[x] 未拆 BaseRobot.execute_task；示例默认关真发/RSR/API
+[x] 严模式默认关；未默认打开真发
+[x] 未做接触抓取（留给第13期）；未堵死送单/轨迹口
+[x] 未承诺仿真=真机或上岗抓取
+
+三、回归
+--------------------------------
+[x] smoke_phase12_step1–4
+[x] smoke_phase11_step4 / smoke_phase6_step3 / smoke_feature_visible_step4
+[x] 总口令：python -m core.smoke_phase12 → PHASE12_ACCEPTANCE_PASS
+
+四、你怎么在本机验两条路径
+--------------------------------
+路径 P（无真机）：关真发，勾选 RSR → 摘要显示「伪对照」
+路径 R（验真优先）：假接收端 --with-trajectory + 开 http 真发 + 勾选 RSR → 摘要显示「真轨迹」
+严模式：.env 设 RSR_REQUIRE_REAL_TRAJECTORY=true → 无真轨迹则跳过校准

@@ -1,0 +1,14 @@
+RobeWhisper · 阶段 5 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE5_STEP1_OK）
+
+交付：
+- settings：ROBOT_BACKEND / USE_REAL_ROBOT / ROBOT_EXECUTE_ENDPOINT /
+  ROS_DOMAIN_ID / ROS_EXECUTE_TOPIC / robot_http_configured / robot_ros_configured
+- bootstrap.create_robot：mock|http|ros；缺配置或未实现插件时回退 MockRobot
+- .env.example 已写明阶段5真机项
+
+本步不做：HttpRobot / RosRobot 完整实现（步骤2/3）
+
+复验：python -m core.smoke_phase5_step1

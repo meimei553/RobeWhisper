@@ -1,0 +1,40 @@
+RobeWhisper · 第 14 期 · 步骤 5 总验收
+========================================
+日期：2026-09-14
+结论：PHASE14_ACCEPTANCE_PASS
+
+一、步骤 1–4 烟雾
+--------------------------------
+[x] SMOKE_PHASE14_STEP1_OK（动作表 + steps 契约）
+[x] SMOKE_PHASE14_STEP2_OK（多步解析）
+[x] SMOKE_PHASE14_STEP3_OK（顺序执行）
+[x] SMOKE_PHASE14_STEP4_OK（网站演示）
+
+二、档 A 功能核验
+--------------------------------
+[x] 动作表含 wait；白名单统一
+[x] TaskSpec.steps 可选；空=单步兼容
+[x] 「先…再…」解析 + 按序执行；失败可标第几步
+[x] 与 params.steps（仿真细分）区分
+[x] 网站能力清单 + 多步样例 + 诊断
+[x] 多步暂不复用经验；真机逐步送单
+
+三、档 B（本期不做）
+--------------------------------
+[x] 条件分支、并行 steps、视觉规划、工业工艺
+[x] 未做第15期公网部署 / 强制 Kimi / 3D 主视口
+
+四、硬约束
+--------------------------------
+[x] 未改已有主字段名（只增 steps）
+[x] 未拆 execute_task；默认真发仍关
+[x] 未堵死第15期
+
+五、回归
+--------------------------------
+[x] PHASE13_ACCEPTANCE_PASS
+[x] SMOKE_FEATURE_VISIBLE_OK
+[x] SMOKE_PHASE9_STEP1_OK
+[x] SMOKE_STEP3_OK
+
+复验口令：python -m core.smoke_phase14

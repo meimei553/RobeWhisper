@@ -1,0 +1,18 @@
+RobeWhisper · 第 12 期 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE12_STEP4_OK）
+
+交付：
+- 网站：RSR 策略人话、对照帧数、跳过时坏轨迹原因；摘要四列含帧数
+- 能力清单 how：--with-trajectory / RSR_REQUIRE_REAL_TRAJECTORY
+- 真机联调检查清单 F 节改为可操作的第12期勾选与轨迹形状示例
+
+验证点：
+[x] 关着仍写「不会做校准」
+[x] 伪对照/真轨迹/严模式跳过文案可读
+[x] 清单含假接收端带轨迹与严模式说明
+[x] 复跑 feature_visible_step1/4、phase12_step3
+
+复验：python -m core.smoke_phase12_step4
+未做（步骤5）：总验 + 总规划勾完成态

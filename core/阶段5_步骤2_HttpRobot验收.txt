@@ -1,0 +1,15 @@
+RobeWhisper · 阶段 5 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE5_STEP2_OK）
+
+交付：
+- plugins/robot/http_robot.py
+- bootstrap 在 ROBOT_BACKEND=http 且 endpoint 齐全时创建 HttpRobot
+
+验证：
+- 错误地址 → NETWORK/TIMEOUT，不抛栈
+- 本地假 HTTP 服务可收到 TaskSpec JSON
+- pipeline 不直接绑定 HttpRobot 类名
+
+复验：python -m core.smoke_phase5_step2

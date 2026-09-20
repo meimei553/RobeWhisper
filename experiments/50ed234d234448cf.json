@@ -1,0 +1,288 @@
+{
+  "experiment_id": "50ed234d234448cf",
+  "created_at": "2026-09-19T07:56:43.200732+00:00",
+  "raw_text": "抓起红色积木",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "70190ca86960",
+    "action": "grab",
+    "target": "red_block",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        2.8,
+        -2.5
+      ],
+      "joint_targets_original": [
+        9.0,
+        -9.0
+      ],
+      "safety_audit": {
+        "clipped": true,
+        "rejected": false,
+        "skipped": false,
+        "original_targets": [
+          9.0,
+          -9.0
+        ],
+        "applied_targets": [
+          2.8,
+          -2.5
+        ]
+      },
+      "safety_message": "安全闸已裁剪超限关节目标。关节0: 9.0000→[-2.8000,2.8000]；关节1: -9.0000→[-2.5000,2.5000]"
+    },
+    "source": "mock",
+    "raw_text": "抓起红色积木",
+    "steps": []
+  },
+  "sim_result": {
+    "task_id": "70190ca86960",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2_contact\\model.xml",
+        "joint_positions": [
+          0.0,
+          0.0,
+          0.36,
+          0.18,
+          0.04,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2_contact\\model.xml",
+        "joint_positions": [
+          0.059769177380352895,
+          -2.6177200982706523,
+          0.36,
+          0.18,
+          0.03175959999999999,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "ctrl": [
+          2.8,
+          -2.5
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2_contact\\model.xml",
+        "joint_positions": [
+          0.1454607065623261,
+          -3.0308395022683494,
+          0.3599999999999954,
+          0.1800000086936553,
+          0.027341419901330877,
+          0.9999999999999573,
+          2.9205762178642396e-07,
+          1.5403963189304673e-13,
+          -1.1879783890681962e-15
+        ],
+        "ctrl": [
+          2.8,
+          -2.5
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "C:\\Users\\34287\\Desktop\\RobeWhisper\\models\\builtin_arm2_contact\\model.xml",
+        "joint_positions": [
+          0.23657837504034815,
+          -3.0005586340786894,
+          0.3599999999999834,
+          0.1800000313063638,
+          0.02911424003443522,
+          0.9999999999999766,
+          2.1665838389110888e-07,
+          1.1427653579101576e-13,
+          -2.0331320500379963e-15
+        ],
+        "ctrl": [
+          2.8,
+          -2.5
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0,
+      "moved": true,
+      "elapsed_sec": 0.0,
+      "timeout_sec": 30.0,
+      "contact_scene": true,
+      "contact_detected": false,
+      "grasp_proxy": "uncertain",
+      "object_moved": true,
+      "ee_object_distance": 0.367204,
+      "pose_source": "uncertain",
+      "object_xpos": [
+        0.36,
+        0.18,
+        0.04
+      ],
+      "ee_goal_xy": null
+    },
+    "message": "MuJoCo 已执行 action=grab target=red_block",
+    "engine_name": "mujoco_engine",
+    "engine_version": "3.13.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "moved": true,
+    "elapsed_sec": 0.0,
+    "timeout_sec": 30.0,
+    "contact_scene": true,
+    "contact_detected": false,
+    "grasp_proxy": "uncertain",
+    "object_moved": true,
+    "ee_object_distance": 0.367204,
+    "pose_source": "uncertain",
+    "object_xpos": [
+      0.36,
+      0.18,
+      0.04
+    ],
+    "ee_goal_xy": null,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mujoco_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true,
+  "run_snapshot": {
+    "schema_version": 1,
+    "collected_at": "2026-09-19T07:56:43.200732+00:00",
+    "model_ref": "builtin_arm2_contact",
+    "backends": {
+      "ENGINE_BACKEND": "mujoco",
+      "LLM_BACKEND": "mock",
+      "ROBOT_BACKEND": "mock"
+    },
+    "adapters": {
+      "llm": {
+        "name": "mock_llm",
+        "version": "unknown"
+      },
+      "engine": {
+        "name": "mujoco_engine",
+        "version": "3.13.0"
+      },
+      "robot": {
+        "name": "mock_robot",
+        "version": "unknown"
+      }
+    },
+    "flags": {
+      "USE_REAL_ROBOT": false,
+      "USE_REAL_SIM_REAL": false,
+      "SAFETY_MODE": "clip"
+    },
+    "timeouts": {
+      "ENGINE_TIMEOUT_SEC": 30.0,
+      "LLM_TIMEOUT_SEC": 60.0,
+      "ROBOT_TIMEOUT_SEC": 30.0
+    },
+    "paths": {
+      "DEFAULT_MODEL_REL": "builtin_arm2/model.xml",
+      "MODELS_DIR_NAME": "models"
+    },
+    "robot_bridge": {
+      "backend": "mock",
+      "use_real_robot": false,
+      "endpoint": {
+        "configured": false,
+        "host": "",
+        "port": null,
+        "path": "",
+        "scheme": ""
+      }
+    },
+    "extra": {
+      "grasp_proxy": "uncertain",
+      "contact_scene": true,
+      "contact_detected": false,
+      "proxy_summary": {
+        "pose_source": "uncertain",
+        "grasp_proxy": "uncertain",
+        "contact_scene": true,
+        "multi_step": false,
+        "step_count": "-",
+        "rsr_reference_source": "-"
+      },
+      "pose_source": "uncertain"
+    }
+  },
+  "robot_result": {
+    "ok": true,
+    "code": "OK",
+    "message": "Mock 真机已接收任务 action=grab",
+    "data": {
+      "accepted": true,
+      "task_id": "70190ca86960",
+      "robot": "mock_robot"
+    }
+  },
+  "safety_gate": {
+    "ok": true,
+    "mode": "clip",
+    "skipped": false,
+    "original_targets": [
+      9.0,
+      -9.0
+    ],
+    "applied_targets": [
+      2.8,
+      -2.5
+    ],
+    "violations": [
+      {
+        "index": 0,
+        "value": 9.0,
+        "lo": -2.8,
+        "hi": 2.8
+      },
+      {
+        "index": 1,
+        "value": -9.0,
+        "lo": -2.5,
+        "hi": 2.5
+      }
+    ],
+    "message": "安全闸已裁剪超限关节目标。关节0: 9.0000→[-2.8000,2.8000]；关节1: -9.0000→[-2.5000,2.5000]",
+    "safety_audit": {
+      "clipped": true,
+      "rejected": false,
+      "skipped": false,
+      "original_targets": [
+        9.0,
+        -9.0
+      ],
+      "applied_targets": [
+        2.8,
+        -2.5
+      ]
+    }
+  }
+}

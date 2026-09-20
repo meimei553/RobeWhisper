@@ -1,0 +1,68 @@
+{
+  "experiment_id": "d2b3a25836b94801",
+  "created_at": "2026-09-12T06:56:44.762489+00:00",
+  "raw_text": "测试导出",
+  "ok": true,
+  "code": "OK",
+  "message": "step1",
+  "task_spec": {
+    "action": "move",
+    "target": ""
+  },
+  "sim_result": {
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "joint_positions": [
+          0.0
+        ]
+      }
+    ],
+    "metrics": {}
+  },
+  "metrics": {
+    "frames": 1,
+    "success": 1.0
+  },
+  "adapters": {},
+  "experience_hit": false,
+  "run_snapshot": {
+    "schema_version": 1,
+    "collected_at": "2026-09-12T06:56:44.762489+00:00",
+    "model_ref": "default",
+    "backends": {
+      "ENGINE_BACKEND": "mujoco",
+      "LLM_BACKEND": "mock",
+      "ROBOT_BACKEND": "mock"
+    },
+    "adapters": {
+      "llm": {
+        "name": "unknown",
+        "version": "unknown"
+      },
+      "engine": {
+        "name": "unknown",
+        "version": "unknown"
+      },
+      "robot": {
+        "name": "unknown",
+        "version": "unknown"
+      }
+    },
+    "flags": {
+      "USE_REAL_ROBOT": false,
+      "USE_REAL_SIM_REAL": false,
+      "SAFETY_MODE": "clip"
+    },
+    "timeouts": {
+      "ENGINE_TIMEOUT_SEC": 30.0,
+      "LLM_TIMEOUT_SEC": 60.0,
+      "ROBOT_TIMEOUT_SEC": 30.0
+    },
+    "paths": {
+      "DEFAULT_MODEL_REL": "builtin_arm2/model.xml",
+      "MODELS_DIR_NAME": "models"
+    }
+  }
+}

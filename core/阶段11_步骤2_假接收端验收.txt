@@ -1,0 +1,22 @@
+RobeWhisper · 第 11 期 · 步骤 2 验收
+========================================
+
+结论：通过（SMOKE_PHASE11_STEP2_OK）
+
+交付：
+- plugins/robot/local_fake_receiver.py：本地假接收端（默认 127.0.0.1:9000）
+  手动启动：python -m plugins.robot.local_fake_receiver
+  不随 Streamlit 启动；回 {ok, message}，校验 task_spec 契约
+- HttpRobot：请求走 build_execute_request；响应走 normalize_execute_ack；
+  对端 ok=false 时返回 REJECTED（友好失败）
+- 清单 C 节已写入假端启动命令
+
+验证点：
+[x] 指向假端 → 成功 ack
+[x] 错地址 → NETWORK/TIMEOUT，不抛栈
+[x] 错路径 → REJECTED
+[x] 烟雾结束恢复 USE_REAL_ROBOT=false、ROBOT_BACKEND=mock
+
+未做（步骤3+）：Pipeline/实验旁路写回、网站强提示、第11期总验
+
+复验：python -m core.smoke_phase11_step2

@@ -1,0 +1,17 @@
+RobeWhisper · 能力可见 · 步骤4 验收
+========================================
+
+结论：通过（SMOKE_FEATURE_VISIBLE_STEP4_OK）
+
+交付：
+- build_rsr_status_hint / format_rsr_status_line：关=不会做校准；已开未跑；伪对照；真轨迹
+- 勾选旁即时状态条；校准摘要用人话「伪对照/真轨迹」
+- 诊断与聊天 rsr_msg 标明对照类型；文案留第12期真轨迹优先口
+
+验证点：
+[x] 默认关文案含「不会做校准」
+[x] 伪对照结果不伪装成真机回流
+[x] 真轨迹映射为「真轨迹」
+[x] 未改 rsr_loop 主逻辑；伪对照仍可演示，未写成唯一终局
+
+复验：python -m core.smoke_feature_visible_step4

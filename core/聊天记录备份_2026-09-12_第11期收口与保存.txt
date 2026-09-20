@@ -1,0 +1,71 @@
+# RobeWhisper · 对话与需求交接备份（2026-09-12 深夜）
+
+## 给下一次对话 / 下次打开网站用
+
+### 怎么打开最新网站
+1. 工作目录始终是：`C:\Users\34287\Desktop\RobeWhisper`
+2. 双击 `一键启动网站.bat`，或对 AI 说「打开网站」
+3. 地址：http://127.0.0.1:8501
+4. 若打不开：先双击 `安装依赖.bat`；若报奇怪 ImportError，关掉旧黑窗口后再启动
+
+### 桌面整包备份（本次已做）
+- 文件夹名形如：`Desktop\RobeWhisper_backup_年月日_时分`
+- **不含** `.env`（密钥不进备份）与 `.venv`
+- 日常请继续改工作区 `RobeWhisper`；备份是保险副本
+
+### 用户约束（必须遵守）
+- 零基础；优先 Python / Streamlit；简体中文；代码注释中文
+- 每期：先方案≤5步 → 一步一验 → 自行勘误 → 再下一步
+- 不自研引擎、不训大模型；成熟体系优先
+- 口径：机械臂自然语言试机；不上岗话术；物理接触抓取后置
+
+### 产品进度
+| 期 | 状态 |
+|---|---|
+| 1–8 | 底座完成 |
+| 9 | 安全闸/超时/拒识 · PHASE9_ACCEPTANCE_PASS |
+| 10 | 快照/经验分区/演示包 · PHASE10_ACCEPTANCE_PASS |
+| **11** | **真机最小联调 · PHASE11_ACCEPTANCE_PASS** |
+| 12–15 | 后置（真轨迹RSR、接触抓取、多步、3D/部署/Kimi充值） |
+
+### 第 11 期交付要点
+- 契约：`core/robot_bridge_contract.py`
+- 假接收端：`python -m plugins.robot.local_fake_receiver`
+- 清单白话：`plugins/robot/真机联调检查清单.txt`（含「怎么接入真机」）
+- 实验旁路 `robot_result`（脱敏）
+- 网站：真发开/关警示 +「自检 HTTP 桥是否通」
+
+### 当前安全默认（.env）
+```
+LLM_BACKEND=mock
+USE_REAL_ROBOT=false
+USE_REAL_SIM_REAL=false
+ENGINE_BACKEND=mujoco
+```
+- Kimi 密钥可留在本机 `.env`（gitignore）；余额不足时保持 mock
+- 后期：`core/后期完善提醒_11到15.txt`
+
+### 真机怎么接（给人看的答案）
+不会自动发现真臂。按检查清单改 `.env`：
+```
+USE_REAL_ROBOT=true
+ROBOT_BACKEND=http
+ROBOT_EXECUTE_ENDPOINT=http://实验室IP:端口/execute_task
+```
+重启网站；演示完改回 false + mock。
+
+### 关键文件
+- `core/总规划_不超过15期.md`
+- `core/阶段11验收.txt`
+- `core/最新备份说明_2026-09-12.md`
+- `core/回归与启动一页纸.txt`
+
+### 明天上班提醒（2026-09-13 · 只讨论不改站）
+见：`core/明天上班提醒_第12期与自检讨论.txt`
+口令：看明天提醒
+要点：① 默认关接口的自检按钮是否齐全（先问后做）；② 第12期无真轨迹仍伪对照为主，有真轨迹则真优先。
+
+### 验收命令
+```
+python -m core.smoke_phase11
+```

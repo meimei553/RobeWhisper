@@ -1,0 +1,13 @@
+RobeWhisper · 阶段 1 · 步骤 4 验收
+========================================
+
+结论：通过（KANYU_PHASE1_STEP4_OK）
+
+交付：
+- frontend/app.py 增加关节滑条、应用步进、重置、重新加载
+- 页面只调用 create_engine()/BaseEngine，不直接 import mujoco
+- 显示 joint_positions 与步序号 t
+- st.session_state 复用引擎会话
+
+打开：http://127.0.0.1:8501
+操作：拖动「关节1/2」→ 点「应用并步进」→ 下方 joint_positions 应变化

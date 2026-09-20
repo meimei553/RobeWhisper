@@ -1,0 +1,633 @@
+RobeWhisper 自行勘误记录
+========================
+
+一、步骤 1 补做勘误（此前遗漏，现已补查）
+--------------------------------
+检查项：
+[x] 分区目录齐全：core / plugins(engines,llm,vlm,robot) / frontend / models / experiments / experience / config
+[x] .env.example 含 backend、路径、超时占位；无真实 API Key（无 sk- 等）
+[x] config/settings.py 从环境变量读配置，未硬编码密钥
+[x] 本步未引入仿真/LLM/ROS 重依赖
+[x] 未写死本机绝对路径作为唯一配置方式（使用相对 MODELS_DIR 等）
+
+已知遗留（不阻塞步骤 1，记入后续）：
+- 本机命令行当时无 git，仓库未 init；不影响契约与插件开发，装好 git 后再做版本管理即可。
+
+结论：步骤 1 合格；与最终方案「配置外置、目录分区」一致。
+
+
+二、步骤 3 自行勘误
+--------------------------------
+检查项：
+[x] BaseEngine / BaseLLM / BaseRobot 抽象存在；BaseVLM 仅预留
+[x] MockEngine / MockLLM / MockRobot 可替换实现存在
+[x] core/pipeline.py 只依赖基类，源码中不出现 Mock* 类名
+[x] 具体类组装仅在 core/bootstrap.py（组合根）
+[x] 假链路跑通：自然语言 → TaskSpec → SimResult → execute_task
+[x] 非法/空指令返回 ApiResult 失败，不抛堆栈给调用方
+[x] 未改动步骤 2 冻结的 TaskSpec / SimResult / ApiResult 主字段名
+[x] 未引入第三方物理/LLM 库
+[x] python -m core.smoke_step3 输出 SMOKE_STEP3_OK
+
+结论：步骤 3 合格；可进入步骤 4（临时空网站挂上 Mock 就绪提示）。
+
+三、步骤 4 自行勘误
+--------------------------------
+检查项：
+[x] 页面标题为「RobeWhisper机器人自然语言编程平台」
+[x] 本地 Streamlit 已启动，HTTP 200：http://127.0.0.1:8501
+[x] 页面通过 create_pipeline 探测 Mock，不直接 import Mock* 类名
+[x] 异常路径使用友好文案，不向页面抛栈
+[x] 未改动 TaskSpec 等契约主字段
+[x] 未引入物理引擎/云端 LLM（仅 streamlit 依赖）
+
+结论：步骤 4 合格。阶段 0 还差步骤 5（总验收 + 勘误清单收口）。
+
+关于链接：
+- 临时站链接：本步即可使用 http://127.0.0.1:8501（需本机保持 streamlit 运行）
+- 可对外分享的恒定公网链接：需到阶段 5「接入恒定系统」部署后才有
+
+四、步骤 5（阶段 0 总验收）自行勘误
+--------------------------------
+[x] 复跑 smoke_step3 通过
+[x] 复跑 smoke_phase0 通过（含网站 HTTP 与契约冻结检查）
+[x] 对照最终方案：接口化 / 配置外置 / 临时站 / 不绑死引擎 —— 均未违反
+[x] 已书面划清阶段 1 允许与禁止项（见 core/阶段0验收.txt）
+[x] 无发现需立刻返工的兼容性问题
+
+结论：阶段 0 收口完成，可进入阶段 1（先方案小步，再写代码）。
+
+五、阶段1·步骤1 自行勘误
+--------------------------------
+[x] MuJoCo 3.13.0 安装并可 mj_step
+[x] 正式选型 mujoco，书面记录已落盘
+[x] 契约未改；未提前写 mujoco_engine 适配器；页面未直接 import mujoco
+[x] requirements 已加入 mujoco，保留 streamlit
+[x] 探测复跑 PROBE_STEP1_OK / KANYU_PHASE1_STEP1_OK
+
+六、阶段1·步骤2 自行勘误
+--------------------------------
+[x] 默认模型经 MODELS_DIR/DEFAULT_MODEL_REL 可加载
+[x] 附带 mujoco testdata 现成拷贝
+[x] 来源说明已落盘；配置无写死用户盘符
+[x] 未提前写 mujoco_engine；页面未直接 import mujoco；契约未改
+[x] mock 回退链路仍可用
+
+七、阶段1·步骤3 自行勘误
+--------------------------------
+[x] MujocoEngine 实现 load/reset/step/get_state/run_task
+[x] 命令行可见关节角变化（delta>1e-3）
+[x] 契约主字段未改；pipeline/页面不直接依赖 mujoco
+[x] bootstrap 可在 mujoco 与 mock 间切换；mock 烟雾仍通过
+[x] 模型路径经 MODELS_DIR / default 解析，未写死业务盘符逻辑
+
+八、阶段1·步骤4 自行勘误
+--------------------------------
+[x] 页面含滑条/按钮，并展示 joint_positions
+[x] 不直接 import mujoco；经 create_engine 适配器
+[x] 异常友好提示；契约未改；HTTP 200
+[x] 引擎步进在同款调用下关节角可变
+
+九、阶段1·步骤5 自行勘误
+--------------------------------
+[x] 阶段1总验收 PASS（真引擎运动 + 网站 + mock 回退 + 契约冻结）
+[x] 未越界做导入面板/LLM聊天/经验库/ROS
+[x] 阶段2边界已写入 core/阶段1验收.txt
+[x] 关于最终网址：临时本机已有；公网恒定地址待部署后提供，功能在同一产品网站上叠加
+
+十、阶段2·步骤1 自行勘误
+--------------------------------
+[x] BaseEngine 新增 list/set_physics_params；Mock 与 MuJoCo 均实现
+[x] 契约主字段未改；未知参数进 skipped，不崩
+[x] 复跑阶段1/Mock 烟雾通过 → 前两阶段能力可回归
+[x] 本步未改网站导入 UI（留给步骤2/4）
+
+十一、阶段2·步骤2 自行勘误
+--------------------------------
+[x] 模型扫描/上传/切换加载可用；失败可回退 default
+[x] 页面不直接 import mujoco；契约未改
+[x] 步骤1 参数接口与阶段1 回归仍通过；网站 HTTP 200
+
+十二、阶段2·步骤3 自行勘误
+--------------------------------
+[x] 参数面板经 list/set_physics_params；写入后可读回；未知键 skipped
+[x] 改参后仍可步进；页面不直接 import mujoco；契约未改
+[x] 步骤1/2 与阶段1 回归通过；网站 HTTP 200
+
+十三、阶段2·步骤4 自行勘误
+--------------------------------
+[x] 网站闭环顺序清晰（模型→参数→步进）+ session 进度标记
+[x] run_closed_loop 验收：换模型/写参数/步进/回退 default 通过
+[x] 页面不直接 import mujoco；契约未改；步骤2/3与阶段1回归通过
+
+十四、阶段2·步骤5 自行勘误
+--------------------------------
+[x] 步骤1–4 烟雾与总复验 PHASE2_ACCEPTANCE_PASS
+[x] 阶段1 回归通过；未越界做 LLM/经验库/ROS
+[x] 阶段3 边界已写入 core/阶段2验收.txt
+[x] 无发现需返工的契约或适配器破坏项
+
+十五、阶段3开场 · 前三阶段顺承勘误
+--------------------------------
+[x] 阶段0 Mock 假链路 SMOKE_STEP3_OK
+[x] 阶段1 PHASE1_ACCEPTANCE_PASS
+[x] 阶段2 PHASE2_ACCEPTANCE_PASS
+[x] 临时站 HTTP 200
+结论：前三个阶段可顺承跑动；阶段3将在其上挂对话，不拆旧能力。
+
+十六、阶段3·步骤1 自行勘误
+--------------------------------
+[x] BaseLLM 错误码契约写清；ApiLLM 骨架就绪；无 Key 回退 Mock
+[x] pipeline/前端不直连厂商 SDK；契约主字段未改
+[x] 阶段0/2 回归通过
+
+十七、阶段3·步骤2 自行勘误
+--------------------------------
+[x] System Prompt 强化；动作白名单/别名/危险 params 过滤
+[x] 合法中文与 JSON 通过；乱码/非法动作/坏 JSON 拒绝
+[x] Mock 与校验出口统一；契约未改；步骤1与阶段0/2 回归通过
+
+十八、阶段3·步骤3 自行勘误
+--------------------------------
+[x] Pipeline：自然语言→TaskSpec→引擎 run_task；默认 model_ref=default
+[x] MuJoCo 下 grab 有轨迹变化；非法指令不抛栈；mock 引擎可回退
+[x] pipeline 不绑定具体引擎/LLM 类名；契约未改；步骤2与阶段2回归通过
+
+十九、阶段3·步骤4（网站聊天）自行勘误
+--------------------------------
+说明：用户提「阶段四」时，产品总阶段4尚未开始；本次完成的是阶段3步骤4（对话上网站）。
+[x] 网站含 chat_input + session 聊天记录；与引擎会话共用
+[x] 自然语言→TaskSpec→仿真仍通；页面不直连 mujoco/ApiLLM
+[x] 已修正阶段2回归脚本（允许阶段3聊天区）；HTTP/闭环仍通过
+
+二十、阶段3·步骤5 自行勘误 + 全量回归
+--------------------------------
+[x] 修复 DEFAULT_MODEL_REL 页面崩：getattr 容错 + 重启 Streamlit
+[x] 阶段0–3 全部烟雾通过 ALL_REGRESSION_PASS / PHASE3_ACCEPTANCE_PASS
+[x] 网站 HTTP 200；list_model_options 正常
+[x] 阶段4边界已写入 core/阶段3验收.txt
+
+二十一、阶段4 自行勘误
+--------------------------------
+[x] 实验 JSON/CSV 落盘；经验库成功复用 experience_hit
+[x] 契约主字段未改；阶段1–3 回归通过
+[x] 网站已展示实验/经验区（刷新 8501）
+
+二十二、阶段4 重走流程勘误总表
+--------------------------------
+[x] 承认首次批量实现与旧流程不一致，已按5步重验
+[x] 步骤1 实验导出 OK
+[x] 步骤2 经验库 OK
+[x] 步骤3 Pipeline 接入 OK
+[x] 步骤4 网站集成 OK
+[x] 步骤5 总验 + 阶段1–3回归 OK
+
+二十三、阶段5开场 · 前置全量核验勘误
+--------------------------------
+[x] 阶段0–4 全烟雾 ALL_PREV_PHASES_PASS
+[x] 契约冻结 / 关键模块 / 网站对话+实验 / execute_task 预留 核验 OK
+[x] 临时站 HTTP 200
+[x] 阶段5仅输出≤5小步方案，本回合未写阶段5业务代码（对齐旧流程）
+
+二十四、阶段5·步骤1 自行勘误
+--------------------------------
+[x] 真机配置契约落盘；http/ros 缺配置或未实现时回退 mock 不崩
+[x] 未提前写死 Http/Ros 业务（步骤2/3）；契约主字段未改
+[x] 阶段3/4 回归通过
+
+二十五、阶段5·步骤2 自行勘误
+--------------------------------
+[x] HttpRobot POST TaskSpec；错地址友好失败；假服务联调通过
+[x] bootstrap 可创建 HttpRobot；缺 endpoint 回退 mock
+[x] pipeline 不写死 HttpRobot；步骤1与阶段4回归通过
+
+二十六、阶段5·步骤3 自行勘误
+--------------------------------
+[x] RosRobot 可导入；无 rclpy 友好失败；bootstrap 回退 mock
+[x] robot_ros_configured 改为需显式 ROS_DOMAIN_ID（修默认 topic 误判）
+[x] pipeline 不写死 RosRobot；步骤1/2与阶段4回归通过
+
+二十七、阶段5·步骤4 自行勘误
+--------------------------------
+[x] USE_REAL_ROBOT 未开时 http/ros 强制 mock；开启后 HttpRobot 可走通
+[x] 网站/聊天展示 robot 后端与 robot_result；清理重复 reply 代码
+[x] 步骤1–3 烟雾已适配真发开关；阶段4回归通过
+二十八、阶段5·步骤5 总验 + 全量回归
+--------------------------------
+[x] 阶段0–5 全流程烟雾已跑
+[x] PHASE5_ACCEPTANCE_PASS；阶段6边界已写入阶段5验收.txt
+
+三十、阶段6·步骤1 自行勘误
+--------------------------------
+[x] 轨迹契约与 mae/rmse 等指标可用；空轨迹友好失败
+[x] 不依赖 ROS/mujoco；契约主字段未改；阶段5回归通过
+
+三十一、阶段6·步骤2 自行勘误
+--------------------------------
+[x] 校准建议与写回引擎可见；mae 极小时不调参
+[x] 参数有界；契约未改；步骤1回归通过
+
+三十二、阶段6·步骤3 自行勘误
+--------------------------------
+[x] Pipeline 可选 RSR；USE_REAL_SIM_REAL 默认关，返回不含 rsr
+[x] 显式开启后伪对照可写回；无真机轨迹时不崩
+[x] TaskSpec 主字段未改；步骤1/2、阶段4/5 回归通过
+
+三十三、阶段6·步骤4 自行勘误
+--------------------------------
+[x] 网站勾选可覆盖配置；默认关不强制校准
+[x] 校准摘要含 mae/前后参数；聊天 meta 含 rsr
+[x] 契约主字段未改；步骤3 回归通过
+
+三十四、阶段6·步骤5 总验 + 全量回归
+--------------------------------
+[x] smoke_phase6 总复验通过；步骤1–4 烟雾通过
+[x] 阶段0–5 回归通过；TaskSpec 主字段未改
+[x] PHASE6_ACCEPTANCE_PASS；阶段7边界已写入阶段6验收.txt / 阶段7_边界预告.txt
+[x] 勘误：smoke_phase0「requirements 禁 mujoco」与阶段1+冲突 → 改为契约层无厂商名/无密钥，允许 requirements 随阶段增长
+
+三十五、阶段7开场 · 仅方案勘误
+--------------------------------
+[x] 前置核验 PHASE6_ACCEPTANCE_PASS / SMOKE_STEP3_OK
+[x] 正式流程已写入 core/阶段7_正式流程.txt（≤5 小步）
+[x] 本回合未写阶段7业务代码（对齐旧流程）
+
+三十六、阶段7·步骤1 自行勘误
+--------------------------------
+[x] README + 双 bat 落盘；默认 mock/真机关/RSR 关写清
+[x] 无密钥 Pipeline 可跑；未改 TaskSpec；未强制开真机/RSR
+[x] SMOKE_PHASE7_STEP1_OK
+
+三十七、阶段7·步骤2 自行勘误
+--------------------------------
+[x] 能力一览 + 可读回复 + 详细数据折叠；默认开关未强制开启
+[x] Pipeline 契约未改；步骤1/阶段6 回归通过
+
+三十八、阶段7·步骤3 自行勘误
+--------------------------------
+[x] 实验/经验列表字段只增不减；含 RSR 可读；旧 JSON 可读
+[x] 网站中文表格；存储路径未改；步骤2/阶段4 浏览相关回归通过
+
+三十九、阶段7·步骤4 自行勘误
+--------------------------------
+[x] 真机联调检查清单落盘；README 已引用
+[x] 未改 TaskSpec；未开真发仍回退 mock；步骤3/阶段5 相关烟雾通过
+
+四十、阶段7·步骤5 总验 + 全量回归
+--------------------------------
+（见上文；阶段7已收口）
+
+四十一、第9期开场 · 仅方案勘误
+--------------------------------
+[x] 正式流程已写入 core/阶段9_正式流程_安全闸.txt（≤5 小步）
+[x] 红线：不堵死 11–15（契约/真机口/接触场景扩展点）
+[x] 本回合未写第9期业务代码
+
+四十二、第9期·步骤1 自行勘误
+--------------------------------
+[x] safety_gate 纯函数；clip/reject/skip 行为正确
+[x] 保留 original_targets；未改 TaskSpec 主字段
+[x] 无 joint_targets 不误拦（不堵示意路径与后续扩展）
+[x] SMOKE_PHASE9_STEP1_OK
+[x] 勘误：旧 smoke_phase7 强依赖 Dockerfile/云端文件 → 改为可选，避免本机优先策略下误红
+
+四十三、第9期·步骤2 自行勘误
+--------------------------------
+[x] Pipeline 执行前接入闸；clip 裁剪后可跑，reject 返回 SAFETY_REJECTED
+[x] joint_targets_original 保留；真机仍走同一 TaskSpec
+[x] 烟雾初版误断言「回零」必 skip：真实经验库常给 home 注入近零 joint_targets，
+    闸会「限位内放行」而非 skip——属正常。验收改为屏蔽经验测 skip，另测超限 clip/reject
+[x] 步骤1与主链路烟雾通过
+
+四十四、第9期·步骤3 自行勘误
+--------------------------------
+[x] 墙钟超时用 monotonic 协作检查（Windows 不用 signal）
+[x] ENGINE_TIMEOUT_SEC≤0 回退 30，避免误配导致永远立即失败
+[x] params.timeout_sec 只允许比配置更严，防止 LLM 放宽
+[x] Pipeline 映射 ENGINE_TIMEOUT，与 INTERNAL 区分；主契约未改
+[x] SMOKE_PHASE9_STEP3_OK；短超时失败、正常回零仍成功
+
+四十五、第9期·步骤4 自行勘误
+--------------------------------
+[x] 危险拒识放在 mock/api 解析前，避免「抓+危险词」被当成 grab 放行
+[x] ApiLLM 同样前置拦截，不依赖 Prompt 自觉
+[x] 诊断区分胡说 vs 危险 vs SAFETY_REJECTED vs 超时；成功路径可提示已裁剪
+[x] 超限无法靠纯自然语言稳定复现 → 网站增加「超限闸演示」注入目标（不堵真机契约）
+[x] SMOKE_PHASE9_STEP4_OK
+
+四十六、第9期·步骤5 自行勘误
+--------------------------------
+[x] 总烟雾用子进程跑步骤1–4，避免 SAFETY_MODE / TIMEOUT 环境变量互相污染
+[x] 红线写成可执行断言（契约字段、送单窗口、original 旁路、RSR 伪对照可关、builtin 仍在）
+[x] 网站 UP/DOWN 仅报告不硬失败（与阶段7总验一致，免本机未开站误红）
+[x] PHASE9_ACCEPTANCE_PASS；关键旧烟雾回归通过
+
+四十七、第10期·步骤1 自行勘误
+--------------------------------
+[x] 快照只白名单 backends/flags/timeouts/paths，不遍历整个 settings（避免密钥漏进）
+[x] extra 过滤密钥键名与 sk- 前缀值；提供 snapshot_contains_secrets 自检
+[x] 缺适配器给占位，不抛异常；不改 TaskSpec 主字段
+[x] SMOKE_PHASE10_STEP1_OK
+
+四十八、第10期·步骤2 自行勘误
+--------------------------------
+[x] summary.csv 不改表头，快照只进 JSON/浏览表，避免旧 csv 追加错列
+[x] build_experiment_record 缺省自动采集快照，旧调用方无需改签名也能带上
+[x] 采集失败不挡落盘；列表对无 run_snapshot 的旧 json 仍可读
+[x] Pipeline 解析失败/闸拒绝/超时/成功均走统一 _build_record
+[x] SMOKE_PHASE10_STEP2_OK
+
+四十九、第10期·步骤3 自行勘误
+--------------------------------
+[x] 新经验只写带 model 标签文件，不删不改写旧键，避免搬家弄坏演示数据
+[x] 旧无标签经验仅 default/builtin 族可命中；禁止「任意臂吃旧经验」
+[x] 不用 model.xml 泛化当默认族（避免不同目录同名 xml 误兼容）
+[x] Pipeline 先解析 model_ref 再 find，避免分区与加载模型不一致
+[x] 跨臂仅 EXPERIENCE_ALLOW_CROSS_MODEL 调试开关；默认关
+[x] SMOKE_PHASE10_STEP3_OK；阶段4 经验烟雾仍应通过
+
+五十、第10期·步骤4 自行勘误
+--------------------------------
+[x] 演示包省略全量轨迹，只留首末摘要，避免 zip 过大且误当「全帧证据」
+[x] 导出前二次扫描 sk- / 密钥键；命中则拒绝打包
+[x] experiment_id 禁止路径分隔符，防目录穿越
+[x] 旧实验无 run_snapshot 时仍可导出（用 adapters 占位说明）
+[x] SMOKE_PHASE10_STEP4_OK
+
+五十一、第10期·步骤5 自行勘误
+--------------------------------
+[x] 总烟雾子进程跑步骤1–4，并复跑 smoke_phase9，避免环境互相污染
+[x] 红线可执行断言：契约字段、送单窗口、跨臂默认关、演示包/快照模块、Pipeline 顺序
+[x] 演示剧本与自然语言说明轻打磨：演示包导出、经验按模型分区
+[x] 总规划 1–10 成熟清单全部勾选；第10期标已完成
+[x] PHASE10_ACCEPTANCE_PASS
+
+五十二、开 API 安全加固自行勘误
+--------------------------------
+[x] 根因：.env 曾只被 bat 复制，settings 未加载 → 现用标准库轻量加载 .env
+[x] 不覆盖进程已有环境变量，避免破坏烟雾测试
+[x] 面板显示「配置项 vs 实际解析」；api 未配齐回退时给出明确说明
+[x] 缺密钥回退 MockLLM 烟雾仍通过；网站可继续跑
+
+五十三、改回 mock + 后期提醒入库
+--------------------------------
+[x] LLM_BACKEND 改回 mock；Kimi 密钥仍留 .env 供后期激活
+[x] 新增 core/后期完善提醒_11到15.txt（云部署 + 充值激活 API）
+[x] 总规划第15期与阶段10验收/一页纸已交叉引用
+
+五十四、第11期·步骤1 自行勘误
+--------------------------------
+[x] 清单写明请求外层是 task_spec+source（与 HttpRobot 一致），避免实验室只看扁平字段漏包
+[x] 响应最小 ok+message；trajectory 标为第12期可选，不在本期强制
+[x] 实验室自定义键进 extras，避免冲掉 ack 语义
+[x] SMOKE_PHASE11_STEP1_OK；主字段未改
+
+五十五、第11期·步骤2 自行勘误
+--------------------------------
+[x] 假接收端独立脚本，默认不挂网站进程，防演示机误开真发口
+[x] start_server 返回同一 handler_cls，避免烟雾断言读到空 last_body
+[x] HttpRobot 尊重 ack.ok=false → REJECTED；旧对端无 ok 字段仍视为成功（兼容阶段5）
+[x] 烟雾结束强制恢复 mock + USE_REAL_ROBOT=false
+[x] SMOKE_PHASE11_STEP2_OK
+
+五十六、第11期·步骤3 自行勘误
+--------------------------------
+[x] 真机失败原先不落盘 → 现写入实验旁路，便于答辩「发过真机」
+[x] 落盘脱敏 endpoint（去 userinfo/query），避免密钥进 experiments/
+[x] run_snapshot 增 robot_bridge，只记主机名摘要
+[x] 清单写清「不会自动发现真臂，按 .env + 检查清单操作」
+[x] SMOKE_PHASE11_STEP3_OK
+
+五十七、真机清单白话自查
+--------------------------------
+[x] 去掉易误解说法（如「货币」）；专业词加小括号白话
+[x] 「扁平字段」改成「不要忽略外层 task_spec 包装」并给错例
+[x] 假接收端启动提示改成「改 .env + 重启网站」完整步骤
+[x] ROS 说明同步白话；复跑 step1/step3 烟雾
+
+五十八、第11期·步骤4 自行勘误
+--------------------------------
+[x] 真发开着时警示进 issues + 顶栏 error，避免只当绿勾忽略
+[x] 自检只用 GET，明确「不发任务单 / 不发抓放」
+[x] 对端仅支持 POST 时 405 仍判为可达（REACHABLE_POST_ONLY）
+[x] SMOKE_PHASE11_STEP4_OK
+
+五十九、第11期·步骤5 总验自行勘误
+--------------------------------
+[x] 旧 Streamlit 进程缓存导致 ImportError（real_robot_safety_banner）→ 杀端口重启后恢复
+[x] smoke_phase11 含红线 + 功能面 + 9/10/真机相关回归
+[x] 浏览器核验：真发关提示、自检按钮、正常样例诊断成功
+[x] PHASE11_ACCEPTANCE_PASS；总规划第11期标已完成；未堵死 12–15
+
+六十、能力可见·步骤1 自行勘误
+--------------------------------
+[x] 三块固定清单放在能力区顶部，关着也能看见「有这些功能」
+[x] 每块含是什么/默认关/怎么开；开闭成功判定留给步骤2，避免本步做半套状态条
+[x] SMOKE_FEATURE_VISIBLE_STEP1_OK
+
+六十一、能力可见·步骤2 自行勘误
+--------------------------------
+[x] 三态统一：off/ready/failed；失败必须带人话原因
+[x] 真机是否成功以实际 robot 适配器名为准（避免只看 .env 误判已通）
+[x] 步骤1 脚注「状态条后续才补」已改为指向本步开闭状态，避免过时误导
+[x] RSR 本步只判开闭；真轨迹/伪对照细分为步骤4，避免范围膨胀
+[x] SMOKE_FEATURE_VISIBLE_STEP2_OK
+
+六十二、能力可见·步骤3 自行勘误
+--------------------------------
+[x] 未配齐也可点按钮：先报缺项，不空跑网络
+[x] 返回值只给 key_hint（已填/位数），严禁回显密钥或写入 caption 原文
+[x] 烟雾用本机假 Chat 服务，不依赖真实充值/外网额度
+[x] 401/429 分人话；与真机 HTTP 自检同级体验，不混进 RSR 步骤4
+[x] 默认 mock 演示路径不变；本步只增只读探测
+[x] SMOKE_FEATURE_VISIBLE_STEP3_OK
+
+六十三、能力可见·步骤4 自行勘误
+--------------------------------
+[x] 关着明确「不会做校准」，避免「开了没感觉」的误解
+[x] 对照代码名 pseudo_real/robot 映射为人话；聊天一句不甩伪代码名
+[x] 伪对照必须标明非真机回流；同时写明第12期真轨迹优先，避免写成终局
+[x] 未改 run_rsr_iteration / TaskSpec；只加固提示与诊断
+[x] SMOKE_FEATURE_VISIBLE_STEP4_OK
+
+六十四、能力可见·步骤5 总验自行勘误
+--------------------------------
+[x] 总烟雾串联 1–4 + phase11_step4 + phase6_step3，避免只验单步漏回归
+[x] 书面确认默认关真机/API/RSR；.env.example 断言 false/mock
+[x] 契约抽检曾误写 suggested_joint_targets / SimResult.success——已改为真实主字段，避免假验收
+[x] 第12期口：extract_real_trajectory + source=robot + 文案「真轨迹优先」仍在
+[x] 本期不做网页写 .env，避免零基础方便却引入误开真发风险
+[x] SMOKE_FEATURE_VISIBLE_OK
+
+六十五、第12期·步骤1 自行勘误
+--------------------------------
+[x] 补读 data.ack.trajectory，避免 HttpRobot 已带回轨迹却误判伪对照
+[x] 合格性与「有没有键」分开：坏形状返回 []，交给伪对照/日后严模式，不崩站
+[x] 未改 TaskSpec；未改默认 allow_pseudo_real 保底
+[x] SMOKE_PHASE12_STEP1_OK；复跑 phase6 通过
+
+六十六、第12期·步骤2 自行勘误
+--------------------------------
+[x] 默认不加 --with-trajectory，保持第11期「无轨迹→伪对照」演示不断
+[x] 回传轨迹文案标明「演示轨迹，非真臂采样」，避免把假接收端当成真臂证据
+[x] 类属性注解默认误引用外层参数导致 NameError——改为类体占位再赋值
+[x] Pipeline 端到端断言 reference_source=robot；复跑 phase11_step2
+[x] SMOKE_PHASE12_STEP2_OK
+
+六十七、第12期·步骤3 自行勘误
+--------------------------------
+[x] 默认 prefer_real + 伪保底；严模式单独开关且默认 false，不打断零基础演示
+[x] 有合格真轨迹时与 allow_pseudo 无关，强制 robot（硬门槛真落点）
+[x] 返回/快照只增 policy、frame_count 等字段，不改 TaskSpec 主字段
+[x] Pipeline 不再写死 allow_pseudo_real=True，改为读 RSR_REQUIRE_REAL_TRAJECTORY
+[x] SMOKE_PHASE12_STEP3_OK；复跑 phase6 / step1–2
+
+六十八、第12期·步骤4 自行勘误
+--------------------------------
+[x] 文案对齐策略/帧数/坏轨迹原因，不新开大功能线
+[x] 真轨迹说明含「假接收端 --with-trajectory」，避免以为必须有实验室真臂才能看见真轨迹标签
+[x] 清单 F 节从「以后再说」改成可勾选步骤 + 轨迹 JSON 示例
+[x] 能力清单一览同步 how，避免只改摘要区、清单仍过时
+[x] SMOKE_PHASE12_STEP4_OK
+
+六十九、第12期·步骤5 总验自行勘误
+--------------------------------
+[x] 总烟雾串联 1–4 + phase11_step4 + phase6 + feature_visible_step4
+[x] 书面确认：未接真机可伪对照；默认关真发/严模式；未做第13期接触抓取
+[x] 「硬门槛」验收写成：有轨迹→robot、无轨迹→pseudo、严模式→skip 三条断言
+[x] 总规划第12期勾完成态；总口令 PHASE12_ACCEPTANCE_PASS
+[x] 未把接触力学/公网部署混进本期收口
+
+七十、全产品复验自行勘误（2026-09-13）
+--------------------------------
+[x] 复跑 9–12 + feature_visible + step3/6/7 全绿
+[x] 修过时文档：回归一页纸、README、演示剧本、总规划 9–10 标题
+[x] 收紧 feature_visible 红线断言，避免只靠「第12期」字样假通过
+[x] 确认未引入上岗话术、未默认开真发/严模式
+[x] 实验表 RSR_MAE 混 float/str 触发 Arrow 告警 → 单元格统一字符串
+[x] 一键启动补 credentials + headless，避免 Streamlit 首次邮箱提问卡死
+[x] dataframe 的 use_container_width 改为 width='stretch'（两处表格）
+
+七十一、第13期·步骤1 自行勘误
+--------------------------------
+[x] 接触场景独立 model，不改 DEFAULT_MODEL_REL，避免破坏 1–12 默认演示
+[x] 方块用 freejoint + 约定名 object_block/ee，给步骤2度量留稳定钩子
+[x] 旁路只定 metrics 键名与 grasp_proxy 枚举；未改 TaskSpec 主字段
+[x] 下拉标签写「接触试机场景」，避免和默认臂混淆
+[x] 无场景占位 grasp_proxy=no_scene，禁止步骤1就报假成功
+[x] SMOKE_PHASE13_STEP1_OK
+
+七十二、第13期·步骤2 自行勘误
+--------------------------------
+[x] 度量与判定拆成纯函数 contact_probe，便于无 MuJoCo 单测
+[x] 无 object_block 一律 no_scene，禁止默认臂报接触成功
+[x] grasp_proxy=ok 仅表示弱代理（接触或近距推动），文案留给步骤3强调非工业抓住
+[x] 方块位姿按默认 grab FK 微调；接触场景 grab 目标略朝向物体提高试机命中
+[x] Mock 用 mock_grasp_proxy 注入，保证无物理库也能验三种结果
+[x] SMOKE_PHASE13_STEP2_OK
+
+七十三、第13期·步骤3 自行勘误
+--------------------------------
+[x] 无场景文案固定「当前模型无试机物体 / 关节示意」，并提示切换接触场景
+[x] ok 结果强制附带「不是工业夹稳 / 不代表现实抓住」，防口径漂移
+[x] 实验列表只增「接触代理」列；旧 JSON 缺字段显示 -
+[x] 诊断 level：有接触旁路边界提示时用 warning，避免绿勾误导「已抓住」
+[x] SMOKE_PHASE13_STEP3_OK
+
+七十四、第13期·步骤4 自行勘误
+--------------------------------
+[x] 接触试机进能力清单第四项，开闭看 model_ref 而非 .env，避免和真机/API 开关混淆
+[x] 一键「切换并抓一次」自动填正常样例句，零基础少点几步
+[x] 同步改 smoke_feature_visible_step1（允许第四项），避免旧断言锁死三项
+[x] 演示剧本补 3.5；恢复默认臂按钮保证旧演示路径可回
+[x] SMOKE_PHASE13_STEP4_OK
+
+七十五、第13期·步骤5 总验自行勘误
+--------------------------------
+[x] 总口令 smoke_phase13 串步骤1–4 + 档A清单 + 硬约束 + 回归 phase12/feature_visible/phase9
+[x] 档A齐全：场景/度量/诊断落盘/能力区演示；档B（夹爪力控/视觉/真机闭环）书面标不做
+[x] 默认模型仍 builtin_arm2；接触只进 metrics；未改主契约字段名
+[x] 总规划勾第13完成态；回归一页纸补 smoke_phase13
+[x] PHASE13_ACCEPTANCE_PASS
+
+七十六、全产品复验（第13期收口后）自行勘误
+--------------------------------
+[x] 串跑 step3 + phase0–7 + phase9–13 + feature_visible → 全部 PASS（约 39s）
+[x] 业务代码无需修补；仅刷新全产品复验记录口径（13 已完成，14–15 后置）
+[x] 确认默认仍关真发/严模式；接触只进 metrics；未堵死多步/部署
+[x] 记录：core/全产品复验_2026-09-13.txt
+
+七十七、第14期·步骤1 自行勘误
+--------------------------------
+[x] 动作表单一来源 action_catalog；wait 为示意等待，不假装夹爪
+[x] TaskSpec 只增可选 steps；旧单步缺省 []；与 params.steps（仿真细分）书面区分
+[x] 同步更新各期烟雾字段集合与 phase11「仍无 steps」断言，避免假红
+[x] Prompt/json_extract 白名单对齐目录；解析多步落地留给步骤2
+[x] SMOKE_PHASE14_STEP1_OK
+
+七十八、第14期·步骤2 自行勘误
+--------------------------------
+[x] 多步拆句失败整单回退单步逻辑，避免半截 steps
+[x] steps>5 明确拒绝（不静默截断），人话提示拆开再说
+[x] wait 单步可用；抓/放子句缺物体则整段不认多步
+[x] 旧单句 steps=[]；phase3/step3 回归 OK
+[x] SMOKE_PHASE14_STEP2_OK
+
+七十九、第14期·步骤3 自行勘误
+--------------------------------
+[x] 多步逐步闸+执行；失败文案带「第 i/n 步」；真机逐步送单
+[x] 多步暂不复用/不写入经验，避免半段键污染
+[x] wait 在 Mock/MuJoCo 保持姿态短推进；超时提示改为「减少子动作数量」
+[x] 合并轨迹帧带 multi_step_index；metrics.step_actions 可演示
+[x] SMOKE_PHASE14_STEP3_OK
+
+八十、第14期·步骤4 自行勘误
+--------------------------------
+[x] 多步进能力清单第五项；样例按钮与聊天占位符同步
+[x] 诊断/回复展示多步链，并写明≠工业连续作业；区分 params.steps
+[x] feature_visible_step1 的 how 断言放宽（样例/先/多步）
+[x] 演示剧本补 3.6
+[x] SMOKE_PHASE14_STEP4_OK
+
+八十一、第14期·步骤5 总验自行勘误
+--------------------------------
+[x] smoke_phase14 串步骤1–4 + 档A + 硬约束 + 回归 phase13/feature_visible/phase9/step3
+[x] 修 phase13 总验中 TaskSpec 未导入问题；总规划勾第14完成态
+[x] 默认仍关真发；未做第15期部署；单步兼容 steps=[]
+[x] PHASE14_ACCEPTANCE_PASS
+
+八十二、补强包一·步骤1 自行勘误
+--------------------------------
+[x] 位姿只进 metrics；无场景强制 none 且坐标清空，禁止 pose_source=scene_model
+[x] 步骤1 有场景也只 uncertain、不填假 xpos，避免契约阶段报假接地
+[x] A6 摘要键书面化；人话禁止「看见」
+[x] SMOKE_BOOST1_STEP1_OK；phase13/14 step1 回归 OK
+
+八十三、补强包一·步骤2 自行勘误
+--------------------------------
+[x] 几何单独模块 planar_aim，不宣称工业 IK；够不着则不写 joint_targets，pose_source=uncertain
+[x] 已有 joint_targets/ctrl 不覆盖（给经验/安全闸留口）
+[x] 无场景 sanitize 清坐标；home 不瞄准
+[x] SMOKE_BOOST1_STEP2_OK；phase13_step2 回归 OK
+
+八十四、补强包一·步骤3 自行勘误
+--------------------------------
+[x] 位姿人话进诊断与成功回复；默认臂写清无场景坐标，接触场景写清非相机
+[x] 接触三种原因（场景没开/够不着/碰到）并入接触试机行；ok≠抓住
+[x] 实验旁路 extra.proxy_summary 只摘脱敏字段；列表增「位姿来源」不改主契约
+[x] SMOKE_BOOST1_STEP3_OK；phase13_step3 / phase7_step3 / phase14_step4 回归 OK
+[x] 未开真发；未做第15期；网站说明与剧本留给步骤4
+
+八十五、补强包一·步骤4 自行勘误
+--------------------------------
+[x] 接触试机说明补「不是相机」；能力边界写清场景坐标 vs 标签
+[x] 能力区一眼可见「本次试机代理摘要」；沿用旧切换按钮，不新开抓取线
+[x] 文案红线：不以「看见杯子/已经抓住/标定完成」作为成功宣称
+[x] 演示剧本 3.7；SMOKE_BOOST1_STEP4_OK；phase13/14 step4、feature_visible step1 回归 OK
+
+八十六、补强包一·步骤5 总验自行勘误
+--------------------------------
+[x] 串步骤1–4 + 档A + 硬约束 + 回归 phase14/13/feature_visible
+[x] 默认真发关；未做第15期；未宣称视觉/抓住
+[x] 合理性再评：包一对准标签接地，下一步应是包二而非部署
+[x] SMOKE_BOOST1_ACCEPTANCE_PASS

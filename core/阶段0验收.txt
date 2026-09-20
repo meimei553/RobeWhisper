@@ -1,0 +1,69 @@
+RobeWhisper · 阶段 0 总验收（步骤 5）
+====================================
+
+验收日期：2026-09-11
+结论：阶段 0 通过（PASS）
+
+一、验收结果
+--------------------------------
+[x] 目录分区齐全（core / plugins / frontend / models / experiments / experience / config）
+[x] 关键文件齐全（契约、三基类、Mock、pipeline、bootstrap、临时网站）
+[x] TaskSpec / SimResult / ApiResult 主字段冻结且未改名
+[x] pipeline 只依赖基类；具体插件仅在 bootstrap 组装
+[x] requirements 仅含 streamlit，未引入物理引擎 / 云端 LLM SDK / ROS
+[x] schemas 无引擎或厂商专用字段名
+[x] 配置外置（.env.example + config/settings.py），无真实密钥
+[x] 临时站可打开：http://127.0.0.1:8501
+[x] Mock 假链路可跑通：自然语言 → TaskSpec → SimResult → execute_task
+[x] 前端失败走友好文案，不向用户抛堆栈
+[x] vlm 仅预留；真机口已有 MockRobot.execute_task 占位
+
+一句话确认（进入阶段 1 的前提）：
+换引擎 = 换 plugins/engines 下的适配器，不必改页面主逻辑与 TaskSpec 主字段。
+
+
+二、阶段 0 完成定义（已满足）
+--------------------------------
+1. 点开临时站能看见 RobeWhisper 标题页
+2. Mock 全链路跑通且数据结构稳定
+3. 未安装/未调用真实物理引擎与 LLM API 也能验收
+4. 已确认：扩展靠插件，不靠改主契约
+
+
+三、阶段 1 允许做什么 / 禁止做什么
+--------------------------------
+阶段 1 目标：最小三维世界打通——内置开源模型 + 真引擎一步运动，前端可见状态变化。
+
+允许：
+- 在 requirements 中增加成熟仿真库（首选 mujoco，备选 pybullet）
+- 新增 plugins/engines/ 下的真实引擎适配器（实现 BaseEngine）
+- 在 models/ 放入一份现成 URDF/MJCF（开源模型，不从零建模）
+- 在 frontend 增加简单控件（滑条/按钮）驱动 step，并展示关节角或截图
+- bootstrap 按 ENGINE_BACKEND 选择 mock 或真实引擎
+
+禁止：
+- 修改 TaskSpec / SimResult / ApiResult 的主字段名
+- 让 frontend/app.py 直接 import mujoco 内部 API（必须经 BaseEngine）
+- 接入云端 LLM 聊天主流程（那是阶段 3）
+- 做复杂 URDF 导入面板（那是阶段 2）
+- 做经验库 / Real-Sim-Real / ROS 真机（更后阶段）
+- 自研物理核或死磕柔性变形
+
+
+四、复验命令
+--------------------------------
+# Mock 假链路
+python -m core.smoke_step3
+
+# 临时网站（若未运行）
+streamlit run frontend/app.py --server.address 127.0.0.1 --server.port 8501
+
+# 阶段 0 总复验
+python -m core.smoke_phase0
+
+
+五、已知遗留（不阻塞阶段 0）
+--------------------------------
+- 本机若未安装 git，版本库可稍后初始化
+- 公网恒定链接尚未提供（需日后部署）；当前仅本机 http://127.0.0.1:8501
+- MockLLM 仅为关键词规则，不是真智能（阶段 3 再接 API）

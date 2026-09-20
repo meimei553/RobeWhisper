@@ -1,0 +1,18 @@
+RobeWhisper · 第 12 期 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE12_STEP1_OK）
+
+交付：
+- 真轨迹最小帧约定：t + joint_positions；合格性 is_qualified_real_trajectory
+- extract_real_trajectory 覆盖 data / data.ack / data.response（及别名键）
+- extract_real_trajectory_report 便于诊断（不改 TaskSpec）
+- 空列表、维数不一致、维数>64 → 视为无合格真轨迹（返回 []）
+
+验证点：
+[x] ack.trajectory 可提取且 run_rsr → reference_source=robot
+[x] 无轨迹仍可伪对照（未接真机保底）
+[x] 坏数据不崩；阶段6回归通过
+
+复验：python -m core.smoke_phase12_step1
+未做（步骤2+）：假接收端 --with-trajectory、策略开关、清单文案总验

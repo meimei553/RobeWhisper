@@ -1,0 +1,49 @@
+{
+  "key": "grab__red_block__builtin_arm2_contact",
+  "action": "grab",
+  "target": "red_block",
+  "model_ref": "builtin_arm2_contact",
+  "ok": true,
+  "reason": "",
+  "raw_text": "抓起红色积木",
+  "params": {
+    "steps": 3,
+    "joint_delta": 0.1,
+    "joint_targets": [
+      2.8,
+      -2.5
+    ],
+    "joint_targets_original": [
+      9.0,
+      -9.0
+    ],
+    "safety_audit": {
+      "clipped": true,
+      "rejected": false,
+      "skipped": false,
+      "original_targets": [
+        9.0,
+        -9.0
+      ],
+      "applied_targets": [
+        2.8,
+        -2.5
+      ]
+    },
+    "safety_message": "安全闸已裁剪超限关节目标。关节0: 9.0000→[-2.8000,2.8000]；关节1: -9.0000→[-2.5000,2.5000]"
+  },
+  "suggested_joint_targets": [
+    0.23657837504034815,
+    -3.0005586340786894,
+    0.3599999999999834,
+    0.1800000313063638,
+    0.02911424003443522,
+    0.9999999999999766,
+    2.1665838389110888e-07,
+    1.1427653579101576e-13,
+    -2.0331320500379963e-15
+  ],
+  "trajectory_frames": 4,
+  "updated_at": "2026-09-19T07:56:44.946688+00:00",
+  "use_count": 7
+}

@@ -1,0 +1,16 @@
+{
+  "experiment_id": "eadc095c37ba4174",
+  "created_at": "2026-09-12T06:41:55.293423+00:00",
+  "raw_text": "??????",
+  "ok": false,
+  "code": "REJECTED",
+  "message": "暂时无法识别该指令。请带上「抓/拿/放/移/回零」等词，或在 .env 打开 LLM_BACKEND=api 以理解更自由的说法。",
+  "task_spec": {},
+  "sim_result": {},
+  "metrics": {
+    "frames": 0,
+    "success": 0.0
+  },
+  "adapters": {},
+  "experience_hit": false
+}

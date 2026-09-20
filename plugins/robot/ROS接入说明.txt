@@ -1,0 +1,33 @@
+# RobeWhisper ROS2 接入说明（白话）
+========================================
+
+一、现在是什么状态
+--------------------------------
+- 程序文件：plugins/robot/ros_robot.py
+- 若本机没有 rclpy（ROS2 的 Python 接口库）：
+  自动改用虚拟臂（Mock）；直接调用也会友好提示失败，不会整站崩溃
+- 若有 rclpy：会向约定频道（topic）发一条 JSON 文字消息
+
+二、你要改的配置（写在 .env）
+--------------------------------
+ROBOT_BACKEND=ros
+USE_REAL_ROBOT=true
+ROS_DOMAIN_ID=0
+ROS_EXECUTE_TOPIC=/robewhisper/execute_task
+
+白话：
+- USE_REAL_ROBOT=true = 允许真发
+- ROS_DOMAIN_ID = 局域网分区号（两边必须一样）
+- ROS_EXECUTE_TOPIC = 频道名（两边必须一样）
+
+三、实验室那边要做什么
+--------------------------------
+1. 订阅同一频道（默认 /robewhisper/execute_task）
+2. 解析消息里的 task_spec（任务单；和外层 HTTP 方式同一张表）
+3. 以后可升级成更专业的 ROS 消息类型；但任务单字段名不要改
+4. 细节见同目录「真机联调检查清单.txt」
+
+四、本机自检（没装 ROS 也可以跑）
+--------------------------------
+python -m core.smoke_phase5_step3
+预期打印：SMOKE_PHASE5_STEP3_OK

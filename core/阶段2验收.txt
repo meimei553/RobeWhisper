@@ -1,0 +1,47 @@
+RobeWhisper · 阶段 2 总验收（步骤 5）
+========================================
+
+验收日期：2026-09-11
+结论：阶段 2 通过（PHASE2_ACCEPTANCE_PASS）
+
+一、验收结果
+--------------------------------
+[x] BaseEngine 物理参数接口 list/set_physics_params（Mock + MuJoCo）
+[x] 模型扫描 / 上传 MJCF / 切换加载 / 失败回退 default
+[x] 物理参数白名单可写可读（friction / damping / joint_range）
+[x] 临时站闭环：①模型 → ②参数 → ③关节步进（含进度标记）
+[x] 页面不直接 import mujoco；契约主字段未改
+[x] 未混入 LLM 聊天主流程 / 经验库 / ROS
+[x] 阶段 1 回归通过；网站 http://127.0.0.1:8501 可访问
+
+一句话确认（进入阶段 3 的前提）：
+阶段 3 只挂「自然语言 → TaskSpec」对话智能体，不改模型导入与物理参数主接口。
+
+
+二、阶段 3 允许 / 禁止
+--------------------------------
+允许：
+- 云端 LLM API 插件（可插拔），System Prompt 强制输出 TaskSpec
+- st.session_state 保存聊天记录
+- 「指令 → TaskSpec → 现有引擎执行」接到当前网站
+- 非法指令优雅拒绝；API 断网友好提示
+
+禁止：
+- 修改 TaskSpec / SimResult / ApiResult 主字段名（可增可选字段需先评审）
+- 让前端直接调用某家 LLM SDK 散落各处（必须经 BaseLLM）
+- 重做物理引擎或推翻阶段 2 导入面板
+- 经验库主功能 / Real-Sim-Real / ROS 真机（更后阶段）
+- 自训大模型
+
+
+三、当前可用入口
+--------------------------------
+本机临时站：http://127.0.0.1:8501
+（需 Streamlit 进程运行；公网恒定地址仍待日后部署）
+
+
+四、复验命令
+--------------------------------
+python -m core.smoke_phase2
+python -m core.smoke_phase1
+streamlit run frontend/app.py --server.address 127.0.0.1 --server.port 8501

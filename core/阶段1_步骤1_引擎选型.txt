@@ -1,0 +1,36 @@
+RobeWhisper · 阶段 1 · 步骤 1 引擎选型记录
+========================================
+
+日期：2026-09-11
+
+一、探测结果
+--------------------------------
+- Python：3.12.10 / Windows
+- 首选引擎：MuJoCo —— 安装成功，version=3.13.0
+- 最小 MJCF 字符串加载 + mj_step：成功（PROBE_STEP1_OK）
+- 备选 PyBullet：未启用（MuJoCo 已通过，无需切换）
+
+二、正式选型
+--------------------------------
+ENGINE_CHOICE = mujoco
+
+后续步骤约定：
+- 步骤 2：把现成模型放入 models/（路径走 config.MODELS_DIR）
+- 步骤 3：新增 plugins/engines/mujoco_engine.py 实现 BaseEngine
+- bootstrap 通过 ENGINE_BACKEND=mujoco | mock | local 切换
+- mock 必须保留，便于回退与阶段0复验
+
+三、依赖
+--------------------------------
+requirements.txt 已加入：mujoco>=3.1.0
+复验命令：
+  python core/probe_engine_step1.py
+
+四、步骤 1 勘误
+--------------------------------
+[x] 未修改 TaskSpec/SimResult/ApiResult 主字段
+[x] 未实现业务适配器（本步只做安装与探测）
+[x] 未改 frontend 聊天/导入逻辑
+[x] 探测脚本独立于 pipeline，不把引擎 API 散落到页面
+[x] 选型有书面记录；失败路径（改 pybullet）已在探测脚本中预留
+[x] 复跑：python core/probe_engine_step1.py → PROBE_STEP1_OK

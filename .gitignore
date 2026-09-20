@@ -1,0 +1,16 @@
+# 本地密钥与环境（勿提交）
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 系统杂项
+.DS_Store
+Thumbs.db
+
+# 本机日志
+logs/
+*.log

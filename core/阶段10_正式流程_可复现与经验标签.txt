@@ -1,0 +1,111 @@
+RobeWhisper · 第 10 期正式流程（可复现实验包与经验标签）
+========================================
+前置：第 9 期已验收（PHASE9_ACCEPTANCE_PASS）；1–10 成熟收口只差本期末项。
+本回合：只出方案，不写第 10 期业务代码（对齐「先方案后逐步击破」）。
+
+一、本期目标
+--------------------------------
+让「跑过一次」变成可复述证据，并让经验复用不跨臂乱套：
+1. 实验记录写入运行环境快照（LLM/引擎/机器人后端名与版本、关键配置摘要）
+2. 经验按 model_ref（臂模型）分区；查找时同模型优先，禁止默默跨臂复用
+3. 可导出「一次演示包」（脱敏 zip/目录：任务单 + 轨迹摘要 + 配置快照 + 说明）
+相对第 9 期：从「能安全跑」→「能证明跑过什么、在什么条件下跑的」。
+
+
+二、绝不堵死 11–15 的硬约束（本期设计红线）
+--------------------------------
+[x] 不改 TaskSpec / SimResult / ApiResult 主字段名（版本信息进实验旁路字段，如 run_snapshot）
+[x] 不拆 BaseRobot.execute_task / HTTP / ROS 送单语义
+[x] 经验键兼容旧文件：旧 action__target.json 仍可读；新键只增不毁
+[x] 跨臂默认不复用；允许显式「忽略模型标签」仅作调试开关，默认关（不堵第 13 期多场景）
+[x] 演示包脱敏：不写入 API Key / .env 密钥；可含 backend 名、模型相对路径、超时等非机密
+[x] 不把伪对照 RSR 写成唯一终局；快照可记录 rsr 开关与 reference_source，便于第 12 期对照
+[x] 不做 3D、不做视觉、不扩机械狗、不上多用户云账号、不强制公网部署
+[x] Pipeline 主链不变：NL → LLM → TaskSpec → 闸 → engine → 可选 robot → 落盘/经验
+
+口诀：第 10 期只加「账本字段与分区标签 + 打包导出」，不加「新货币」、不拆「送单窗口」。
+
+
+三、可行性
+--------------------------------
+| 项 | 评级 | 说明 |
+|---|---|---|
+| 运行快照写入实验 JSON | 高 | build_experiment_record 增 run_snapshot；旧记录缺字段仍可读 |
+| LLM/引擎/机器人 version | 高 | 适配器已有 name/version；settings 已有 backend 开关 |
+| 经验 model_ref 标签 | 高 | remember/find 增参；键策略兼容旧文件 |
+| 禁止跨臂默复用 | 高 | find 时比对 model_ref；不匹配则未命中 |
+| 演示包导出 | 高 | 标准库 zipfile；选最近一条或指定 experiment_id |
+| 网站入口 | 高 | 实验浏览区加「导出演示包」按钮即可 |
+| 堵死 11–15 | 低风险若守红线 | 见第二节 |
+
+
+四、不超过 5 个小步骤
+--------------------------------
+步骤1：运行快照契约（纯函数）
+  - 新增 core/run_snapshot.py（或 experiment_store 内聚函数）：
+    collect_run_snapshot(adapters, settings摘要, model_ref, safety_mode, …)
+    → 稳定 dict：{schema_version, collected_at, llm, engine, robot, backends, model_ref, flags…}
+  - 不读 API Key；不改 TaskSpec 主字段
+  - 验证：缺适配器时仍给出可读占位；烟雾断言无 sk- / 无密钥字段
+
+步骤2：实验落盘接入快照
+  - build_experiment_record / Pipeline 保存路径写入 run_snapshot
+  - list/浏览表可多一列「引擎/模型」摘要（可选，保持旧列兼容）
+  - 验证：跑一句指令后 json 含 run_snapshot；旧 json 列表不崩
+
+步骤3：经验 model_ref 标签与防跨臂
+  - remember_experience / find_experience / mark_experience_used 增加 model_ref
+  - 存储：优先新键 action__target__<model_slug>.json；读取兼容旧 action__target.json
+  - 默认：model 不一致不命中；配置 EXPERIENCE_ALLOW_CROSS_MODEL=false（默认）
+  - Pipeline 注入经验时传入当前 model_ref
+  - 验证：臂 A 写入的经验，在臂 B 下不命中；同臂命中；旧文件在「无标签策略」下行为明确（建议：仅当请求 model 为空或 default 且旧记录无 model 时兼容命中，并写入勘误）
+
+步骤4：一次演示包导出
+  - core/demo_pack.py：给定 experiment_id → 目录或 zip
+    含：experiment.json（可已脱敏）、trajectory_summary.json（帧数/首末关节，非全量亦可）、
+    run_snapshot、README_演示说明.txt（人话：这是什么、不能说明什么）
+  - 网站：实验浏览「导出最近一次演示包」或选 id
+  - 验证：打包成功；包内无 API Key；可解压阅读
+
+步骤5：第 10 期验收 + 回归 + 「未堵死 11–15」+ 1–10 成熟清单勾选
+  - smoke_phase10；复跑 phase9 与关键旧烟雾
+  - 书面勾选第二节红线；总规划「经验不跨臂 / 版本信息」勾选
+  - 勘误入库；必要时轻打磨 1–8 文案一句（演示包/经验分区说明）
+  - 状态：已完成（PHASE10_ACCEPTANCE_PASS）
+
+
+五、步骤顺序
+--------------------------------
+1 快照契约 → 2 实验落盘 → 3 经验分区 → 4 演示包 → 5 总验
+
+
+六、本期故意不做（留给 11–15 / 更后）
+--------------------------------
+- 第 11–12：真机联调、真轨迹 RSR 硬门槛
+- 第 13：接触物体与 grasp_success
+- 第 14：steps[] 多步任务单
+- 第 15：3D / 公网部署加分
+- 多用户账号、云端经验同步、完整轨迹视频
+
+
+七、关键设计抉择（供你确认）
+--------------------------------
+1. 经验文件名：推荐「新键带 model_slug + 旧键只读兼容」，避免一次性搬家弄坏演示数据。
+2. 跨臂：默认禁止；调试开关 EXPERIENCE_ALLOW_CROSS_MODEL 默认 false。
+3. 快照内容：backend 名 + adapter name/version + model_ref + SAFETY_MODE + 超时秒数 + RSR 开关；不含密钥。
+4. 演示包：本机 exports/ 或 experiments/packs/；zip 优先，方便答辩拷贝。
+5. 旧经验无 model_ref：仅当当前也是 default/builtin 时允许兼容命中，并在诊断里提示「旧经验无模型标签」。
+
+
+八、勘误（方案自评）
+--------------------------------
+[x] 红线写进第二节，步骤5强制检查（对齐第 9 期）
+[x] 版本进旁路字段，不改 TaskSpec 主货币
+[x] 经验兼容策略写死，降低「标签迁移弄坏旧键」风险（总规划已点名）
+[x] 脱敏导出单独步骤，避免密钥进演示包
+[x] 不把第 10 期做成云账号/公网，守 1–10 边界
+
+
+九、你确认后
+--------------------------------
+按旧流程逐步击破：说「开始步骤1」即可动手；每步验收并自行勘误后再下一步。

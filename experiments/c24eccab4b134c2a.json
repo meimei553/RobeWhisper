@@ -1,0 +1,16 @@
+{
+  "experiment_id": "c24eccab4b134c2a",
+  "created_at": "2026-09-11T11:12:49.884904+00:00",
+  "raw_text": "??????",
+  "ok": false,
+  "code": "REJECTED",
+  "message": "暂时无法识别该指令，请换一种说法试试。",
+  "task_spec": {},
+  "sim_result": {},
+  "metrics": {
+    "frames": 0,
+    "success": 0.0
+  },
+  "adapters": {},
+  "experience_hit": false
+}

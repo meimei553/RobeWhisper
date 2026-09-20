@@ -1,0 +1,12 @@
+RobeWhisper · 阶段 2 · 步骤 1 验收
+========================================
+
+结论：通过（SMOKE_PHASE2_STEP1_OK + 阶段0/1 回归通过）
+
+交付：
+- BaseEngine.list_physics_params / set_physics_params
+- MockEngine、MujocoEngine 同步实现（白名单：friction / joint_damping / joint_range_*）
+
+复验：
+  python -m core.smoke_phase2_step1
+  python -m core.smoke_phase1

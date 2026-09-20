@@ -1,0 +1,4 @@
+﻿RobeWhisper · 阶段4 · 步骤1 验收（重走）
+结论：SMOKE_PHASE4_STEP1_OK
+交付：experiment_store 写入 JSON + summary.csv
+勘误：[x] 契约主字段未改 [x] 仅测导出、不绑引擎UI

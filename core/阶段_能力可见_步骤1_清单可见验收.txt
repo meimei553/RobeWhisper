@@ -1,0 +1,19 @@
+RobeWhisper · 能力可见 · 步骤1 验收
+========================================
+
+结论：通过（SMOKE_FEATURE_VISIBLE_STEP1_OK）
+
+交付：
+- frontend/capability_panel.py：feature_catalog_items / feature_catalog_markdown
+- 网站能力区顶部展示「可选能力一览」三块：
+  真机发送 / RSR 虚实校准 / 云端语言 API
+- 每块含：是什么、默认关、怎么开（.env 键名白话）
+
+验证点：
+[x] 三项固定可见（与当前开闭无关）
+[x] 文案含默认关闭与打开指引
+[x] TaskSpec 主字段未改；未做步骤2+状态条/API自检
+
+未做（步骤2+）：统一开闭状态条、API 自检、RSR 状态加固、总验
+
+复验：python -m core.smoke_feature_visible_step1

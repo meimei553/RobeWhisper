@@ -1,0 +1,20 @@
+RobeWhisper · 补强包一 · 步骤 3 验收
+========================================
+
+结论：通过（SMOKE_BOOST1_STEP3_OK）
+
+交付：
+- 诊断/聊天增加「场景位姿示意」人话（非相机、非抓住）
+- 接触三种原因：场景没开 / 够不着 / 碰到（A2）
+- 实验 run_snapshot.extra：pose_source + proxy_summary（A6）
+- 实验列表旁路列「位姿来源」
+
+验证点：
+[x] 默认臂人话为「无试机物体 / 只是关节示意」
+[x] 接触场景诊断含「不是相机」；ok 文案含「不代表抓住」
+[x] Pipeline 落盘 JSON 含 pose_source / proxy_summary
+[x] 接触原因三种人话可读
+[x] TaskSpec 主字段未改名；phase13 步骤3 回归通过
+
+复验：python -m core.smoke_boost1_step3
+未做（步骤4+）：能力区/接触说明补「非相机」、演示剧本、总验

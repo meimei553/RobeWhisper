@@ -1,0 +1,37 @@
+<!--
+  RobeWhisper 内置教学用二自由度平面臂（阶段 1）
+  说明：自包含 MJCF，无外部 mesh/贴图依赖，便于本机可靠加载。
+  几何与关节定义为常见公开教学结构，非商业 CAD 逆向。
+-->
+<mujoco model="builtin_arm2">
+  <compiler angle="radian" coordinate="local"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+
+  <worldbody>
+    <light pos="0 0 2" dir="0 0 -1"/>
+    <geom name="floor" type="plane" size="1 1 0.05" rgba="0.8 0.8 0.8 1"/>
+
+    <!-- 基座 -->
+    <body name="base" pos="0 0 0.05">
+      <geom name="base_geom" type="cylinder" size="0.06 0.05" rgba="0.3 0.3 0.35 1"/>
+
+      <!-- 连杆 1 -->
+      <body name="link1" pos="0 0 0.05">
+        <joint name="joint1" type="hinge" axis="0 0 1" range="-2.8 2.8" damping="0.5"/>
+        <geom name="link1_geom" type="capsule" fromto="0 0 0 0.25 0 0" size="0.03" rgba="0.2 0.5 0.9 1" mass="1.0"/>
+
+        <!-- 连杆 2 -->
+        <body name="link2" pos="0.25 0 0">
+          <joint name="joint2" type="hinge" axis="0 0 1" range="-2.5 2.5" damping="0.4"/>
+          <geom name="link2_geom" type="capsule" fromto="0 0 0 0.2 0 0" size="0.025" rgba="0.9 0.4 0.2 1" mass="0.6"/>
+          <geom name="ee" type="sphere" pos="0.2 0 0" size="0.03" rgba="0.1 0.8 0.3 1" mass="0.05"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="act_joint1" joint="joint1" kp="40" ctrlrange="-2.8 2.8"/>
+    <position name="act_joint2" joint="joint2" kp="30" ctrlrange="-2.5 2.5"/>
+  </actuator>
+</mujoco>

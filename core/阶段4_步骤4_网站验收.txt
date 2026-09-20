@@ -1,0 +1,4 @@
+﻿RobeWhisper · 阶段4 · 步骤4 验收（重走）
+结论：SMOKE_PHASE4_STEP4_OK
+交付：网站展示实验/经验；聊天含 experience_hit
+勘误：[x] 页面不直接 import mujoco [x] 保留阶段2/3 能力入口

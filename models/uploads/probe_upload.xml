@@ -1,0 +1,10 @@
+
+    <mujoco model="upload_probe">
+      <worldbody>
+        <body name="b">
+          <joint name="j0" type="hinge" axis="0 0 1"/>
+          <geom type="sphere" size="0.05"/>
+        </body>
+      </worldbody>
+    </mujoco>
+    

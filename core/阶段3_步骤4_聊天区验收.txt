@@ -1,0 +1,14 @@
+RobeWhisper · 阶段 3 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE3_STEP4_OK）
+
+交付：
+- frontend 顶部「自然语言编程」聊天区
+- st.session_state.chat_history 保存对话
+- 与页面共用同一 engine 会话执行 Pipeline
+
+打开：http://127.0.0.1:8501 （请刷新）
+试一句：把桌上的红色杯子拿起来
+
+复验：python -m core.smoke_phase3_step4

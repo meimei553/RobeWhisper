@@ -1,0 +1,101 @@
+{
+  "experiment_id": "8489d72d02ab48c6",
+  "created_at": "2026-09-11T11:29:13.851446+00:00",
+  "raw_text": "回零",
+  "ok": true,
+  "code": "OK",
+  "message": "指令已在虚拟引擎中执行",
+  "task_spec": {
+    "task_id": "fe922182096f",
+    "action": "home",
+    "target": "",
+    "constraints": {},
+    "params": {
+      "steps": 3,
+      "joint_delta": 0.1,
+      "joint_targets": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "source": "mock",
+    "raw_text": "回零"
+  },
+  "sim_result": {
+    "task_id": "fe922182096f",
+    "ok": true,
+    "trajectory": [
+      {
+        "t": 0,
+        "model_ref": "default",
+        "joint_positions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 1,
+        "model_ref": "default",
+        "joint_positions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 2,
+        "model_ref": "default",
+        "joint_positions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "t": 3,
+        "model_ref": "default",
+        "joint_positions": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "metrics": {
+      "steps": 3,
+      "stable": 1.0
+    },
+    "message": "Mock 引擎已执行 action=home target=",
+    "engine_name": "mock_engine",
+    "engine_version": "0.1.0"
+  },
+  "metrics": {
+    "steps": 3,
+    "stable": 1.0,
+    "frames": 4,
+    "success": 1.0
+  },
+  "adapters": {
+    "llm": "mock_llm",
+    "engine": "mock_engine",
+    "robot": "mock_robot"
+  },
+  "experience_hit": true
+}

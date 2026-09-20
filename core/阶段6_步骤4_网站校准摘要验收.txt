@@ -1,0 +1,13 @@
+RobeWhisper · 阶段 6 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE6_STEP4_OK）
+
+交付：
+- 网站勾选「执行成功后做一次 Real-Sim-Real 校准」
+- 聊天回复含 RSR=…；meta 含 rsr / use_real_sim_real
+- 「Real-Sim-Real 校准摘要」展示来源、MAE、参数前后与当前引擎参数
+- 运行配置含 use_real_sim_real / last_rsr
+
+复验：python -m core.smoke_phase6_step4
+手动：streamlit run frontend/app.py → 勾选 RSR → 发送指令

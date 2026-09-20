@@ -1,0 +1,16 @@
+RobeWhisper · 第 9 期 · 步骤 4 验收
+========================================
+
+结论：通过（SMOKE_PHASE9_STEP4_OK）
+
+交付：
+- core/instruction_guard.py：危险词拒识；demo 样例列表
+- MockLLM / ApiLLM 解析前拦截危险指令 → REJECTED
+- capability_panel：三类拦截说明；SAFETY_REJECTED / ENGINE_TIMEOUT / 裁剪诊断
+- 网站：胡说/危险/正常按钮 +「超限闸演示」
+
+未堵死 11–15：
+- TaskSpec 主字段未改；拒识在 LLM 层，闸仍在执行前
+- 超限演示只临时注入经验目标，不改永久配置语义
+
+复验：python -m core.smoke_phase9_step4
